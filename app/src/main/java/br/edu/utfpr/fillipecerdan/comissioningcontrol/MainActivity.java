@@ -30,13 +30,13 @@ public class MainActivity extends AppCompatActivity {
         chkAcceptOutOfSpecification = findViewById(R.id.chkAcceptedOutOfSpecification);
     }
 
-    public void saveEquipment(View view){
-        if(!validateEquipmentAction()) return;
+    public void saveEquipment(View view) {
+        if (!validateEquipmentAction()) return;
         //TODO implement entity save;
         Toast.makeText(this, getString(R.string.msgEquipmentSaved), Toast.LENGTH_SHORT).show();
     }
 
-    public void clearEquipment(View view){
+    public void clearEquipment(View view) {
         // Clear text components
         txtEquipmentTag.getText().clear();
         txtCommissioningMessage.getText().clear();
@@ -45,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
         spnEquipmentType.setSelection(0);
 
         // Clear radio buttons
-        rdGrpEquipmentStatus.check(R.id.radioEquipmentOK);
+        //rdGrpEquipmentStatus.check(R.id.radioEquipmentOK);
+        rdGrpEquipmentStatus.clearCheck();
 
         // Clear checkboxes
         chkAcceptOutOfSpecification.setChecked(false);
@@ -58,24 +59,24 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public boolean validateEquipmentAction(){
+    public boolean validateEquipmentAction() {
 
         // Validate Equipment TAG
-        if(txtEquipmentTag == null || txtEquipmentTag.getText().toString().trim().length() == 0){
-            Toast.makeText(this,String.format(getString(R.string.msgFieldRequired),getString(R.string.lblEquipmentTag)), Toast.LENGTH_SHORT).show();
+        if (txtEquipmentTag == null || txtEquipmentTag.getText().toString().trim().length() == 0) {
+            Toast.makeText(this, String.format(getString(R.string.msgFieldRequired), getString(R.string.lblEquipmentTag)), Toast.LENGTH_SHORT).show();
             txtEquipmentTag.requestFocus();
             return false;
         }
         // Validate Equipment Status
         if (findViewById(rdGrpEquipmentStatus.getCheckedRadioButtonId()) == null) {
-            Toast.makeText(this, String.format(getString(R.string.msgFieldRequired),getString(R.string.lblRadioGroupEquipmentStatus)), Toast.LENGTH_SHORT).show();
-            txtCommissioningMessage.requestFocus();
+            Toast.makeText(this, String.format(getString(R.string.msgFieldRequired), getString(R.string.lblRadioGroupEquipmentStatus)), Toast.LENGTH_SHORT).show();
+            rdGrpEquipmentStatus.requestFocus();
             return false;
         }
         // Validate Commissioning message if equipment status is not ok
-        if(rdGrpEquipmentStatus.getCheckedRadioButtonId() == R.id.radioEquipmentNOK &&
-                (txtCommissioningMessage == null || txtCommissioningMessage.getText().toString().trim().length() == 0)){
-            Toast.makeText(this, String.format(getString(R.string.msgFieldRequired),getString(R.string.lblCommissioningMessage)), Toast.LENGTH_SHORT).show();
+        if (rdGrpEquipmentStatus.getCheckedRadioButtonId() == R.id.radioEquipmentNOK &&
+                (txtCommissioningMessage == null || txtCommissioningMessage.getText().toString().trim().length() == 0)) {
+            Toast.makeText(this, String.format(getString(R.string.msgFieldRequired), getString(R.string.lblCommissioningMessage)), Toast.LENGTH_SHORT).show();
             txtCommissioningMessage.requestFocus();
             return false;
         }

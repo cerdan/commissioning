@@ -1,18 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/actViewEquipment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="#F3E5F5">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/lblEquipmentTag"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="@string/lblEquipmentTag"
+            app:flow_verticalAlign="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/txtEquipmentTag"
+            android:layout_width="300dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:inputType="text"
+            android:singleLine="true"
+            app:layout_constraintStart_toStartOf="@+id/lblEquipmentTag"
+            app:layout_constraintTop_toBottomOf="@+id/lblEquipmentTag" />
+
+        <TextView
+            android:id="@+id/lblEquipmentType"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="@string/lblEquipmentType"
+            app:flow_verticalAlign="center"
+            app:layout_constraintStart_toStartOf="@+id/lblEquipmentTag"
+            app:layout_constraintTop_toBottomOf="@+id/txtEquipmentTag" />
+
+        <Spinner
+            android:id="@+id/spnEquipmentType"
+            android:layout_width="300dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:entries="@array/lstEquipmentType"
+            android:spinnerMode="dialog"
+            app:layout_constraintStart_toStartOf="@+id/lblEquipmentTag"
+            app:layout_constraintTop_toBottomOf="@+id/lblEquipmentType" />
+
+        <RadioGroup
+            android:id="@+id/rdGrpEquipmentStatus"
+            android:layout_width="300dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@+id/lblEquipmentTag"
+            app:layout_constraintTop_toBottomOf="@+id/spnEquipmentType">
+
+            <RadioButton
+                android:id="@+id/radioEquipmentOK"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/lblRadioEquipmentOK" />
+
+            <RadioButton
+                android:id="@+id/radioEquipmentNOK"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="@string/lblRadioEquipmentNOK" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/txtCommissioningMessage"
+            android:layout_width="300dp"
+            android:layout_height="160dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="@string/hntCommissioningMessage"
+            android:inputType="textMultiLine"
+            app:layout_constraintStart_toStartOf="@+id/lblEquipmentTag"
+            app:layout_constraintTop_toBottomOf="@+id/lblCommissioningMessage" />
+
+        <TextView
+            android:id="@+id/lblCommissioningMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="@string/lblCommissioningMessage"
+            app:layout_constraintStart_toStartOf="@+id/lblEquipmentTag"
+            app:layout_constraintTop_toBottomOf="@+id/rdGrpEquipmentStatus" />
+
+        <CheckBox
+            android:id="@+id/chkAcceptedOutOfSpecification"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/lblCheckboxAcceptOutOfSpecification"
+            app:layout_constraintStart_toStartOf="@+id/lblEquipmentTag"
+            app:layout_constraintTop_toBottomOf="@+id/txtCommissioningMessage" />
+
+        <Button
+            android:id="@+id/btnEquipmentSave"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:onClick="saveEquipment"
+            android:text="@string/lblBtnSave"
+            app:layout_constraintStart_toStartOf="@+id/txtEquipmentTag"
+            app:layout_constraintTop_toBottomOf="@+id/chkAcceptedOutOfSpecification" />
+
+        <Button
+            android:id="@+id/btnEquipmentClear"
+            style="@style/Widget.Material3.Button.ElevatedButton"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:onClick="clearEquipment"
+            android:text="@string/lblBtnClearAll"
+            app:layout_constraintEnd_toEndOf="@+id/chkAcceptedOutOfSpecification"
+            app:layout_constraintTop_toBottomOf="@+id/chkAcceptedOutOfSpecification" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

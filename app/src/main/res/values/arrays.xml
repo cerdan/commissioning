@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <array name="lstEquipmentType">
+        <item>@string/lblLstEquipmentTypeValve</item>
+        <item>@string/lblLstEquipmentTypeDSV</item>
+        <item>@string/lblLstEquipmentTypeMotor</item>
+        <item>@string/lblLstEquipmentTypeFC</item>
+        <item>@string/lblLstEquipmentTypeAI</item>
+        <item>@string/lblLstEquipmentTypeDI</item>
+    </array>
+</resources>

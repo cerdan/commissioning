@@ -1,8 +1,10 @@
-package br.edu.utfpr.fillipecerdan.comissioningcontrol;
+package br.edu.utfpr.fillipecerdan.comissioningcontrol.activity;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import br.edu.utfpr.fillipecerdan.comissioningcontrol.R;
 
 public class ListViewActivity extends AppCompatActivity {
 

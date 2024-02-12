@@ -1,4 +1,4 @@
-package br.edu.utfpr.fillipecerdan.comissioningcontrol;
+package br.edu.utfpr.fillipecerdan.comissioningcontrol.activity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +9,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import br.edu.utfpr.fillipecerdan.comissioningcontrol.R;
 
 public class MainActivity extends AppCompatActivity {
     private EditText txtEquipmentTag;

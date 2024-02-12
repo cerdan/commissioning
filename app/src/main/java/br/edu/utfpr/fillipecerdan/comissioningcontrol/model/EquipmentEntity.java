@@ -3,7 +3,7 @@ package br.edu.utfpr.fillipecerdan.comissioningcontrol.model;
 import java.util.Date;
 
 public class EquipmentEntity {
-    private String name;
+    private String desc;
     private String tag;
     private String comment;
     private EquipmentType type;
@@ -11,12 +11,12 @@ public class EquipmentEntity {
     private Boolean acceptedOutOfSpecification;
     private Date lastChange;
 
-    public String getName() {
-        return name;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public String getTag() {
@@ -65,5 +65,14 @@ public class EquipmentEntity {
 
     public void setLastChange() {
         this.lastChange = new Date();
+    }
+
+    public EquipmentEntity(String tag, EquipmentType type, EquipmentStatus status, String comment, Boolean acceptedOutOfSpecification, Date lastChange) {
+        this.tag = tag;
+        this.comment = comment;
+        this.type = type;
+        this.status = status;
+        this.acceptedOutOfSpecification = acceptedOutOfSpecification;
+        this.lastChange = lastChange;
     }
 }

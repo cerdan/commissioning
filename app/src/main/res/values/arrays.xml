@@ -8,4 +8,83 @@
         <item>@string/lblLstEquipmentTypeAI</item>
         <item>@string/lblLstEquipmentTypeDI</item>
     </array>
+
+    <string-array name="resEquipmentTAG">
+        <item>1CP11-33VP</item>
+        <item>1CP11-34VP</item>
+        <item>1CP11-01PP</item>
+        <item>1CP11-02PP</item>
+        <item>1CP11-01MT</item>
+        <item>1CP11-01XS</item>
+        <item>1CP11-02MT</item>
+        <item>1CP11-03PP</item>
+        <item>1CP11-04PP</item>
+        <item>1CP11-35VP</item>
+        <item>1CP11-36VP</item>
+    </string-array>
+    <integer-array name="resEquipmentType">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>5</item>
+        <item>4</item>
+        <item>3</item>
+        <item>2</item>
+        <item>0</item>
+    </integer-array>
+    <integer-array name="resEquipmentStatus">
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+    </integer-array>
+    <string-array name="resEquipmentComment">
+        <item>Testado 00</item>
+        <item>Testado 01</item>
+        <item>Testado 02</item>
+        <item>Testado 03</item>
+        <item>Testado 04</item>
+        <item>Problema 05</item>
+        <item>Problema 06</item>
+        <item>Problema 07</item>
+        <item>Problema 08</item>
+        <item>Testado 09</item>
+        <item>Testado 10</item>
+    </string-array>
+    <integer-array name="resEquipmentAcceptedOutOfSpec">
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>0</item>
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+    </integer-array>
+    <string-array name="resEquipmentChangeDate">
+        <item>20-01-2024 10:15:55 AM</item>
+        <item>21-01-2024 11:15:55 AM</item>
+        <item>22-01-2024 11:15:55 AM</item>
+        <item>23-01-2024 11:15:55 AM</item>
+        <item>24-01-2024 12:15:55 PM</item>
+        <item>25-01-2024 1:15:55 PM</item>
+        <item>26-01-2024 2:15:55 PM</item>
+        <item>27-01-2024 3:15:55 PM</item>
+        <item>28-01-2024 4:15:55 PM</item>
+        <item>29-01-2024 5:15:55 PM</item>
+        <item>30-01-2024 6:15:55 PM</item>
+    </string-array>
 </resources>

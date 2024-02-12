@@ -20,4 +20,6 @@
     <string name="msgFieldsCleared">Campos foram limpos.</string>
     <string name="msgFieldRequired">"O campo %s deve ser preenchido."</string>
     <string name="msgEquipmentSaved">"O equipamento foi salvo."</string>
+    <string name="equipment_clicked_message">Equipamento %s foi clicado</string>
+    <string name="lblLstEquipmentTypeInvalid">Inválido</string>
 </resources>

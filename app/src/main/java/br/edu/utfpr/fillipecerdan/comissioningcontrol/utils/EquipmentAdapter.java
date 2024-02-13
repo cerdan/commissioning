@@ -13,6 +13,7 @@ import java.util.List;
 import br.edu.utfpr.fillipecerdan.comissioningcontrol.R;
 import br.edu.utfpr.fillipecerdan.comissioningcontrol.model.EquipmentEntity;
 import br.edu.utfpr.fillipecerdan.comissioningcontrol.model.EquipmentStatus;
+import br.edu.utfpr.fillipecerdan.comissioningcontrol.model.EquipmentType;
 
 public class EquipmentAdapter extends BaseAdapter {
     private Context context;
@@ -74,7 +75,9 @@ public class EquipmentAdapter extends BaseAdapter {
                 context.getString(R.string.msgAcceptedOutOfSpec) : "");
 
         int color;
-        if (equipment.getAcceptedOutOfSpecification()) {
+        if (equipment.getType() == EquipmentType.INVALID) {
+            color = context.getResources().getColor(R.color.grey500);
+        } else if (equipment.getAcceptedOutOfSpecification()) {
             color = context.getResources().getColor(R.color.yellow50);
         } else if (equipment.getStatus() == EquipmentStatus.NOK) {
             color = context.getResources().getColor(R.color.red50);

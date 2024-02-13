@@ -1,8 +1,9 @@
 package br.edu.utfpr.fillipecerdan.comissioningcontrol.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class EquipmentEntity {
+public class EquipmentEntity implements Serializable {
     private String desc;
     private String tag;
     private String comment;
@@ -10,6 +11,10 @@ public class EquipmentEntity {
     private EquipmentStatus status;
     private Boolean acceptedOutOfSpecification;
     private Date lastChange;
+
+    public EquipmentEntity() {
+
+    }
 
     public String getDesc() {
         return desc;
@@ -72,5 +77,14 @@ public class EquipmentEntity {
         this.status = status;
         this.acceptedOutOfSpecification = acceptedOutOfSpecification;
         this.lastChange = lastChange;
+    }
+
+    public EquipmentEntity(EquipmentEntity equipment) {
+        this.tag = equipment.tag;
+        this.comment = equipment.comment;
+        this.type = equipment.type;
+        this.status = equipment.status;
+        this.acceptedOutOfSpecification = equipment.acceptedOutOfSpecification;
+        this.lastChange = equipment.lastChange;
     }
 }

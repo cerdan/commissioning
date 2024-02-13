@@ -6,13 +6,13 @@ import br.edu.utfpr.fillipecerdan.comissioningcontrol.R;
 import br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.App;
 
 public enum EquipmentType {
-    INVALID(R.string.lblLstEquipmentTypeInvalid),
     VALVE(R.string.lblLstEquipmentTypeValve),
     DSV(R.string.lblLstEquipmentTypeDSV),
     MOTOR(R.string.lblLstEquipmentTypeMotor),
     FC(R.string.lblLstEquipmentTypeFC),
     ANALOG_IN(R.string.lblLstEquipmentTypeAI),
-    DIGITAL_IN(R.string.lblLstEquipmentTypeDI);
+    DIGITAL_IN(R.string.lblLstEquipmentTypeDI),
+    INVALID(R.string.lblLstEquipmentTypeInvalid);
 
 
 

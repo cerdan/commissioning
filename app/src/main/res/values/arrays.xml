@@ -23,17 +23,17 @@
         <item>1CP11-36VP</item>
     </string-array>
     <integer-array name="resEquipmentType">
+        <item>0</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
         <item>4</item>
         <item>5</item>
-        <item>6</item>
-        <item>5</item>
         <item>4</item>
         <item>3</item>
         <item>2</item>
-        <item>0</item>
+        <item>1</item>
+        <item>6</item>
     </integer-array>
     <integer-array name="resEquipmentStatus">
         <item>0</item>

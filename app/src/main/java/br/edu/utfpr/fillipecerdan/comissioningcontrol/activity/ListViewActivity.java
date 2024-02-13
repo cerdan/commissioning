@@ -1,7 +1,7 @@
 package br.edu.utfpr.fillipecerdan.comissioningcontrol.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -23,12 +23,14 @@ public class ListViewActivity extends AppCompatActivity {
     private ArrayList<EquipmentEntity> equipments;
 
     private static Toast toast = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view);
-        Log.d("Start:","starting");
         listViewEquipments = findViewById(R.id.listViewEquipments);
+
+        listViewEquipments.setLongClickable(true);
 
         populateListViewWithEquipments(listViewEquipments, getEquipmentsFromResources());
 
@@ -41,13 +43,40 @@ public class ListViewActivity extends AppCompatActivity {
                         if (toast != null) toast.cancel();  // Cancel previous toast to show new message.
 
                         toast = Toast.makeText(getApplicationContext(),
-                                String.format(getString(R.string.msgEquipmentClicked), item.getTag(), item.getLastChange()),
+                                String.format(getString(R.string.msgEquipmentClicked),
+                                        item.getTag(),
+                                        item.getLastChange()),
                                 Toast.LENGTH_SHORT);
                         toast.show();
+
                     }
                 }
 
         );
+
+        listViewEquipments.setOnItemLongClickListener(
+                new AdapterView.OnItemLongClickListener(){
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                        EquipmentEntity item = (EquipmentEntity) listViewEquipments.getItemAtPosition(position);
+
+                        if(item.getType() == EquipmentType.INVALID){
+                            if (toast != null) toast.cancel(); // Cancel previous toast to show new message.
+                            toast.makeText(getApplicationContext(),
+                                   getString(R.string.msgInvalidEquipmentTryAgain), Toast.LENGTH_SHORT).show();
+                            return true;
+                        }
+
+                        Intent intent = new Intent(getApplicationContext(), EquipmentEditActivity.class)
+                                .putExtra(Misc.KEY_EQUIPMENT, item);
+
+                        switchTo(view,intent);
+
+                        return true;
+                    }
+                }
+        );
+
     }
 
     private void populateListViewWithEquipments(ListView list, ArrayList<EquipmentEntity> resource) {
@@ -56,7 +85,7 @@ public class ListViewActivity extends AppCompatActivity {
     }
 
     private ArrayList<EquipmentEntity> getEquipmentsFromResources() {
-        ArrayList<EquipmentEntity> result = new ArrayList<EquipmentEntity>();
+        ArrayList<EquipmentEntity> result = new ArrayList<>();
 
         String[] tags = getResources().getStringArray(R.array.resEquipmentTAG);
         int[] types = getResources().getIntArray(R.array.resEquipmentType);
@@ -80,5 +109,9 @@ public class ListViewActivity extends AppCompatActivity {
         }
 
         return result;
+    }
+
+    private void switchTo(View view, Intent intent) {
+        startActivity(intent);
     }
 }

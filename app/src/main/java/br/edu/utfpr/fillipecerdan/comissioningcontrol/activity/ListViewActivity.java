@@ -1,6 +1,7 @@
 package br.edu.utfpr.fillipecerdan.comissioningcontrol.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -8,34 +9,41 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.sql.Date;
-import java.time.Instant;
 import java.util.ArrayList;
 
 import br.edu.utfpr.fillipecerdan.comissioningcontrol.R;
 import br.edu.utfpr.fillipecerdan.comissioningcontrol.model.EquipmentEntity;
 import br.edu.utfpr.fillipecerdan.comissioningcontrol.model.EquipmentStatus;
 import br.edu.utfpr.fillipecerdan.comissioningcontrol.model.EquipmentType;
+import br.edu.utfpr.fillipecerdan.comissioningcontrol.util.EquipmentAdapter;
+import br.edu.utfpr.fillipecerdan.comissioningcontrol.util.Misc;
 
 public class ListViewActivity extends AppCompatActivity {
     private ListView listViewEquipments;
     private ArrayList<EquipmentEntity> equipments;
 
+    private static Toast toast = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view);
-
+        Log.d("Start:","starting");
         listViewEquipments = findViewById(R.id.listViewEquipments);
+
+        populateListViewWithEquipments(listViewEquipments, getEquipmentsFromResources());
 
         listViewEquipments.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         EquipmentEntity item = (EquipmentEntity) listViewEquipments.getItemAtPosition(position);
-                        Toast.makeText(getApplicationContext(),
-                                String.format(getString(R.string.equipment_clicked_message), item.getTag()),
-                                Toast.LENGTH_SHORT).show();
+
+                        if (toast != null) toast.cancel();  // Cancel previous toast to show new message.
+
+                        toast = Toast.makeText(getApplicationContext(),
+                                String.format(getString(R.string.msgEquipmentClicked), item.getTag(), item.getLastChange()),
+                                Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 }
 
@@ -43,7 +51,8 @@ public class ListViewActivity extends AppCompatActivity {
     }
 
     private void populateListViewWithEquipments(ListView list, ArrayList<EquipmentEntity> resource) {
-
+        EquipmentAdapter equipmentAdapter = new EquipmentAdapter(this.getApplicationContext(), resource);
+        list.setAdapter(equipmentAdapter);
     }
 
     private ArrayList<EquipmentEntity> getEquipmentsFromResources() {
@@ -66,7 +75,7 @@ public class ListViewActivity extends AppCompatActivity {
                     equipmentStatuses[statuses[i]],
                     comments[i],
                     acceptances[i] == 1,
-                    Date.valueOf(lastChange[i])
+                    Misc.parseDate(lastChange[i])
             ));
         }
 

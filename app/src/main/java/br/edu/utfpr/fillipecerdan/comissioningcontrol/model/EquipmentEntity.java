@@ -43,9 +43,7 @@ public class EquipmentEntity {
         this.type = type;
     }
 
-    public EquipmentStatus getStatus() {
-        return status;
-    }
+    public EquipmentStatus getStatus() { return status; }
 
     public void setStatus(EquipmentStatus status) {
         this.status = status;

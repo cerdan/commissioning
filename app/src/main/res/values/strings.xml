@@ -15,11 +15,12 @@
     <string name="lblLstEquipmentTypeAI">Sensor Analógico</string>
     <string name="lblLstEquipmentTypeDI">Sensor Digital</string>
     <string name="lblBtnSave">Salvar</string>
-    <string name="hntCommissioningMessage">Inclua aqui os comentários relevantes sobre o equipamento.\n\n\tEx: "Válvula não está com feedback".</string>
     <string name="lblBtnClearAll">Limpar</string>
+    <string name="lblLstEquipmentTypeInvalid">Inválido</string>
+    <string name="hntCommissioningMessage">Inclua aqui os comentários relevantes sobre o equipamento.\n\n\tEx: "Válvula não está com feedback".</string>
     <string name="msgFieldsCleared">Campos foram limpos.</string>
     <string name="msgFieldRequired">"O campo %s deve ser preenchido."</string>
     <string name="msgEquipmentSaved">"O equipamento foi salvo."</string>
-    <string name="equipment_clicked_message">Equipamento %s foi clicado</string>
-    <string name="lblLstEquipmentTypeInvalid">Inválido</string>
+    <string name="msgEquipmentClicked">Equipamento %s foi clicado.\n\nModificiado em\n%s</string>
+    <string name="msgAcceptedOutOfSpec">Aceito fora de especificação.</string>
 </resources>

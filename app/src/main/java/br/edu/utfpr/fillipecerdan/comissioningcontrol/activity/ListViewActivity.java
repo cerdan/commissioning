@@ -15,8 +15,8 @@ import br.edu.utfpr.fillipecerdan.comissioningcontrol.R;
 import br.edu.utfpr.fillipecerdan.comissioningcontrol.model.EquipmentEntity;
 import br.edu.utfpr.fillipecerdan.comissioningcontrol.model.EquipmentStatus;
 import br.edu.utfpr.fillipecerdan.comissioningcontrol.model.EquipmentType;
-import br.edu.utfpr.fillipecerdan.comissioningcontrol.util.EquipmentAdapter;
-import br.edu.utfpr.fillipecerdan.comissioningcontrol.util.Misc;
+import br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.EquipmentAdapter;
+import br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.Misc;
 
 public class ListViewActivity extends AppCompatActivity {
     private ListView listViewEquipments;

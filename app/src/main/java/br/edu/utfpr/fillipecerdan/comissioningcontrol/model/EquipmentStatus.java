@@ -3,7 +3,7 @@ package br.edu.utfpr.fillipecerdan.comissioningcontrol.model;
 import androidx.annotation.NonNull;
 
 import br.edu.utfpr.fillipecerdan.comissioningcontrol.R;
-import br.edu.utfpr.fillipecerdan.comissioningcontrol.util.App;
+import br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.App;
 
 public enum EquipmentStatus {
     OK(R.string.lblRadioEquipmentOK),

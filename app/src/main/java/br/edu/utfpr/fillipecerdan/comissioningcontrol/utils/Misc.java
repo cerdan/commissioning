@@ -1,4 +1,4 @@
-package br.edu.utfpr.fillipecerdan.comissioningcontrol.util;
+package br.edu.utfpr.fillipecerdan.comissioningcontrol.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

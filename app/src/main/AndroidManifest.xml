@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name=".utils.App"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -11,8 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ComissioningControl"
-        android:name="br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.App"
         tools:targetApi="31">
+        <activity
+            android:name=".activity.AppInfo"
+            android:exported="false" />
         <activity
             android:name=".activity.ListViewActivity"
             android:exported="true">
@@ -24,8 +27,7 @@
         </activity>
         <activity
             android:name=".activity.EquipmentEditActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
     </application>
 
 </manifest>

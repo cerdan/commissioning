@@ -17,6 +17,13 @@
     <string name="lblBtnSave">Salvar</string>
     <string name="lblBtnClearAll">Limpar</string>
     <string name="lblLstEquipmentTypeInvalid">Inválido</string>
+    <string name="lblAuthorName">Fillipe Cerdan</string>
+    <string name="lblAuthorSubject">Especialização em JAVA e suas tecnologias.</string>
+    <string name="lblAuthorEmail">fillipecerdan@alunos.utfpr.edu.br</string>
+    <string name="lblUniversityName">UTFPR - Universidade Tecnologica Federal do Paraná</string>
+    <string name="lblAppDescription">Este aplicativo pode ser utilizado para o controle de comissionamento de um projeto elétrico.\nÉ possível cadastrar um projeto, e dentro deste projeto adicionar equipamentos de tipos definidos. Estes equipamentos possuem um campo de anotações e um resumo sobre o estado dele.</string>
+    <string name="lblBtnAdd">Adicionar</string>
+    <string name="lbnBtnAbout">Sobre</string>
     <string name="hntCommissioningMessage">Inclua aqui os comentários relevantes sobre o equipamento.\n\n\tEx: "Válvula não está com feedback".</string>
     <string name="msgFieldsCleared">Campos foram limpos.</string>
     <string name="msgFieldRequired">"O campo %s deve ser preenchido."</string>

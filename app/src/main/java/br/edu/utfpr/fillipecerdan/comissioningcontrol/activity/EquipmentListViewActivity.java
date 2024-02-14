@@ -101,7 +101,8 @@ public class EquipmentListViewActivity extends AppCompatActivity {
 
         listViewEquipments.setLongClickable(true);
 
-        getEquipmentsFromResources();
+        //Todo: Remove comment to add items to list
+        // getEquipmentsFromResources();
 
         populateListViewWithEquipments(listViewEquipments, equipments);
 

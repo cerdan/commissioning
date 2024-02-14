@@ -56,9 +56,19 @@ public class EquipmentEditActivity extends AppCompatActivity {
 
     public void saveEquipment(View view) {
         if (!validateEquipmentAction()) return;
+
+        String lastName = equipment.getTag();
+
         copyViewToEquipment(equipment);
+
+        equipment.setLastChange();
+
         Toast.makeText(this, getString(R.string.msgEquipmentSaved), Toast.LENGTH_SHORT).show();
-        setResult(Activity.RESULT_OK, (new Intent()).putExtra(Misc.KEY_EQUIPMENT, equipment));
+
+        // Set result and finish
+        setResult(Activity.RESULT_OK, (new Intent())
+                .putExtra(Misc.KEY_EQUIPMENT, equipment)
+                .putExtra(Misc.KEY_RENAME, lastName));
         finish();
     }
 

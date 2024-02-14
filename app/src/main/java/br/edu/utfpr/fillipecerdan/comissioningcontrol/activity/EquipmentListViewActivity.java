@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -29,32 +30,69 @@ import br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.Targetable;
 
 public class EquipmentListViewActivity extends AppCompatActivity {
     private ListView listViewEquipments;
-    private ArrayList<EquipmentEntity> equipments;
+    private final ArrayList<EquipmentEntity> equipments = new ArrayList<>();
 
     private static Toast toast = null;
 
-    private ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+    public ActivityResultLauncher<Intent> launcher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     if(result.getResultCode() == Activity.RESULT_OK){
                         Intent resultIntent = result.getData();
                         if (resultIntent == null) return;
-                        Bundle resultBundle = resultIntent.getBundleExtra(Misc.KEY_EQUIPMENT);
-                        if (resultBundle == null) return;
-                        EquipmentEntity resultEquipment = (EquipmentEntity) resultBundle.get(Misc.KEY_EQUIPMENT);
 
-                        for (EquipmentEntity e :
-                                equipments) {
-                            if(e.getTag() == resultEquipment.getTag()) {
-                                equipments.set(equipments.indexOf(e), resultEquipment);
-                                return;
-                            }
+                        EquipmentEntity resultEquipment = (EquipmentEntity) resultIntent.getSerializableExtra(Misc.KEY_EQUIPMENT);
+                        if (resultEquipment == null) return;
+                        String newName = resultEquipment.getTag();
+
+                        String lastName = resultIntent.getStringExtra(Misc.KEY_RENAME);
+                        if (lastName == null) lastName = newName;
+
+                        BaseAdapter adapter = ((BaseAdapter) listViewEquipments.getAdapter());
+
+                        int lastNamePos = Misc.NOT_FOUND;
+                        int newNamePos = Misc.NOT_FOUND;
+
+
+                        for (EquipmentEntity e : equipments) {
+
+                            if(e.getTag().equals(lastName)) lastNamePos = equipments.indexOf(e);
+                            if(e.getTag().equals(newName)) newNamePos = equipments.indexOf(e);
+
+                            if (lastNamePos != -1 && newNamePos != -1) break;
+
                         }
-                        equipments.add(resultEquipment);
+
+                        // If none of the names exists, add a new entry
+                        if (newNamePos == Misc.NOT_FOUND && lastNamePos == Misc.NOT_FOUND) {
+                            equipments.add(resultEquipment);
+                            adapter.notifyDataSetChanged();
+                            return;
+                        }
+
+                        // If both names already exists and are not the same entry,
+                        // update last entry maintaining last name;
+                        if (newNamePos != Misc.NOT_FOUND && newNamePos != lastNamePos) {
+                            if (toast != null) toast.cancel();
+                            toast = Toast.makeText(getApplicationContext(),
+                                    getString(R.string.msgDuplicateEquipmentName),
+                                    Toast.LENGTH_SHORT);
+                            toast.show();
+                            resultEquipment.setTag(lastName);
+                        }
+
+                        // Update entry
+                        equipments.set(lastNamePos, resultEquipment);
+                        adapter.notifyDataSetChanged();
+
+
                     }
+
                 }
             });
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +101,9 @@ public class EquipmentListViewActivity extends AppCompatActivity {
 
         listViewEquipments.setLongClickable(true);
 
-        populateListViewWithEquipments(listViewEquipments, getEquipmentsFromResources());
+        getEquipmentsFromResources();
+
+        populateListViewWithEquipments(listViewEquipments, equipments);
 
         listViewEquipments.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
@@ -100,7 +140,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
                             return true;
                         }
 
-                        AppInfoActivity.start(new ActivityStarter()
+                        EquipmentEditActivity.start(new ActivityStarter()
                                 .setContext(getApplicationContext())
                                 .setIntent(new Intent(getApplicationContext(), EquipmentEditActivity.class)
                                         .putExtra(Misc.KEY_EQUIPMENT, item))
@@ -119,7 +159,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
     }
 
     private ArrayList<EquipmentEntity> getEquipmentsFromResources() {
-        ArrayList<EquipmentEntity> result = new ArrayList<>();
+        ArrayList<EquipmentEntity> result = equipments;
 
         String[] tags = getResources().getStringArray(R.array.resEquipmentTAG);
         int[] types = getResources().getIntArray(R.array.resEquipmentType);
@@ -155,16 +195,17 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         EquipmentEditActivity.start(new ActivityStarter()
                 .setContext(getApplicationContext())
                 .setLauncher(launcher));
+
     }
 
     public void finishMe(View view){
+        setResult(Activity.RESULT_CANCELED);
         finish();
     }
     public static void start(@NonNull Startable starter) {
         // Sets target if Targetable
         if (starter instanceof Targetable)
                 ((Targetable) starter).setTarget(EquipmentEditActivity.class);
-
         starter.start();
     }
 

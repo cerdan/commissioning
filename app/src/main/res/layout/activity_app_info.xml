@@ -104,5 +104,5 @@
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:srcCompat="@mipmap/utfpr_logo" />
+        app:srcCompat="@drawable/utfpr_logo" />
 </androidx.constraintlayout.widget.ConstraintLayout>

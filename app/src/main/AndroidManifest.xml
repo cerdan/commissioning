@@ -17,7 +17,7 @@
             android:name=".activity.AppInfo"
             android:exported="false" />
         <activity
-            android:name=".activity.ListViewActivity"
+            android:name=".activity.EquipmentListViewActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

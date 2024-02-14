@@ -18,7 +18,7 @@ import br.edu.utfpr.fillipecerdan.comissioningcontrol.model.EquipmentType;
 import br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.EquipmentAdapter;
 import br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.Misc;
 
-public class ListViewActivity extends AppCompatActivity {
+public class EquipmentListViewActivity extends AppCompatActivity {
     private ListView listViewEquipments;
     private ArrayList<EquipmentEntity> equipments;
 
@@ -27,7 +27,7 @@ public class ListViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_view);
+        setContentView(R.layout.activity_equipment_list_view);
         listViewEquipments = findViewById(R.id.listViewEquipments);
 
         listViewEquipments.setLongClickable(true);
@@ -70,7 +70,7 @@ public class ListViewActivity extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), EquipmentEditActivity.class)
                                 .putExtra(Misc.KEY_EQUIPMENT, item);
 
-                        switchTo(view,intent);
+                        startActivity(intent);
 
                         return true;
                     }
@@ -111,7 +111,7 @@ public class ListViewActivity extends AppCompatActivity {
         return result;
     }
 
-    private void switchTo(View view, Intent intent) {
-        startActivity(intent);
+    public void switchToAbout(View view){
+        startActivity(new Intent(getApplicationContext(), AppInfo.class));
     }
 }

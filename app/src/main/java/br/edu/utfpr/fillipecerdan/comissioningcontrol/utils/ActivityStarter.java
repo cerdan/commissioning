@@ -13,12 +13,13 @@ public class ActivityStarter implements Startable, Targetable<ActivityStarter> {
 
 
     public void start() {
+        Misc.log(launcher);
         if (target == null) return;
         if (context == null) return;
         if (intent == null) intent = new Intent(context, target);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        if (launcher == null) context.startActivity(intent);
+        if (launcher == null) context.startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         else launcher.launch(intent);
+
     }
 
     public ActivityStarter setContext(Context context) {

@@ -1,18 +1,11 @@
 package br.edu.utfpr.fillipecerdan.comissioningcontrol.utils;
 
-import android.content.Context;
 import android.widget.CheckBox;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ValidationHelper{
-    private static Context context;
-
-    public ValidationHelper(Context context) {
-        this.context = context;
-    }
-
+public abstract class ValidationHelper{
     public static boolean isValid(TextView item, String invalidMsg) {
         if (item == null || item.getText().toString().trim().length() == 0) {
             if(invalidMsg.length()>0)

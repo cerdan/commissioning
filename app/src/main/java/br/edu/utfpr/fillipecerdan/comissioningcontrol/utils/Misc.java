@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class Misc {
+public abstract class Misc {
     public static final String KEY_EQUIPMENT = "equipment";
     public static final String KEY_RENAME= "lastName";
     public static final String TAG_FOR_LOG = "Fillipe";

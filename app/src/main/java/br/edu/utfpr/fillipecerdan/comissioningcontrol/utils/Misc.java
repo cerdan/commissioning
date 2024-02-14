@@ -23,7 +23,7 @@ public class Misc {
 
     }
 
-    public static void log(String msg){
-        Log.w(TAG_FOR_LOG, msg);
+    public static void log(Object msg){
+        Log.w(TAG_FOR_LOG, msg.toString());
     }
 }

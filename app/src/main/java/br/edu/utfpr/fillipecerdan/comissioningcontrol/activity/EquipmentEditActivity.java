@@ -2,6 +2,8 @@ package br.edu.utfpr.fillipecerdan.comissioningcontrol.activity;
 
 import static br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.ValidationHelper.isValid;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +58,8 @@ public class EquipmentEditActivity extends AppCompatActivity {
         if (!validateEquipmentAction()) return;
         copyViewToEquipment(equipment);
         Toast.makeText(this, getString(R.string.msgEquipmentSaved), Toast.LENGTH_SHORT).show();
+        setResult(Activity.RESULT_OK, (new Intent()).putExtra(Misc.KEY_EQUIPMENT, equipment));
+        finish();
     }
 
     public void clearEquipment(View view) {
@@ -115,13 +119,13 @@ public class EquipmentEditActivity extends AppCompatActivity {
     }
 
     public void finishMe(View view){
+        setResult(Activity.RESULT_CANCELED);
         finish();
     }
     public static void start(@NonNull Startable starter) {
         // Sets target if Targetable
         if (starter instanceof Targetable)
             ((Targetable) starter).setTarget(EquipmentEditActivity.class);
-
         starter.start();
     }
 }

@@ -14,7 +14,7 @@
         android:theme="@style/Theme.ComissioningControl"
         tools:targetApi="31">
         <activity
-            android:name=".activity.AppInfo"
+            android:name=".activity.AppInfoActivity"
             android:exported="false" />
         <activity
             android:name=".activity.EquipmentListViewActivity"

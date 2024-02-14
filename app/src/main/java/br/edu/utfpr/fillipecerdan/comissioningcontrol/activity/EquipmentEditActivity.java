@@ -10,6 +10,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.arch.core.util.Function;
 
@@ -18,6 +19,8 @@ import br.edu.utfpr.fillipecerdan.comissioningcontrol.model.EquipmentEntity;
 import br.edu.utfpr.fillipecerdan.comissioningcontrol.model.EquipmentStatus;
 import br.edu.utfpr.fillipecerdan.comissioningcontrol.model.EquipmentType;
 import br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.Misc;
+import br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.Startable;
+import br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.Targetable;
 
 public class EquipmentEditActivity extends AppCompatActivity {
     private EditText txtEquipmentTag;
@@ -119,5 +122,16 @@ public class EquipmentEditActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    public void finishMe(View view){
+        finish();
+    }
+    public static void start(@NonNull Startable starter) {
+        // Sets target if Targetable
+        if (starter instanceof Targetable)
+            ((Targetable) starter).setTarget(EquipmentEditActivity.class);
+
+        starter.start();
     }
 }

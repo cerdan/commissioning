@@ -27,12 +27,15 @@
 
         <EditText
             android:id="@+id/txtEquipmentTag"
-            android:layout_width="300dp"
+            android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             android:ems="10"
             android:inputType="text"
             android:singleLine="true"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/lblEquipmentTag"
             app:layout_constraintTop_toBottomOf="@+id/lblEquipmentTag" />
 
@@ -49,20 +52,26 @@
 
         <Spinner
             android:id="@+id/spnEquipmentType"
-            android:layout_width="300dp"
+            android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             android:entries="@array/lstEquipmentType"
             android:spinnerMode="dialog"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/lblEquipmentTag"
             app:layout_constraintTop_toBottomOf="@+id/lblEquipmentType" />
 
         <RadioGroup
             android:id="@+id/rdGrpEquipmentStatus"
-            android:layout_width="300dp"
+            android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/lblEquipmentTag"
             app:layout_constraintTop_toBottomOf="@+id/spnEquipmentType">
 
@@ -75,20 +84,23 @@
 
             <RadioButton
                 android:id="@+id/radioEquipmentNOK"
-                android:layout_width="150dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/lblRadioEquipmentNOK" />
         </RadioGroup>
 
         <EditText
             android:id="@+id/txtCommissioningMessage"
-            android:layout_width="300dp"
+            android:layout_width="0dp"
             android:layout_height="160dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             android:ems="10"
             android:gravity="start|top"
             android:hint="@string/hntCommissioningMessage"
             android:inputType="textMultiLine"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/lblEquipmentTag"
             app:layout_constraintTop_toBottomOf="@+id/lblCommissioningMessage" />
 
@@ -104,10 +116,13 @@
 
         <CheckBox
             android:id="@+id/chkAcceptedOutOfSpecification"
-            android:layout_width="300dp"
+            android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             android:text="@string/lblCheckboxAcceptOutOfSpecification"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/lblEquipmentTag"
             app:layout_constraintTop_toBottomOf="@+id/txtCommissioningMessage" />
 
@@ -124,14 +139,25 @@
         <Button
             android:id="@+id/btnEquipmentClear"
             style="@style/Widget.Material3.Button.ElevatedButton"
-            android:layout_width="125dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:onClick="clearEquipment"
             android:text="@string/lblBtnClearAll"
-            app:layout_constraintEnd_toEndOf="@+id/chkAcceptedOutOfSpecification"
+            app:layout_constraintEnd_toStartOf="@+id/btnEquipmentFinish"
+            app:layout_constraintStart_toEndOf="@+id/btnEquipmentSave"
             app:layout_constraintTop_toBottomOf="@+id/chkAcceptedOutOfSpecification" />
 
+        <Button
+            android:id="@+id/btnEquipmentFinish"
+            style="@style/Widget.Material3.Button.ElevatedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:onClick="finishMe"
+            android:text="@string/lbnBtnReturn"
+            app:layout_constraintEnd_toEndOf="@+id/chkAcceptedOutOfSpecification"
+            app:layout_constraintTop_toBottomOf="@+id/chkAcceptedOutOfSpecification" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -1,5 +1,6 @@
 package br.edu.utfpr.fillipecerdan.comissioningcontrol.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +8,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -15,8 +21,11 @@ import br.edu.utfpr.fillipecerdan.comissioningcontrol.R;
 import br.edu.utfpr.fillipecerdan.comissioningcontrol.model.EquipmentEntity;
 import br.edu.utfpr.fillipecerdan.comissioningcontrol.model.EquipmentStatus;
 import br.edu.utfpr.fillipecerdan.comissioningcontrol.model.EquipmentType;
+import br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.ActivityStarter;
 import br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.EquipmentAdapter;
 import br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.Misc;
+import br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.Startable;
+import br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.Targetable;
 
 public class EquipmentListViewActivity extends AppCompatActivity {
     private ListView listViewEquipments;
@@ -24,6 +33,28 @@ public class EquipmentListViewActivity extends AppCompatActivity {
 
     private static Toast toast = null;
 
+    private ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode() == Activity.RESULT_OK){
+                        Intent resultIntent = result.getData();
+                        if (resultIntent == null) return;
+                        Bundle resultBundle = resultIntent.getBundleExtra(Misc.KEY_EQUIPMENT);
+                        if (resultBundle == null) return;
+                        EquipmentEntity resultEquipment = (EquipmentEntity) resultBundle.get(Misc.KEY_EQUIPMENT);
+
+                        for (EquipmentEntity e :
+                                equipments) {
+                            if(e.getTag() == resultEquipment.getTag()) {
+                                equipments.set(equipments.indexOf(e), resultEquipment);
+                                return;
+                            }
+                        }
+                        equipments.add(resultEquipment);
+                    }
+                }
+            });
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +71,8 @@ public class EquipmentListViewActivity extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         EquipmentEntity item = (EquipmentEntity) listViewEquipments.getItemAtPosition(position);
 
-                        if (toast != null) toast.cancel();  // Cancel previous toast to show new message.
+                        if (toast != null)
+                            toast.cancel();  // Cancel previous toast to show new message.
 
                         toast = Toast.makeText(getApplicationContext(),
                                 String.format(getString(R.string.msgEquipmentClicked),
@@ -55,22 +87,24 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         );
 
         listViewEquipments.setOnItemLongClickListener(
-                new AdapterView.OnItemLongClickListener(){
+                new AdapterView.OnItemLongClickListener() {
                     @Override
                     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                         EquipmentEntity item = (EquipmentEntity) listViewEquipments.getItemAtPosition(position);
 
-                        if(item.getType() == EquipmentType.INVALID){
-                            if (toast != null) toast.cancel(); // Cancel previous toast to show new message.
+                        if (item.getType() == EquipmentType.INVALID) {
+                            if (toast != null)
+                                toast.cancel(); // Cancel previous toast to show new message.
                             toast.makeText(getApplicationContext(),
-                                   getString(R.string.msgInvalidEquipmentTryAgain), Toast.LENGTH_SHORT).show();
+                                    getString(R.string.msgInvalidEquipmentTryAgain), Toast.LENGTH_SHORT).show();
                             return true;
                         }
 
-                        Intent intent = new Intent(getApplicationContext(), EquipmentEditActivity.class)
-                                .putExtra(Misc.KEY_EQUIPMENT, item);
-
-                        startActivity(intent);
+                        AppInfoActivity.start(new ActivityStarter()
+                                .setContext(getApplicationContext())
+                                .setIntent(new Intent(getApplicationContext(), EquipmentEditActivity.class)
+                                        .putExtra(Misc.KEY_EQUIPMENT, item))
+                                .setLauncher(launcher));
 
                         return true;
                     }
@@ -111,7 +145,27 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         return result;
     }
 
-    public void switchToAbout(View view){
-        startActivity(new Intent(getApplicationContext(), AppInfo.class));
+    public void switchToAbout(View view) {
+        AppInfoActivity.start(new ActivityStarter()
+                .setContext(getApplicationContext())
+                );
     }
+
+    public void switchToEdit(View view){
+        EquipmentEditActivity.start(new ActivityStarter()
+                .setContext(getApplicationContext())
+                .setLauncher(launcher));
+    }
+
+    public void finishMe(View view){
+        finish();
+    }
+    public static void start(@NonNull Startable starter) {
+        // Sets target if Targetable
+        if (starter instanceof Targetable)
+                ((Targetable) starter).setTarget(EquipmentEditActivity.class);
+
+        starter.start();
+    }
+
 }

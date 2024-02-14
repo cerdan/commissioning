@@ -13,7 +13,6 @@ public class ActivityStarter implements Startable, Targetable<ActivityStarter> {
 
 
     public void start() {
-        Misc.log(launcher);
         if (target == null) return;
         if (context == null) return;
         if (intent == null) intent = new Intent(context, target);

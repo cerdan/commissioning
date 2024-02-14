@@ -4,6 +4,7 @@ import static br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.ValidationHel
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -58,19 +59,8 @@ public class EquipmentEditActivity extends AppCompatActivity {
     }
 
     public void clearEquipment(View view) {
-        // Clear text components
-        txtEquipmentTag.getText().clear();
-        txtCommissioningMessage.getText().clear();
-
-        // Clear spinner components
-        spnEquipmentType.setSelection(0);
-
-        // Clear radio buttons
-        //rdGrpEquipmentStatus.check(R.id.radioEquipmentOK);
-        rdGrpEquipmentStatus.clearCheck();
-
-        // Clear checkboxes
-        chkAcceptOutOfSpecification.setChecked(false);
+        // Clear views of the form
+        Misc.clearViews((ViewGroup)view.getParent());
 
         // Set focus to first element
         txtEquipmentTag.requestFocus();

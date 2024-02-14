@@ -15,8 +15,10 @@ import java.util.Locale;
 
 public class Misc {
     public static final String KEY_EQUIPMENT = "equipment";
+    public static final String KEY_RENAME= "lastName";
     public static final String TAG_FOR_LOG = "Fillipe";
 
+    public static final int NOT_FOUND = -1;
     public static Date parseDate(String date, SimpleDateFormat formatter) {
         try {
             return formatter.parse(date);

@@ -31,5 +31,6 @@
     <string name="msgEquipmentClicked">Equipamento %s foi clicado.\n\nModificiado em\n%s</string>
     <string name="msgAcceptedOutOfSpec">Aceito fora de especificação.</string>
     <string name="msgInvalidEquipmentTryAgain">Equipamento inválido\nApague e tente novamente.</string>
+    <string name="msgDuplicateEquipmentName">Novo nome já existe.\nPermanecerá com nome anterior.</string>
     <string name="lbnBtnReturn">Voltar</string>
 </resources>

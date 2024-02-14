@@ -1,6 +1,8 @@
 package br.edu.utfpr.fillipecerdan.comissioningcontrol.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +18,10 @@ public class AppInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_app_info);
     }
 
+    public void finishMe(View view){
+        setResult(Activity.RESULT_CANCELED);
+        finish();
+    }
     public static void start(@NonNull Startable starter) {
         // Sets target if Targetable
         if (starter instanceof Targetable)

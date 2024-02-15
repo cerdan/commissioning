@@ -1,11 +1,16 @@
 package br.edu.utfpr.fillipecerdan.comissioningcontrol.utils;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.android.material.color.MaterialColors;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -25,6 +30,8 @@ public class EquipmentAdapter extends BaseAdapter {
         public TextView txtAdptEqpType;
         public TextView txtAdptEqpStatus;
         public TextView txtAdptEqpOoS;
+
+        public ImageView imgAdaptEqpIndicator;
     }
 
     public EquipmentAdapter(Context context, List<EquipmentEntity> equipments) {
@@ -60,6 +67,7 @@ public class EquipmentAdapter extends BaseAdapter {
             holder.txtAdptEqpType = view.findViewById(R.id.txtAdptEqpType);
             holder.txtAdptEqpStatus = view.findViewById(R.id.txtAdptEqpStatus);
             holder.txtAdptEqpOoS = view.findViewById(R.id.txtAdptEqpOoS);
+            holder.imgAdaptEqpIndicator = view.findViewById(R.id.imgAdaptEqpIndicator);
 
             view.setTag(holder);
 
@@ -74,18 +82,27 @@ public class EquipmentAdapter extends BaseAdapter {
         holder.txtAdptEqpOoS.setText(equipment.getAcceptedOutOfSpecification() ?
                 context.getString(R.string.msgAcceptedOutOfSpec) : "");
 
+        holder.imgAdaptEqpIndicator.setImageResource(R.drawable.circle);
+
+       context.getTheme().applyStyle(R.style.Theme_ComissioningControl,false);
+
+
         int color;
         if (equipment.getType() == EquipmentType.INVALID) {
-            color = context.getResources().getColor(R.color.grey500);
+            color = MaterialColors.getColor(context, R.attr.colorBackgroundEquipmentInvalid, Color.BLACK);
         } else if (equipment.getAcceptedOutOfSpecification()) {
-            color = context.getResources().getColor(R.color.yellow50);
+            color = MaterialColors.getColor(context, R.attr.colorBackgroundEquipmentOoS, Color.BLACK);
         } else if (equipment.getStatus() == EquipmentStatus.NOK) {
-            color = context.getResources().getColor(R.color.red50);
+            color = MaterialColors.getColor(context, R.attr.colorBackgroundEquipmentNOK, Color.BLACK);
+        } else if (equipment.getStatus() == EquipmentStatus.OK) {
+            color = MaterialColors.getColor(context, R.attr.colorBackgroundEquipmentOK, Color.BLACK);
         } else {
-            color = context.getResources().getColor(R.color.green50);
+            color = MaterialColors.getColor(context, R.attr.colorBackgroundEquipmentNotDefined, Color.BLACK);
         }
 
-        view.setBackgroundColor(color);
+        GradientDrawable d = (GradientDrawable) holder.imgAdaptEqpIndicator.getDrawable().mutate();
+        d.setColor(color);
+        Misc.log(color);
 
         return view;
     }

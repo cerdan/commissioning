@@ -3,12 +3,16 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="primaryTextColor">@color/m3_default_color_primary_text</color>
-
     <color name="purple50">#FFF3E5F5</color>
     <color name="purple100">#FFE1BEE7</color>
     <color name="purple500">#FF9C27B0</color>
     <color name="purple900">#FF4A148C</color>
+
+    <color name="deeppurple50">#FFEDE7F6</color>
+    <color name="deeppurple100">#FFD1C4E9</color>
+    <color name="deeppurple400">#FF7E57C2</color>
+    <color name="deeppurple500">#FF673AB7</color>
+    <color name="deeppurple900">#FF311B92</color>
 
     <color name="red50">#FFFFEBEE</color>
     <color name="red100">#FFFFCDD2</color>

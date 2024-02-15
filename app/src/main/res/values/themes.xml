@@ -1,9 +1,24 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.ComissioningControl" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.ComissioningControl" parent="Theme.Material3.DayNight">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/purple900</item>
+        <item name="colorPrimaryVariant">@color/purple900</item>
+        <item name="android:windowBackground">@color/purple50</item>
+
+
+
+        <!-- Custom background colors for Equipment List-->
+        <item name="colorBackgroundEquipmentOK">@color/green100</item>
+        <item name="colorBackgroundEquipmentNOK">@color/red100</item>
+        <item name="colorBackgroundEquipmentOoS">@color/yellow100</item>
+        <item name="colorBackgroundEquipmentInvalid">@color/grey500</item>
+        <item name="colorBackgroundEquipmentNotDefined">?android:windowBackground</item>
     </style>
 
-    <style name="Theme.ComissioningControl" parent="Base.Theme.ComissioningControl" />
+    <style name="Theme.ComissioningControl" parent="Base.Theme.ComissioningControl">
+<!--        <item name="actionBarStyle">@style/Custom.ActionBar</item>-->
+    </style>
+
 </resources>

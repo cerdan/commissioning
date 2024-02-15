@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="colorBackgroundEquipmentOK" format="reference"/>
+    <attr name="colorBackgroundEquipmentNOK" format="reference"/>
+    <attr name="colorBackgroundEquipmentOoS" format="reference"/>
+    <attr name="colorBackgroundEquipmentInvalid" format="reference"/>
+    <attr name="colorBackgroundEquipmentNotDefined" format="reference"/>
+</resources>

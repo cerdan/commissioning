@@ -1,7 +1,21 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.ComissioningControl" parent="Theme.Material3.DayNight.NoActionBar">
+<!-- Base application theme. -->
+    <style name="Base.Theme.ComissioningControl" parent="Theme.Material3.DayNight">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/deeppurple500</item>
+        <item name="colorPrimaryVariant">@color/deeppurple500</item>
+        <!--        <item name="android:windowBackground">@color/deeppurple900</item>-->
+
+        <!-- Custom background colors for Equipment List-->
+        <item name="colorBackgroundEquipmentOK">@color/green900</item>
+        <item name="colorBackgroundEquipmentNOK">@color/red900</item>
+        <item name="colorBackgroundEquipmentOoS">@color/yellow900</item>
+        <item name="colorBackgroundEquipmentInvalid">@color/grey900</item>
+        <item name="colorBackgroundEquipmentNotDefined">?android:windowBackground</item>
+    </style>
+
+    <style name="Theme.ComissioningControl" parent="Base.Theme.ComissioningControl">,
+
     </style>
 </resources>

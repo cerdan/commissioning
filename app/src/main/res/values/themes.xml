@@ -5,7 +5,7 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="colorPrimary">@color/purple900</item>
         <item name="colorPrimaryVariant">@color/purple900</item>
-        <item name="android:windowBackground">@color/purple50</item>
+<!--        <item name="android:windowBackground">@color/purple50</item>-->
 
 
 

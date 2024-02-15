@@ -33,4 +33,6 @@
     <string name="lblStringSave">Salvar</string>
     <string name="lblStringClearAll">Limpar</string>
     <string name="lblStringReturn">Voltar</string>
+    <string name="lblStringEdit">Alterar</string>
+    <string name="lblStringDelete">Excluir</string>
 </resources>

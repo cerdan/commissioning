@@ -3,6 +3,7 @@ package br.edu.utfpr.fillipecerdan.comissioningcontrol.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import br.edu.utfpr.fillipecerdan.comissioningcontrol.R;
 import br.edu.utfpr.fillipecerdan.comissioningcontrol.model.EquipmentEntity;
@@ -52,43 +55,10 @@ public class EquipmentListViewActivity extends AppCompatActivity {
                         String lastName = resultIntent.getStringExtra(Misc.KEY_RENAME);
                         if (lastName == null) lastName = newName;
 
-                        BaseAdapter adapter = ((BaseAdapter) listViewEquipments.getAdapter());
+                        upsertItemInEquipments(resultEquipment,lastName,newName);
 
-                        int lastNamePos = Misc.NOT_FOUND;
-                        int newNamePos = Misc.NOT_FOUND;
-
-
-                        for (EquipmentEntity e : equipments) {
-
-                            if(e.getTag().equals(lastName)) lastNamePos = equipments.indexOf(e);
-                            if(e.getTag().equals(newName)) newNamePos = equipments.indexOf(e);
-
-                            if (lastNamePos != -1 && newNamePos != -1) break;
-
-                        }
-
-                        // If none of the names exists, add a new entry
-                        if (newNamePos == Misc.NOT_FOUND && lastNamePos == Misc.NOT_FOUND) {
-                            equipments.add(resultEquipment);
-                            adapter.notifyDataSetChanged();
-                            return;
-                        }
-
-                        // If both names already exists and are not the same entry,
-                        // update last entry maintaining last name;
-                        if (newNamePos != Misc.NOT_FOUND && newNamePos != lastNamePos) {
-                            if (toast != null) toast.cancel();
-                            toast = Toast.makeText(getApplicationContext(),
-                                    getString(R.string.msgDuplicateEquipmentName),
-                                    Toast.LENGTH_SHORT);
-                            toast.show();
-                            resultEquipment.setTag(lastName);
-                        }
-
-                        // Update entry
-                        equipments.set(lastNamePos, resultEquipment);
-                        adapter.notifyDataSetChanged();
-
+                        // Update listView
+                        updateListViewWithResource(listViewEquipments,equipments);
 
                     }
 
@@ -111,6 +81,26 @@ public class EquipmentListViewActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getMenuInflater().inflate(R.menu.menu_context_list_view_item,menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+        int itemId = item.getItemId();
+        if (itemId == R.id.menuContextListViewItemEdit){
+            switchToEditWithEquipment(equipments.get(info.position));
+            return true;
+        } else if (itemId == R.id.menuContextListViewItemDelete) {
+            deleteItemFromEquipments(equipments.get(info.position));
+            return true;
+        } else return super.onContextItemSelected(item);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_equipment_list_view);
@@ -120,9 +110,11 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         listViewEquipments.setLongClickable(true);
 
         //Todo: Remove comment to add items to list
-         getEquipmentsFromResources();
+        getEquipmentsFromResources();
 
         populateListViewWithEquipments(listViewEquipments, equipments);
+
+        registerForContextMenu(listViewEquipments);
 
         listViewEquipments.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
@@ -145,41 +137,16 @@ public class EquipmentListViewActivity extends AppCompatActivity {
 
         );
 
-        listViewEquipments.setOnItemLongClickListener(
-                new AdapterView.OnItemLongClickListener() {
-                    @Override
-                    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                        EquipmentEntity item = (EquipmentEntity) listViewEquipments.getItemAtPosition(position);
-
-                        if (item.getType() == EquipmentType.INVALID) {
-                            if (toast != null)
-                                toast.cancel(); // Cancel previous toast to show new message.
-                            toast.makeText(getApplicationContext(),
-                                    getString(R.string.msgInvalidEquipmentTryAgain), Toast.LENGTH_SHORT).show();
-                            return true;
-                        }
-
-                        EquipmentEditActivity.start(new ActivityStarter()
-                                .setContext(getApplicationContext())
-                                .setIntent(new Intent(getApplicationContext(), EquipmentEditActivity.class)
-                                        .putExtra(Misc.KEY_EQUIPMENT, item))
-                                .setLauncher(launcher));
-
-                        return true;
-                    }
-                }
-        );
-
-
     }
 
-    private void populateListViewWithEquipments(ListView list, ArrayList<EquipmentEntity> resource) {
+    private void populateListViewWithEquipments(ListView list, List<EquipmentEntity> resource) {
+        updateListViewWithResource(null, resource);
         EquipmentAdapter equipmentAdapter = new EquipmentAdapter(this.getApplicationContext(), resource);
         list.setAdapter(equipmentAdapter);
     }
 
-    private ArrayList<EquipmentEntity> getEquipmentsFromResources() {
-        ArrayList<EquipmentEntity> result = equipments;
+    private List<EquipmentEntity> getEquipmentsFromResources() {
+        List<EquipmentEntity> result = equipments;
 
         String[] tags = getResources().getStringArray(R.array.resEquipmentTAG);
         int[] types = getResources().getIntArray(R.array.resEquipmentType);
@@ -227,6 +194,74 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         if (starter instanceof Targetable)
                 ((Targetable) starter).setTarget(EquipmentEditActivity.class);
         starter.start();
+    }
+
+    public void switchToEditWithEquipment(EquipmentEntity item){
+        if (item.getType() == EquipmentType.INVALID) {
+            if (toast != null)
+                toast.cancel(); // Cancel previous toast to show new message.
+            toast.makeText(getApplicationContext(),
+                    getString(R.string.msgInvalidEquipmentTryAgain), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        EquipmentEditActivity.start(new ActivityStarter()
+                .setContext(getApplicationContext())
+                .setIntent(new Intent(getApplicationContext(), EquipmentEditActivity.class)
+                        .putExtra(Misc.KEY_EQUIPMENT, item))
+                .setLauncher(launcher));
+
+    }
+
+    public void deleteItemFromEquipments(EquipmentEntity equipment){
+        equipments.remove(equipment);
+        updateListViewWithResource(listViewEquipments,equipments);
+    }
+
+    public void upsertItemInEquipments(EquipmentEntity equipment, String lastName, String newName){
+        int lastNamePos = Misc.NOT_FOUND;
+        int newNamePos = Misc.NOT_FOUND;
+
+        for (EquipmentEntity e : equipments) {
+
+            if(e.getTag().equals(lastName)) lastNamePos = equipments.indexOf(e);
+            if(e.getTag().equals(newName)) newNamePos = equipments.indexOf(e);
+
+            if (lastNamePos != -1 && newNamePos != -1) break;
+
+        }
+
+        // If none of the names exists, add a new entry
+        if (newNamePos == Misc.NOT_FOUND && lastNamePos == Misc.NOT_FOUND) {
+            equipments.add(equipment);
+            return;
+        }
+
+        // If both names already exists and are not the same entry,
+        // update last entry maintaining last name;
+        if (newNamePos != Misc.NOT_FOUND && newNamePos != lastNamePos) {
+            if (toast != null) toast.cancel();
+            toast = Toast.makeText(getApplicationContext(),
+                    getString(R.string.msgDuplicateEquipmentName),
+                    Toast.LENGTH_SHORT);
+            toast.show();
+            equipment.setTag(lastName);
+        }
+
+        // Update entry
+        equipments.set(lastNamePos, equipment);
+    }
+
+    private void updateListViewWithResource(ListView listView,List<EquipmentEntity> resource) {
+        Collections.sort(resource,
+            (EquipmentEntity o1, EquipmentEntity o2)->{
+                int s1 = o1.getType().compareTo(o2.getType());      // Sort by type
+                if (s1 != 0) return s1;
+                return o1.getTag().compareTo(o2.getTag());          // And them by tag
+            });
+
+        if (listView != null) ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
+
     }
 
 }

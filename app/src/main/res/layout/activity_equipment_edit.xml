@@ -5,12 +5,12 @@
     android:id="@+id/actViewEquipment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple50"
     tools:context=".activity.EquipmentEditActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/actEquipmentEditRoot">
 
         <TextView
             android:id="@+id/lblEquipmentTag"
@@ -132,7 +132,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:onClick="saveEquipment"
-            android:text="@string/lblBtnSave"
+            android:text="@string/lblStringSave"
             app:layout_constraintStart_toStartOf="@+id/txtEquipmentTag"
             app:layout_constraintTop_toBottomOf="@+id/chkAcceptedOutOfSpecification" />
 
@@ -143,7 +143,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:onClick="clearEquipment"
-            android:text="@string/lblBtnClearAll"
+            android:text="@string/lblStringClearAll"
             app:layout_constraintEnd_toStartOf="@+id/btnEquipmentFinish"
             app:layout_constraintStart_toEndOf="@+id/btnEquipmentSave"
             app:layout_constraintTop_toBottomOf="@+id/chkAcceptedOutOfSpecification" />
@@ -155,7 +155,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:onClick="finishMe"
-            android:text="@string/lbnBtnReturn"
+            android:text="@string/lblStringReturn"
             app:layout_constraintEnd_toEndOf="@+id/chkAcceptedOutOfSpecification"
             app:layout_constraintTop_toBottomOf="@+id/chkAcceptedOutOfSpecification" />
 

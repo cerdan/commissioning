@@ -3,6 +3,8 @@ package br.edu.utfpr.fillipecerdan.comissioningcontrol.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
@@ -94,15 +96,31 @@ public class EquipmentListViewActivity extends AppCompatActivity {
             });
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_list_view,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() == R.id.menuListAdd) switchToEdit(null);
+        else if (item.getItemId() == R.id.menuListAbout) switchToAbout(null);
+
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_equipment_list_view);
+
         listViewEquipments = findViewById(R.id.listViewEquipments);
 
         listViewEquipments.setLongClickable(true);
 
         //Todo: Remove comment to add items to list
-        // getEquipmentsFromResources();
+         getEquipmentsFromResources();
 
         populateListViewWithEquipments(listViewEquipments, equipments);
 
@@ -152,6 +170,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
                 }
         );
 
+
     }
 
     private void populateListViewWithEquipments(ListView list, ArrayList<EquipmentEntity> resource) {
@@ -187,7 +206,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
     }
 
     public void switchToAbout(View view) {
-        AppInfoActivity.start(new ActivityStarter()
+            AppInfoActivity.start(new ActivityStarter()
                 .setContext(getApplicationContext())
                 );
     }

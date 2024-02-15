@@ -5,8 +5,9 @@ import static br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.ValidationHel
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -54,6 +55,23 @@ public class EquipmentEditActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_edit, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.menuEditClear)       clearEquipment(null);
+        else if (itemId == R.id.menuEditSave)   saveEquipment(null);
+        else if (itemId == R.id.menuEditReturn)   finishMe(null);
+
+        return true;
+    }
+
     public void saveEquipment(View view) {
         if (!validateEquipmentAction()) return;
 
@@ -74,7 +92,8 @@ public class EquipmentEditActivity extends AppCompatActivity {
 
     public void clearEquipment(View view) {
         // Clear views of the form
-        Misc.clearViews((ViewGroup)view.getParent());
+        Misc.clearViews(findViewById(R.id.actEquipmentEditRoot));   //Workaround to get the root view
+                                                                   // from the menu context
 
         // Set focus to first element
         txtEquipmentTag.requestFocus();

@@ -82,7 +82,7 @@ public class EquipmentAdapter extends BaseAdapter {
         holder.txtAdptEqpTag.setText(equipment.getTag());
         holder.txtAdptEqpType.setText(equipment.getType().toString());
         holder.txtAdptEqpStatus.setText(equipment.getStatus().toString());
-        holder.txtAdptEqpOoS.setText(equipment.getAcceptedOutOfSpecification() ?
+        holder.txtAdptEqpOoS.setText(equipment.getAcceptedOutOfSpec() ?
                 context.getString(R.string.lblStringAcceptedOutOfSpec) : "");
         holder.imgAdaptEqpIndicator.setImageResource(R.drawable.circle);
 
@@ -96,7 +96,7 @@ public class EquipmentAdapter extends BaseAdapter {
         int color;
         if (equipment.getType() == EquipmentType.INVALID) {
             color = MaterialColors.getColor(context, R.attr.colorBackgroundEquipmentInvalid, Color.BLACK);
-        } else if (equipment.getAcceptedOutOfSpecification()) {
+        } else if (equipment.getAcceptedOutOfSpec()) {
             color = MaterialColors.getColor(context, R.attr.colorBackgroundEquipmentOoS, Color.BLACK);
         } else if (equipment.getStatus() == EquipmentStatus.NOK) {
             color = MaterialColors.getColor(context, R.attr.colorBackgroundEquipmentNOK, Color.BLACK);

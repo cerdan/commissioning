@@ -12,7 +12,7 @@ public class EquipmentEntity implements Serializable {
     private String comment;
     private EquipmentType type;
     private EquipmentStatus status;
-    private Boolean acceptedOutOfSpecification;
+    private Boolean acceptedOutOfSpec;
     private Date lastChange;
 
     public EquipmentEntity() {
@@ -59,12 +59,12 @@ public class EquipmentEntity implements Serializable {
         this.status = status;
     }
 
-    public Boolean getAcceptedOutOfSpecification() {
-        return acceptedOutOfSpecification;
+    public Boolean getAcceptedOutOfSpec() {
+        return acceptedOutOfSpec;
     }
 
-    public void setAcceptedOutOfSpecification(Boolean acceptedOutOfSpecification) {
-        this.acceptedOutOfSpecification = acceptedOutOfSpecification;
+    public void setAcceptedOutOfSpec(Boolean acceptedOutOfSpec) {
+        this.acceptedOutOfSpec = acceptedOutOfSpec;
     }
 
     public Date getLastChange() {
@@ -84,7 +84,7 @@ public class EquipmentEntity implements Serializable {
         this.comment = comment;
         this.type = type;
         this.status = status;
-        this.acceptedOutOfSpecification = acceptedOutOfSpecification;
+        this.acceptedOutOfSpec = acceptedOutOfSpecification;
         this.lastChange = lastChange;
     }
 
@@ -93,7 +93,7 @@ public class EquipmentEntity implements Serializable {
         this.comment = equipment.comment;
         this.type = equipment.type;
         this.status = equipment.status;
-        this.acceptedOutOfSpecification = equipment.acceptedOutOfSpecification;
+        this.acceptedOutOfSpec = equipment.acceptedOutOfSpec;
         this.lastChange = equipment.lastChange;
     }
 
@@ -107,7 +107,7 @@ public class EquipmentEntity implements Serializable {
                 Objects.equals(getComment(), equipment.getComment()) &&
                 getType() == equipment.getType() &&
                 getStatus() == equipment.getStatus() &&
-                Objects.equals(getAcceptedOutOfSpecification(), equipment.getAcceptedOutOfSpecification()) &&
+                Objects.equals(getAcceptedOutOfSpec(), equipment.getAcceptedOutOfSpec()) &&
                 Objects.equals(getLastChange(), equipment.getLastChange());
     }
 
@@ -118,7 +118,7 @@ public class EquipmentEntity implements Serializable {
                 getComment(),
                 getType(),
                 getStatus(),
-                getAcceptedOutOfSpecification(),
+                getAcceptedOutOfSpec(),
                 getLastChange());
     }
 
@@ -126,7 +126,7 @@ public class EquipmentEntity implements Serializable {
     @Override
     public String toString() {
         return String.format("tag = %s, type = %s, status = %s, acceptedOoS = %s, lastChange = %s"
-                , tag, type, status, acceptedOutOfSpecification, lastChange);
+                , tag, type, status, acceptedOutOfSpec, lastChange);
     }
 
 }

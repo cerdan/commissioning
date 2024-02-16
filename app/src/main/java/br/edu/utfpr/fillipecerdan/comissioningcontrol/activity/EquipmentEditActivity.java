@@ -122,7 +122,7 @@ public class EquipmentEditActivity extends AppCompatActivity {
         txtCommissioningMessage.setText(e.getComment());
         spnEquipmentType.setSelection(e.getType().ordinal());
         rdGrpEquipmentStatus.check(rdGrpEquipmentStatus.getChildAt(e.getStatus().ordinal()).getId());
-        chkAcceptOutOfSpecification.setChecked(e.getAcceptedOutOfSpecification());
+        chkAcceptOutOfSpecification.setChecked(e.getAcceptedOutOfSpec());
     }
 
     public EquipmentEntity copyViewToEquipment(){
@@ -135,7 +135,7 @@ public class EquipmentEditActivity extends AppCompatActivity {
                 rdGrpEquipmentStatus.findViewById(
                         rdGrpEquipmentStatus.getCheckedRadioButtonId()));
         newEquipment.setStatus(EquipmentStatus.values()[rdSelectedId]);
-        newEquipment.setAcceptedOutOfSpecification(chkAcceptOutOfSpecification.isChecked());
+        newEquipment.setAcceptedOutOfSpec(chkAcceptOutOfSpecification.isChecked());
 
         return newEquipment;
 

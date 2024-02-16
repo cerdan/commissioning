@@ -24,18 +24,22 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:width="120dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1CC21-13VP" />
 
         <TextView
             android:id="@+id/txtAdptEqpType"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:width="200dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
             app:layout_constraintBottom_toBottomOf="@+id/txtAdptEqpTag"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txtAdptEqpTag"
-            app:layout_constraintTop_toTopOf="@+id/txtAdptEqpTag" />
+            app:layout_constraintTop_toTopOf="@+id/txtAdptEqpTag"
+            tools:text="@string/lblLstEquipmentTypeDSV" />
 
         <TextView
             android:id="@+id/txtAdptEqpStatus"
@@ -46,19 +50,23 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:width="120dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtAdptEqpTag" />
+            app:layout_constraintTop_toBottomOf="@+id/txtAdptEqpTag"
+            tools:text="@string/lblStringEquipmentNOK" />
 
         <TextView
             android:id="@+id/txtAdptEqpOoS"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:width="200dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
             app:layout_constraintBottom_toBottomOf="@+id/txtAdptEqpStatus"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txtAdptEqpStatus"
-            app:layout_constraintTop_toTopOf="@+id/txtAdptEqpStatus" />
+            app:layout_constraintTop_toTopOf="@+id/txtAdptEqpStatus"
+            tools:text="@string/lblStringAcceptedOutOfSpec" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView

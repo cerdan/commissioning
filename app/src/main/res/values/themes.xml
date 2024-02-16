@@ -14,7 +14,7 @@
         <item name="colorBackgroundEquipmentNOK">@color/red100</item>
         <item name="colorBackgroundEquipmentOoS">@color/yellow100</item>
         <item name="colorBackgroundEquipmentInvalid">@color/grey500</item>
-        <item name="colorBackgroundEquipmentNotDefined">?android:windowBackground</item>
+        <item name="colorBackgroundEquipmentNotDefined">@android:color/transparent</item>
     </style>
 
     <style name="Theme.ComissioningControl" parent="Base.Theme.ComissioningControl">

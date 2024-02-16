@@ -58,6 +58,9 @@ public class EquipmentAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         EquipmentHolder holder;
+
+        context.getTheme().applyStyle(R.style.Theme_ComissioningControl,false);
+
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.row_equipment_adapter, parent, false);
@@ -80,13 +83,16 @@ public class EquipmentAdapter extends BaseAdapter {
         holder.txtAdptEqpType.setText(equipment.getType().toString());
         holder.txtAdptEqpStatus.setText(equipment.getStatus().toString());
         holder.txtAdptEqpOoS.setText(equipment.getAcceptedOutOfSpecification() ?
-                context.getString(R.string.msgAcceptedOutOfSpec) : "");
-
+                context.getString(R.string.lblStringAcceptedOutOfSpec) : "");
         holder.imgAdaptEqpIndicator.setImageResource(R.drawable.circle);
 
-       context.getTheme().applyStyle(R.style.Theme_ComissioningControl,false);
+        GradientDrawable d = (GradientDrawable) holder.imgAdaptEqpIndicator.getDrawable().mutate();
+        d.setColor(getColor(equipment));
 
+        return view;
+    }
 
+    private int getColor(EquipmentEntity equipment) {
         int color;
         if (equipment.getType() == EquipmentType.INVALID) {
             color = MaterialColors.getColor(context, R.attr.colorBackgroundEquipmentInvalid, Color.BLACK);
@@ -99,11 +105,6 @@ public class EquipmentAdapter extends BaseAdapter {
         } else {
             color = MaterialColors.getColor(context, R.attr.colorBackgroundEquipmentNotDefined, Color.BLACK);
         }
-
-        GradientDrawable d = (GradientDrawable) holder.imgAdaptEqpIndicator.getDrawable().mutate();
-        d.setColor(color);
-        Misc.log(color);
-
-        return view;
+        return color;
     }
 }

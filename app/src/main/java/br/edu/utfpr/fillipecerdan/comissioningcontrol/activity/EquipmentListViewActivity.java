@@ -105,6 +105,8 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_equipment_list_view);
 
+        setTitle(getResources().getString(R.string.lblStringListEquipment));
+
         listViewEquipments = findViewById(R.id.listViewEquipments);
 
         listViewEquipments.setLongClickable(true);

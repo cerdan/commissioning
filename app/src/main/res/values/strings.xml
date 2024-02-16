@@ -35,4 +35,5 @@
     <string name="lblStringReturn">Voltar</string>
     <string name="lblStringEdit">Alterar</string>
     <string name="lblStringDelete">Excluir</string>
+    <string name="lblStringListEquipment">Lista de Equipamentos</string>
 </resources>

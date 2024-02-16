@@ -16,6 +16,7 @@ public class AppInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_info);
+        setTitle(getResources().getString(R.string.lblStringAbout));
     }
 
     public void finishMe(View view){

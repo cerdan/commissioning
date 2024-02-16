@@ -40,6 +40,8 @@ public class EquipmentEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_equipment_edit);
 
+        setTitle(getResources().getString(R.string.lblStringEdit));
+
         txtEquipmentTag = findViewById(R.id.txtEquipmentTag);
         txtCommissioningMessage = findViewById(R.id.txtCommissioningMessage);
         spnEquipmentType = findViewById(R.id.spnEquipmentType);

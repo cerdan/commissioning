@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lblEndCharacter">:</string>
+    <string name="lblEquipmentTag">TAG do Equipamento</string>
+    <string name="lblEquipmentType">Tipo do Equipamento</string>
+    <string name="lblCommissioningMessage">Comentários</string>
+    <string name="lblRadioGroupEquipmentStatus">Estado do equipamento</string>
+    <string name="lblStringEquipmentOK">Sem problemas</string>
+    <string name="lblStringEquipmentNOK">Com problemas</string>
+    <string name="lblStringAcceptOutOfSpecification">Aceitar com problemas</string>
+    <string name="lblLstEquipmentTypeValve">Válvula</string>
+    <string name="lblLstEquipmentTypeDSV">Válvula Duplo Assento</string>
+    <string name="lblLstEquipmentTypeMotor">Motor</string>
+    <string name="lblLstEquipmentTypeFC">Inversor</string>
+    <string name="lblLstEquipmentTypeAI">Sensor Analógico</string>
+    <string name="lblLstEquipmentTypeDI">Sensor Digital</string>
+    <string name="lblLstEquipmentTypeInvalid">Inválido</string>
+    <string name="lblAuthorSubject">Especialização em JAVA e suas tecnologias.</string>
+    <string name="lblAppDescription">Este aplicativo pode ser utilizado para o controle de comissionamento de um projeto elétrico.\nÉ possível cadastrar um projeto, e dentro deste projeto adicionar equipamentos de tipos definidos. Estes equipamentos possuem um campo de anotações e um resumo sobre o estado dele.</string>
+    <string name="hntCommissioningMessage">Inclua aqui os comentários relevantes sobre o equipamento.\n\n\tEx: "Válvula não está com feedback".</string>
+    <string name="msgFieldsCleared">Campos foram limpos.</string>
+    <string name="msgFieldRequired">"O campo %s deve ser preenchido."</string>
+    <string name="msgEquipmentSaved">"O equipamento foi salvo."</string>
+    <string name="msgEquipmentClicked">Equipamento %s foi clicado.\n\nModificiado em\n%s</string>
+    <string name="lblStringAcceptedOutOfSpec">Aceito fora de especificação!</string>
+    <string name="msgInvalidEquipmentTryAgain">Equipamento inválido\nApague e tente novamente.</string>
+    <string name="msgDuplicateEquipmentName">Novo nome já existe.\nPermanecerá com nome anterior.</string>
+    <string name="lblStringAbout">Sobre</string>
+    <string name="lblStringAdd">Adicionar</string>
+    <string name="lblStringSave">Salvar</string>
+    <string name="lblStringClearAll">Limpar</string>
+    <string name="lblStringReturn">Voltar</string>
+    <string name="lblStringEdit">Alterar</string>
+    <string name="lblStringDelete">Excluir</string>
+    <string name="lblStringListEquipment">Lista de Equipamentos</string>
+</resources>

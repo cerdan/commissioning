@@ -1,40 +1,39 @@
 <resources>
-    <string name="app_name">ComissioningControl</string>
+    <string name="app_name" translatable="false">Comissioning Control</string>
     <string name="lblEndCharacter">:</string>
-    <string name="lblEquipmentTag">TAG do Equipamento</string>
-    <string name="lblEquipmentType">Tipo do Equipamento</string>
-    <string name="lblCommissioningMessage">Comentários</string>
-    <string name="lblRadioGroupEquipmentStatus">Estado do equipamento</string>
-    <string name="lblStringEquipmentOK">Sem problemas</string>
-    <string name="lblStringEquipmentNOK">Com problemas</string>
-    <string name="lblStringAcceptOutOfSpecification">Aceitar com problemas</string>
-    <string name="lblLstEquipmentTypeValve">Válvula</string>
-    <string name="lblLstEquipmentTypeDSV">Válvula Duplo Assento</string>
+    <string name="lblEquipmentTag">Equipment TAG</string>
+    <string name="lblEquipmentType">Equipment type</string>
+    <string name="lblCommissioningMessage">Comments</string>
+    <string name="lblRadioGroupEquipmentStatus">Equipment status</string>
+    <string name="lblStringEquipmentOK">Ok</string>
+    <string name="lblStringEquipmentNOK">Not ok</string>
+    <string name="lblStringAcceptOutOfSpecification">Accept Out of Spec</string>
+    <string name="lblLstEquipmentTypeValve">Valve</string>
+    <string name="lblLstEquipmentTypeDSV">Double Seat Valve</string>
     <string name="lblLstEquipmentTypeMotor">Motor</string>
-    <string name="lblLstEquipmentTypeFC">Inversor</string>
-    <string name="lblLstEquipmentTypeAI">Sensor Analógico</string>
-    <string name="lblLstEquipmentTypeDI">Sensor Digital</string>
-    <string name="lblLstEquipmentTypeInvalid">Inválido</string>
-    <string name="lblAuthorName">Fillipe Cerdan</string>
-    <string name="lblAuthorSubject">Especialização em JAVA e suas tecnologias.</string>
-    <string name="lblAuthorEmail">fillipecerdan@alunos.utfpr.edu.br</string>
-    <string name="lblUniversityName">UTFPR - Universidade Tecnologica Federal do Paraná</string>
-    <string name="lblAppDescription">Este aplicativo pode ser utilizado para o controle de comissionamento de um projeto elétrico.\nÉ possível cadastrar um projeto, e dentro deste projeto adicionar equipamentos de tipos definidos. Estes equipamentos possuem um campo de anotações e um resumo sobre o estado dele.</string>
-    <string name="hntCommissioningMessage">Inclua aqui os comentários relevantes sobre o equipamento.\n\n\tEx: "Válvula não está com feedback".</string>
-    <string name="msgFieldsCleared">Campos foram limpos.</string>
-    <string name="msgFieldRequired">"O campo %s deve ser preenchido."</string>
-    <string name="msgEquipmentSaved">"O equipamento foi salvo."</string>
-    <string name="msgEquipmentClicked">Equipamento %s foi clicado.\n\nModificiado em\n%s</string>
-    <string name="lblStringAcceptedOutOfSpec">Aceito fora de especificação.</string>
-    <string name="msgInvalidEquipmentTryAgain">Equipamento inválido\nApague e tente novamente.</string>
-    <string name="msgDuplicateEquipmentName">Novo nome já existe.\nPermanecerá com nome anterior.</string>
-    <string name="lblStringAbout">Sobre</string>
-    <string name="lblStringAdd">Adicionar</string>
-    <string name="lblStringSave">Salvar</string>
-    <string name="lblStringClearAll">Limpar</string>
-    <string name="lblStringReturn">Voltar</string>
-    <string name="lblStringEdit">Alterar</string>
-    <string name="lblStringDelete">Excluir</string>
-    <string name="lblStringListEquipment">Lista de Equipamentos</string>
-    <string name="lblStringCreate">Adicionar</string>
+    <string name="lblLstEquipmentTypeFC">Frequency Converter</string>
+    <string name="lblLstEquipmentTypeAI">Analog Sensor</string>
+    <string name="lblLstEquipmentTypeDI">Digital Sensor</string>
+    <string name="lblLstEquipmentTypeInvalid">Invalid</string>
+    <string name="lblAuthorName" translatable="false">Fillipe Cerdan</string>
+    <string name="lblAuthorSubject">Specialization in JAVA and its technologies.</string>
+    <string name="lblAuthorEmail" translatable="false">fillipecerdan@alunos.utfpr.edu.br</string>
+    <string name="lblUniversityName" translatable="false">UTFPR - Universidade Tecnologica Federal do Paraná</string>
+    <string name="lblAppDescription">This app is intended to be used as a control for machine commissioning\nIt lets you create a project and assign equipments to it. These equipments have a comment field and a summary of their status.</string>
+    <string name="hntCommissioningMessage">Write here the relevant comments about the equipment.\n\n\tE.g.: "Valve's feedback isn't working".</string>
+    <string name="msgFieldsCleared">All fields were cleared.</string>
+    <string name="msgFieldRequired">"The %s field is required."</string>
+    <string name="msgEquipmentSaved">"The equipment was saved."</string>
+    <string name="msgEquipmentClicked">Equipment %s was clicked.\n\nModified on\n%s</string>
+    <string name="lblStringAcceptedOutOfSpec">Accepted out of Specification</string>
+    <string name="msgInvalidEquipmentTryAgain">Invalid equipment\nDelete it and try again.</string>
+    <string name="msgDuplicateEquipmentName">New name already exists.\nLast name will be kept.</string>
+    <string name="lblStringAbout">About</string>
+    <string name="lblStringAdd">Add</string>
+    <string name="lblStringSave">Salve</string>
+    <string name="lblStringClearAll">Clear</string>
+    <string name="lblStringReturn">Return</string>
+    <string name="lblStringEdit">Edit</string>
+    <string name="lblStringDelete">Delete</string>
+    <string name="lblStringListEquipment">Equipment List</string>
 </resources>

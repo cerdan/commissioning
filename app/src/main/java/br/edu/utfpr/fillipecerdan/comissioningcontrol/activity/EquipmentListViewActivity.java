@@ -3,7 +3,6 @@ package br.edu.utfpr.fillipecerdan.comissioningcontrol.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +17,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ActionMode;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,9 +36,46 @@ import br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.Targetable;
 public class EquipmentListViewActivity extends AppCompatActivity {
     private ListView listViewEquipments;
     private final ArrayList<EquipmentEntity> equipments = new ArrayList<>();
-
     private static Toast toast = null;
+    private ActionMode actionMode;
+    private View selectedView;
+    private final ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            mode.getMenuInflater().inflate(R.menu.menu_context_list_view_item, menu);
+            return true;
+        }
 
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            EquipmentEntity equipment = (EquipmentEntity) mode.getTag();
+
+            int itemId = item.getItemId();
+            if (itemId == R.id.menuContextListViewItemEdit) switchToEditWithEquipment(equipment);
+            else if (itemId == R.id.menuContextListViewItemDelete) deleteItemFromEquipments(equipment);
+
+            mode.finish();
+
+            return true;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            if (selectedView != null) {
+                selectedView.setSelected(false);
+                selectedView = null;
+            }
+
+            actionMode = null;
+
+            listViewEquipments.setEnabled(true);
+        }
+    };
     public ActivityResultLauncher<Intent> launcher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -81,26 +118,6 @@ public class EquipmentListViewActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        getMenuInflater().inflate(R.menu.menu_context_list_view_item,menu);
-    }
-
-    @Override
-    public boolean onContextItemSelected(@NonNull MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-
-        int itemId = item.getItemId();
-        if (itemId == R.id.menuContextListViewItemEdit){
-            switchToEditWithEquipment(equipments.get(info.position));
-            return true;
-        } else if (itemId == R.id.menuContextListViewItemDelete) {
-            deleteItemFromEquipments(equipments.get(info.position));
-            return true;
-        } else return super.onContextItemSelected(item);
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_equipment_list_view);
@@ -116,7 +133,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
 
         populateListViewWithEquipments(listViewEquipments, equipments);
 
-        registerForContextMenu(listViewEquipments);
+        listViewEquipments.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
         listViewEquipments.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
@@ -124,16 +141,34 @@ public class EquipmentListViewActivity extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         EquipmentEntity item = (EquipmentEntity) listViewEquipments.getItemAtPosition(position);
 
-                        if (toast != null)
-                            toast.cancel();  // Cancel previous toast to show new message.
+                        if (actionMode != null) return;
 
-                        toast = Toast.makeText(getApplicationContext(),
-                                String.format(getString(R.string.msgEquipmentClicked),
-                                        item.getTag(),
-                                        item.getLastChange()),
-                                Toast.LENGTH_SHORT);
-                        toast.show();
 
+                        selectedView = view;
+                        //selectedView.setSelected(true);
+                        selectedView.clearFocus();
+                        selectedView.setSelected(false);
+                        selectedView.setEnabled(false);
+                        actionMode = startSupportActionMode(mActionModeCallback);
+
+                        actionMode.setTag(item);
+
+                        listViewEquipments.setEnabled(false);
+
+                    }
+                }
+
+        );
+
+        listViewEquipments.setOnItemLongClickListener(
+                new AdapterView.OnItemLongClickListener() {
+
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                        EquipmentEntity item = (EquipmentEntity) listViewEquipments.getItemAtPosition(position);
+                        switchToEditWithEquipment(item);
+
+                        return true;
                     }
                 }
 
@@ -202,8 +237,9 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         if (item.getType() == EquipmentType.INVALID) {
             if (toast != null)
                 toast.cancel(); // Cancel previous toast to show new message.
-            toast.makeText(getApplicationContext(),
-                    getString(R.string.msgInvalidEquipmentTryAgain), Toast.LENGTH_SHORT).show();
+            toast = Toast.makeText(getApplicationContext(),
+                    getString(R.string.msgInvalidEquipmentTryAgain), Toast.LENGTH_SHORT);
+            toast.show();
             return;
         }
 

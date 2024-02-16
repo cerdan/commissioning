@@ -5,9 +5,9 @@
     <string name="lblEquipmentType">Tipo do Equipamento</string>
     <string name="lblCommissioningMessage">Comentários</string>
     <string name="lblRadioGroupEquipmentStatus">Estado do equipamento</string>
-    <string name="lblRadioEquipmentOK">Sem problemas</string>
-    <string name="lblRadioEquipmentNOK">Com problemas</string>
-    <string name="lblCheckboxAcceptOutOfSpecification">Aceitar com problemas</string>
+    <string name="lblStringEquipmentOK">Sem problemas</string>
+    <string name="lblStringEquipmentNOK">Com problemas</string>
+    <string name="lblStringAcceptOutOfSpecification">Aceitar com problemas</string>
     <string name="lblLstEquipmentTypeValve">Válvula</string>
     <string name="lblLstEquipmentTypeDSV">Válvula Duplo Assento</string>
     <string name="lblLstEquipmentTypeMotor">Motor</string>
@@ -25,7 +25,7 @@
     <string name="msgFieldRequired">"O campo %s deve ser preenchido."</string>
     <string name="msgEquipmentSaved">"O equipamento foi salvo."</string>
     <string name="msgEquipmentClicked">Equipamento %s foi clicado.\n\nModificiado em\n%s</string>
-    <string name="msgAcceptedOutOfSpec">Aceito fora de especificação.</string>
+    <string name="lblStringAcceptedOutOfSpec">Aceito fora de especificação.</string>
     <string name="msgInvalidEquipmentTryAgain">Equipamento inválido\nApague e tente novamente.</string>
     <string name="msgDuplicateEquipmentName">Novo nome já existe.\nPermanecerá com nome anterior.</string>
     <string name="lblStringAbout">Sobre</string>

@@ -6,8 +6,8 @@ import br.edu.utfpr.fillipecerdan.comissioningcontrol.R;
 import br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.App;
 
 public enum EquipmentStatus {
-    OK(R.string.lblRadioEquipmentOK),
-    NOK(R.string.lblRadioEquipmentNOK)
+    OK(R.string.lblStringEquipmentOK),
+    NOK(R.string.lblStringEquipmentNOK)
     ;
 
     private int textId;

@@ -80,13 +80,13 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="@string/lblRadioEquipmentOK" />
+                android:text="@string/lblStringEquipmentOK" />
 
             <RadioButton
                 android:id="@+id/radioEquipmentNOK"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/lblRadioEquipmentNOK" />
+                android:text="@string/lblStringEquipmentNOK" />
         </RadioGroup>
 
         <EditText
@@ -121,7 +121,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:text="@string/lblCheckboxAcceptOutOfSpecification"
+            android:text="@string/lblStringAcceptOutOfSpecification"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/lblEquipmentTag"
             app:layout_constraintTop_toBottomOf="@+id/txtCommissioningMessage" />

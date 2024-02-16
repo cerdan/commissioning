@@ -111,8 +111,9 @@ public class EquipmentListViewActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if (item.getItemId() == R.id.menuListAdd) switchToEdit(null);
-        else if (item.getItemId() == R.id.menuListAbout) switchToAbout(null);
+        int itemId = item.getItemId();
+        if (itemId == R.id.menuListAdd) switchToEdit(null);
+        else if (itemId == R.id.menuListAbout) switchToAbout(null);
 
         return true;
     }
@@ -262,8 +263,9 @@ public class EquipmentListViewActivity extends AppCompatActivity {
 
         for (EquipmentEntity e : equipments) {
 
-            if(e.getTag().equals(lastName)) lastNamePos = equipments.indexOf(e);
-            if(e.getTag().equals(newName)) newNamePos = equipments.indexOf(e);
+            String tag = e.getTag();
+            if(tag.equals(lastName)) lastNamePos = equipments.indexOf(e);
+            if(tag.equals(newName)) newNamePos = equipments.indexOf(e);
 
             if (lastNamePos != -1 && newNamePos != -1) break;
 

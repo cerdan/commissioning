@@ -126,38 +126,5 @@
             app:layout_constraintStart_toStartOf="@+id/lblEquipmentTag"
             app:layout_constraintTop_toBottomOf="@+id/txtCommissioningMessage" />
 
-        <Button
-            android:id="@+id/btnEquipmentSave"
-            android:layout_width="125dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:onClick="saveEquipment"
-            android:text="@string/lblStringSave"
-            app:layout_constraintStart_toStartOf="@+id/txtEquipmentTag"
-            app:layout_constraintTop_toBottomOf="@+id/chkAcceptedOutOfSpecification" />
-
-        <Button
-            android:id="@+id/btnEquipmentClear"
-            style="@style/Widget.Material3.Button.ElevatedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:onClick="clearEquipment"
-            android:text="@string/lblStringClearAll"
-            app:layout_constraintEnd_toStartOf="@+id/btnEquipmentFinish"
-            app:layout_constraintStart_toEndOf="@+id/btnEquipmentSave"
-            app:layout_constraintTop_toBottomOf="@+id/chkAcceptedOutOfSpecification" />
-
-        <Button
-            android:id="@+id/btnEquipmentFinish"
-            style="@style/Widget.Material3.Button.ElevatedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:onClick="finishMe"
-            android:text="@string/lblStringReturn"
-            app:layout_constraintEnd_toEndOf="@+id/chkAcceptedOutOfSpecification"
-            app:layout_constraintTop_toBottomOf="@+id/chkAcceptedOutOfSpecification" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

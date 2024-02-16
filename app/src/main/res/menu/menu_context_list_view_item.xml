@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/menuContextListViewItemEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@android:drawable/ic_menu_edit"
-        android:title="@string/lblStringEdit" />
+        android:title="@string/lblStringEdit"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menuContextListViewItemDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@android:drawable/ic_menu_delete"
-        android:title="@string/lblStringDelete" />
+        android:title="@string/lblStringDelete"
+        app:showAsAction="ifRoom" />
 </menu>

@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class EquipmentEntity implements Serializable {
+public class EquipmentEntity implements Serializable, Comparable<EquipmentEntity> {
     private String desc;
     private String tag;
     private String comment;
@@ -129,4 +129,10 @@ public class EquipmentEntity implements Serializable {
                 , tag, type, status, acceptedOutOfSpec, lastChange);
     }
 
+    @Override
+    public int compareTo(EquipmentEntity o) {
+            int s1 = this.getType().compareTo(o.getType());      // Sort by type
+            if (s1 != 0) return s1;
+            return this.getTag().compareTo(o.getTag());          // And them by tag
+    }
 }

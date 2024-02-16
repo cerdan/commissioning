@@ -293,12 +293,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
     }
 
     private void updateListViewWithResource(ListView listView,List<EquipmentEntity> resource) {
-        Collections.sort(resource,
-            (EquipmentEntity o1, EquipmentEntity o2)->{
-                int s1 = o1.getType().compareTo(o2.getType());      // Sort by type
-                if (s1 != 0) return s1;
-                return o1.getTag().compareTo(o2.getTag());          // And them by tag
-            });
+        Collections.sort(resource);
 
         if (listView != null) ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
 

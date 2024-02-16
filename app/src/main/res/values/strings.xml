@@ -36,4 +36,5 @@
     <string name="lblStringEdit">Alterar</string>
     <string name="lblStringDelete">Excluir</string>
     <string name="lblStringListEquipment">Lista de Equipamentos</string>
+    <string name="lblStringCreate">Adicionar</string>
 </resources>

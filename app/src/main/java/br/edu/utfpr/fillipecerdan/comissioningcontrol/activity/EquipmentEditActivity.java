@@ -40,8 +40,6 @@ public class EquipmentEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_equipment_edit);
 
-        setTitle(getResources().getString(R.string.lblStringEdit));
-
         txtEquipmentTag = findViewById(R.id.txtEquipmentTag);
         txtCommissioningMessage = findViewById(R.id.txtCommissioningMessage);
         spnEquipmentType = findViewById(R.id.spnEquipmentType);
@@ -52,8 +50,14 @@ public class EquipmentEditActivity extends AppCompatActivity {
         equipment = (EquipmentEntity) getIntent()
                 .getSerializableExtra(Misc.KEY_EQUIPMENT);
 
-        if (equipment != null) copyEquipmentToView(equipment);
-        else equipment = new EquipmentEntity();
+        if (equipment != null) {
+            copyEquipmentToView(equipment);
+            setTitle(getResources().getString(R.string.lblStringEdit));
+        }
+        else {
+            equipment = new EquipmentEntity();
+            setTitle(getResources().getString(R.string.lblStringCreate));
+        }
 
     }
 
@@ -79,7 +83,15 @@ public class EquipmentEditActivity extends AppCompatActivity {
 
         String lastName = equipment.getTag();
 
-        copyViewToEquipment(equipment);
+        EquipmentEntity equipmentFromView = copyViewToEquipment();
+        equipmentFromView.setLastChange(equipment.getLastChange());
+
+        if(equipment.equals(equipmentFromView)) {
+            finishMe(null);
+            return;
+        };
+
+        equipment = equipmentFromView;
 
         equipment.setLastChange();
 
@@ -113,15 +125,20 @@ public class EquipmentEditActivity extends AppCompatActivity {
         chkAcceptOutOfSpecification.setChecked(e.getAcceptedOutOfSpecification());
     }
 
-    public void copyViewToEquipment(EquipmentEntity e){
-        e.setTag(txtEquipmentTag.getText().toString());
-        e.setComment(txtCommissioningMessage.getText().toString());
-        e.setType(EquipmentType.values()[spnEquipmentType.getSelectedItemPosition()]);
+    public EquipmentEntity copyViewToEquipment(){
+        EquipmentEntity newEquipment = new EquipmentEntity();
+
+        newEquipment.setTag(txtEquipmentTag.getText().toString());
+        newEquipment.setComment(txtCommissioningMessage.getText().toString());
+        newEquipment.setType(EquipmentType.values()[spnEquipmentType.getSelectedItemPosition()]);
         int rdSelectedId = rdGrpEquipmentStatus.indexOfChild(
                 rdGrpEquipmentStatus.findViewById(
                         rdGrpEquipmentStatus.getCheckedRadioButtonId()));
-        e.setStatus(EquipmentStatus.values()[rdSelectedId]);
-        e.setAcceptedOutOfSpecification(chkAcceptOutOfSpecification.isChecked());
+        newEquipment.setStatus(EquipmentStatus.values()[rdSelectedId]);
+        newEquipment.setAcceptedOutOfSpecification(chkAcceptOutOfSpecification.isChecked());
+
+        return newEquipment;
+
     }
 
     public boolean validateEquipmentAction() {

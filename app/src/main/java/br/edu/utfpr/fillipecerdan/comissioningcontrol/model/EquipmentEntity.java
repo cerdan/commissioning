@@ -1,7 +1,10 @@
 package br.edu.utfpr.fillipecerdan.comissioningcontrol.model;
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 public class EquipmentEntity implements Serializable {
     private String desc;
@@ -48,7 +51,9 @@ public class EquipmentEntity implements Serializable {
         this.type = type;
     }
 
-    public EquipmentStatus getStatus() { return status; }
+    public EquipmentStatus getStatus() {
+        return status;
+    }
 
     public void setStatus(EquipmentStatus status) {
         this.status = status;
@@ -70,6 +75,10 @@ public class EquipmentEntity implements Serializable {
         this.lastChange = new Date();
     }
 
+    public void setLastChange(Date lastChange) {
+        this.lastChange = lastChange;
+    }
+
     public EquipmentEntity(String tag, EquipmentType type, EquipmentStatus status, String comment, Boolean acceptedOutOfSpecification, Date lastChange) {
         this.tag = tag;
         this.comment = comment;
@@ -87,4 +96,37 @@ public class EquipmentEntity implements Serializable {
         this.acceptedOutOfSpecification = equipment.acceptedOutOfSpecification;
         this.lastChange = equipment.lastChange;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EquipmentEntity equipment = (EquipmentEntity) o;
+        return Objects.equals(getDesc(), equipment.getDesc()) &&
+                Objects.equals(getTag(), equipment.getTag()) &&
+                Objects.equals(getComment(), equipment.getComment()) &&
+                getType() == equipment.getType() &&
+                getStatus() == equipment.getStatus() &&
+                Objects.equals(getAcceptedOutOfSpecification(), equipment.getAcceptedOutOfSpecification()) &&
+                Objects.equals(getLastChange(), equipment.getLastChange());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getDesc(),
+                getTag(),
+                getComment(),
+                getType(),
+                getStatus(),
+                getAcceptedOutOfSpecification(),
+                getLastChange());
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return String.format("tag = %s, type = %s, status = %s, acceptedOoS = %s, lastChange = %s"
+                , tag, type, status, acceptedOutOfSpecification, lastChange);
+    }
+
 }

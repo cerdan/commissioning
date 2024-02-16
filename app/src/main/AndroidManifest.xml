@@ -28,7 +28,8 @@
         </activity>
         <activity
             android:name=".activity.EquipmentEditActivity"
-            android:exported="true"></activity>
+            android:exported="true"
+            android:parentActivityName=".activity.EquipmentListViewActivity" />
     </application>
 
 </manifest>

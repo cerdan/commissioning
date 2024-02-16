@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.arch.core.util.Function;
 
@@ -39,6 +40,9 @@ public class EquipmentEditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_equipment_edit);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
 
         txtEquipmentTag = findViewById(R.id.txtEquipmentTag);
         txtCommissioningMessage = findViewById(R.id.txtCommissioningMessage);
@@ -73,7 +77,7 @@ public class EquipmentEditActivity extends AppCompatActivity {
 
         if (itemId == R.id.menuEditClear)       clearEquipment(null);
         else if (itemId == R.id.menuEditSave)   saveEquipment(null);
-        else if (itemId == R.id.menuEditReturn)   finishMe(null);
+        else if (itemId == android.R.id.home)   finishMe(null);
 
         return true;
     }

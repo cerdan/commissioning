@@ -60,7 +60,7 @@ public class EquipmentEditActivity extends AppCompatActivity {
         }
         else {
             equipment = new EquipmentEntity();
-            setTitle(getResources().getString(R.string.lblStringCreate));
+            setTitle(getResources().getString(R.string.lblStringAdd));
         }
 
     }

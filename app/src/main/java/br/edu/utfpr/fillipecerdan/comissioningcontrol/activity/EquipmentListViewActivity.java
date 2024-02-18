@@ -134,7 +134,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         listViewEquipments.setLongClickable(true);
 
         //Todo: Remove comment to add items to list
-        getEquipmentsFromResources();
+        //getEquipmentsFromResources();
 
         populateListViewWithEquipments(listViewEquipments, equipments);
 
@@ -145,20 +145,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         EquipmentEntity item = (EquipmentEntity) listViewEquipments.getItemAtPosition(position);
-
-                        if (actionMode != null) return;
-
-
-                        selectedView = view;
-                        selectedView.setSelected(true);
-                        selectedView.setBackgroundColor(MaterialColors.getColor(getApplicationContext(),
-                                android.R.attr.colorActivatedHighlight, Color.CYAN));
-                        actionMode = startSupportActionMode(mActionModeCallback);
-
-                        actionMode.setTag(item);
-
-                        listViewEquipments.setEnabled(false);
-
+                        switchToEditWithEquipment(item);
                     }
                 }
 
@@ -170,7 +157,19 @@ public class EquipmentListViewActivity extends AppCompatActivity {
                     @Override
                     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                         EquipmentEntity item = (EquipmentEntity) listViewEquipments.getItemAtPosition(position);
-                        switchToEditWithEquipment(item);
+
+                        if (actionMode != null) return true;
+
+
+                        selectedView = view;
+                        selectedView.setSelected(true);
+                        selectedView.setBackgroundColor(MaterialColors.getColor(getApplicationContext(),
+                                android.R.attr.colorActivatedHighlight, Color.CYAN));
+                        actionMode = startSupportActionMode(mActionModeCallback);
+
+                        actionMode.setTag(item);
+
+                        listViewEquipments.setEnabled(false);
 
                         return true;
                     }

@@ -2,6 +2,7 @@ package br.edu.utfpr.fillipecerdan.comissioningcontrol.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +19,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
+
+import com.google.android.material.color.MaterialColors;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -68,6 +71,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         public void onDestroyActionMode(ActionMode mode) {
             if (selectedView != null) {
                 selectedView.setSelected(false);
+                selectedView.setBackgroundColor(Color.TRANSPARENT);
                 selectedView = null;
             }
 
@@ -146,10 +150,9 @@ public class EquipmentListViewActivity extends AppCompatActivity {
 
 
                         selectedView = view;
-                        //selectedView.setSelected(true);
-                        selectedView.clearFocus();
-                        selectedView.setSelected(false);
-                        selectedView.setEnabled(false);
+                        selectedView.setSelected(true);
+                        selectedView.setBackgroundColor(MaterialColors.getColor(getApplicationContext(),
+                                android.R.attr.colorActivatedHighlight, Color.CYAN));
                         actionMode = startSupportActionMode(mActionModeCallback);
 
                         actionMode.setTag(item);
@@ -293,7 +296,12 @@ public class EquipmentListViewActivity extends AppCompatActivity {
     }
 
     private void updateListViewWithResource(ListView listView,List<EquipmentEntity> resource) {
-        Collections.sort(resource);
+        Collections.sort(resource,
+            (EquipmentEntity o1, EquipmentEntity o2)->{
+                int s1 = o1.getType().compareTo(o2.getType());      // Sort by type
+                if (s1 != 0) return s1;
+                return o1.getTag().compareTo(o2.getTag());          // And them by tag
+            });
 
         if (listView != null) ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
 

@@ -16,4 +16,20 @@
         android:icon="@android:drawable/ic_menu_close_clear_cancel"
         android:title="@string/lblStringClearAll"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menuEditPreferences"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="@string/lblStringPreferences">
+        <menu
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <item
+                android:id="@+id/menuEditSuggestFields"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:title="@string/lblStringSuggestFields" />
+        </menu>
+    </item>
 </menu>

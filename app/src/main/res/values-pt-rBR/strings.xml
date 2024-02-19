@@ -40,4 +40,5 @@
     <string name="lblStringNOKFirst">NOK em cima</string>
     <string name="lblStringOKFirst">OK em cima</string>
     <string name="lblStringMostRecent">Mais recente</string>
+    <string name="lblStringSuggestFields">Sugerir campos</string>
 </resources>

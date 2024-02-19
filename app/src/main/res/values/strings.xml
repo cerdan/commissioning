@@ -43,4 +43,5 @@
     <string name="lblStringNOKFirst">NOK top</string>
     <string name="lblStringOKFirst">OK top</string>
     <string name="lblStringMostRecent">Most recent</string>
+    <string name="lblStringSuggestFields">Suggest fields</string>
 </resources>

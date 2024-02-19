@@ -3,7 +3,9 @@ package br.edu.utfpr.fillipecerdan.commissioningcontrol.activity;
 import static br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.ValidationHelper.isValid;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,10 +38,15 @@ public class EquipmentEditActivity extends AppCompatActivity {
     private CheckBox chkAcceptOutOfSpecification;
 
     private static EquipmentEntity equipment;
+    private boolean suggestFields;
+    private EquipmentType lastEquipmentType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getPreferences();
+
         setContentView(R.layout.activity_equipment_edit);
 
         ActionBar actionBar = getSupportActionBar();
@@ -52,6 +59,7 @@ public class EquipmentEditActivity extends AppCompatActivity {
         chkAcceptOutOfSpecification = findViewById(R.id.chkAcceptedOutOfSpecification);
 
 
+
         equipment = (EquipmentEntity) getIntent()
                 .getSerializableExtra(App.KEY_EQUIPMENT);
 
@@ -62,6 +70,7 @@ public class EquipmentEditActivity extends AppCompatActivity {
         else {
             equipment = new EquipmentEntity();
             setTitle(getResources().getString(R.string.lblStringAdd));
+            if (this.suggestFields) spnEquipmentType.setSelection(lastEquipmentType.ordinal());
         }
 
     }
@@ -73,12 +82,20 @@ public class EquipmentEditActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu){
+        menu.findItem(R.id.menuEditSuggestFields).setChecked(suggestFields);
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
 
         if (itemId == R.id.menuEditClear)       clearEquipment(null);
         else if (itemId == R.id.menuEditSave)   saveEquipment(null);
         else if (itemId == android.R.id.home)   finishMe(null);
+        else if (itemId == R.id.menuEditSuggestFields) setPreferredSuggestion(suggestFields = !suggestFields);
 
         return true;
     }
@@ -106,6 +123,7 @@ public class EquipmentEditActivity extends AppCompatActivity {
         setResult(Activity.RESULT_OK, (new Intent())
                 .putExtra(App.KEY_EQUIPMENT, equipment)
                 .putExtra(App.KEY_RENAME, lastName));
+        if(suggestFields) setPreferredType();
         finish();
     }
 
@@ -174,6 +192,7 @@ public class EquipmentEditActivity extends AppCompatActivity {
 
     public void finishMe(View view){
         setResult(Activity.RESULT_CANCELED);
+        if(suggestFields) setPreferredType();
         finish();
     }
     public static void start(@NonNull Startable starter) {
@@ -181,5 +200,42 @@ public class EquipmentEditActivity extends AppCompatActivity {
         if (starter instanceof Targetable)
             ((Targetable) starter).setTarget(EquipmentEditActivity.class);
         starter.start();
+    }
+
+    private void getPreferences(){
+        SharedPreferences shared = getSharedPreferences(App.PREFERENCES, Context.MODE_PRIVATE);
+
+        this.suggestFields = shared.getBoolean(App.KEY_PREF_SUGGEST_TYPE, App.PREF_SUGGEST_TYPE_DEFAULT);
+
+        int lastTypeInt = shared.getInt(App.KEY_PREF_LAST_TYPE, App.PREF_LAST_TYPE_DEFAULT);
+        this.lastEquipmentType = EquipmentType.values()[lastTypeInt];
+
+    }
+
+    private void setPreferredSuggestion(boolean suggestFields){
+        SharedPreferences shared = getSharedPreferences(App.PREFERENCES, Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = shared.edit();
+
+        editor.putBoolean(App.KEY_PREF_SUGGEST_TYPE, suggestFields);
+
+        editor.commit();
+
+        this.suggestFields = suggestFields;
+
+    }
+
+    private void setPreferredType(){
+        int position = spnEquipmentType.getSelectedItemPosition();
+
+        SharedPreferences shared = getSharedPreferences(App.PREFERENCES, Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = shared.edit();
+
+        editor.putInt(App.KEY_PREF_LAST_TYPE, position);
+
+        editor.commit();
+
+        this.lastEquipmentType = EquipmentType.values()[position];
     }
 }

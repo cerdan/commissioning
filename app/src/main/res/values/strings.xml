@@ -38,7 +38,7 @@
     <string name="lblStringListEquipment">Equipment List</string>
     <string name="lblStringPreferences">Preferences</string>
     <string name="lblStringOrderBy">Order by</string>
-    <string name="lblStringAlphabetical">Alphabetical</string>
+    <string name="lblStringTagOnly">TAG only</string>
     <string name="lblStringDefault">Default</string>
     <string name="lblStringNOKFirst">NOK top</string>
     <string name="lblStringOKFirst">OK top</string>

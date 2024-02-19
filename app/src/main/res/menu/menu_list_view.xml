@@ -39,10 +39,10 @@
                             android:layout_height="wrap_content"
                             android:title="@string/lblStringDefault" />
                         <item
-                            android:id="@+id/menuListOrderAlphabetical"
+                            android:id="@+id/menuListOrderTagOnly"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:title="@string/lblStringAlphabetical" />
+                            android:title="@string/lblStringTagOnly" />
                         <item
                             android:id="@+id/menuListOrderNOK"
                             android:layout_width="wrap_content"

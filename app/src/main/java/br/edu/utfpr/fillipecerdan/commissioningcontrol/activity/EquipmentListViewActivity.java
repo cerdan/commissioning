@@ -124,7 +124,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         if (itemId == R.id.menuListAdd) switchToEdit(null);
         else if (itemId == R.id.menuListAbout) switchToAbout(null);
         else if (itemId == R.id.menuListOrderDefault) setPreferredOrder(App.PREF_ORDER_DEFAULT);
-        else if (itemId == R.id.menuListOrderAlphabetical) setPreferredOrder(App.PREF_ORDER_ALPHABETICAL);
+        else if (itemId == R.id.menuListOrderTagOnly) setPreferredOrder(App.PREF_ORDER_TAG_ONLY);
         else if (itemId == R.id.menuListOrderNOK) setPreferredOrder(App.PREF_ORDER_NOK_FIRST);
         else if (itemId == R.id.menuListOrderOK) setPreferredOrder(App.PREF_ORDER_OK_FIRST);
         else if (itemId == R.id.menuListOrderLastChange) setPreferredOrder(App.PREF_ORDER_LAST_CHANGE);
@@ -141,8 +141,8 @@ public class EquipmentListViewActivity extends AppCompatActivity {
             case App.PREF_ORDER_DEFAULT:
                 item = menu.findItem(R.id.menuListOrderDefault);
                 break;
-            case App.PREF_ORDER_ALPHABETICAL:
-                item = menu.findItem(R.id.menuListOrderAlphabetical);
+            case App.PREF_ORDER_TAG_ONLY:
+                item = menu.findItem(R.id.menuListOrderTagOnly);
                 break;
             case App.PREF_ORDER_NOK_FIRST:
                 item = menu.findItem(R.id.menuListOrderNOK);
@@ -339,7 +339,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
     private void updateListViewWithResource(ListView listView,List<EquipmentEntity> resource) {
 
         switch (listOrder){
-            case App.PREF_ORDER_ALPHABETICAL:
+            case App.PREF_ORDER_TAG_ONLY:
                 Collections.sort(resource, EquipmentEntity.BY_TAG);
                 break;
             case App.PREF_ORDER_NOK_FIRST:

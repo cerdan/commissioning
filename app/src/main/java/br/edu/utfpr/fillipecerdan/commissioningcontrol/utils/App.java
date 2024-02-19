@@ -12,7 +12,7 @@ public class App extends Application {
     public static final String PREFERENCES = "br.edu.utfpr.fillipecerdan.commissioningcontrol.PREFERENCES";
     public static final String KEY_PREF_ORDER= "ORDER";
     public static final int PREF_ORDER_DEFAULT= 0;
-    public static final int PREF_ORDER_ALPHABETICAL= 1;
+    public static final int PREF_ORDER_TAG_ONLY = 1;
     public static final int PREF_ORDER_NOK_FIRST= 2;
     public static final int PREF_ORDER_OK_FIRST= 3;
     public static final int PREF_ORDER_LAST_CHANGE = 4;

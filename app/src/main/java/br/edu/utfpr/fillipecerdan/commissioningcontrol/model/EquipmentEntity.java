@@ -2,11 +2,15 @@ package br.edu.utfpr.fillipecerdan.commissioningcontrol.model;
 
 import androidx.annotation.NonNull;
 
-import java.io.Serializable;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Objects;
 
-public class EquipmentEntity implements Serializable, Comparable<EquipmentEntity> {
+public class EquipmentEntity implements Externalizable, Comparable<EquipmentEntity> {
     private String desc;
     private String tag;
     private String comment;
@@ -131,8 +135,83 @@ public class EquipmentEntity implements Serializable, Comparable<EquipmentEntity
 
     @Override
     public int compareTo(EquipmentEntity o) {
-            int s1 = this.getType().compareTo(o.getType());      // Sort by type
-            if (s1 != 0) return s1;
-            return this.getTag().compareTo(o.getTag());          // And them by tag
+        return compareByAndThenBy(BY_TYPE,BY_TAG).compare(this,o);
+    }
+
+    public static final Comparator<EquipmentEntity> compareByAndThenBy(Comparator<? super EquipmentEntity> first,
+                                                          Comparator<? super EquipmentEntity> second){
+        return (Comparator<EquipmentEntity>) (o1,o2) -> {
+            int res = first.compare(o1,o2);
+            return (res!=0) ? res : second.compare(o1,o2);
+        };
+    }
+
+    public static final Comparator<EquipmentEntity> BY_STATUS_NOK = new Comparator<EquipmentEntity>() {
+        @Override
+        public int compare(EquipmentEntity o1, EquipmentEntity o2) {
+            if (!o1.getStatus().equals(o2.getStatus())) {
+                if(o1.getStatus() == EquipmentStatus.NOK) return -1;
+                else if (o2.getStatus() == EquipmentStatus.NOK) return 1;
+                else return compareByAndThenBy(BY_TYPE,BY_TAG).compare(o1,o2);
+            }
+            return compareByAndThenBy(BY_TYPE,BY_TAG).compare(o1,o2);
+        }
+    };
+
+    public static final Comparator<EquipmentEntity> BY_STATUS_OK = new Comparator<EquipmentEntity>() {
+        @Override
+        public int compare(EquipmentEntity o1, EquipmentEntity o2) {
+            if (!o1.getStatus().equals(o2.getStatus())) {
+                if(o1.getStatus() == EquipmentStatus.OK) return -1;
+                else if (o2.getStatus() == EquipmentStatus.OK) return 1;
+                else return compareByAndThenBy(BY_TYPE,BY_TAG).compare(o1,o2);
+            }
+            return compareByAndThenBy(BY_TYPE,BY_TAG).compare(o1,o2);
+        }
+    };
+
+    public static final Comparator<EquipmentEntity> BY_TAG = new Comparator<EquipmentEntity>() {
+        @Override
+        public int compare(EquipmentEntity o1, EquipmentEntity o2) {
+            return o1.getTag().compareTo(o2.getTag());
+        }
+    };
+
+    public static final Comparator<EquipmentEntity> BY_TYPE = new Comparator<EquipmentEntity>() {
+        @Override
+        public int compare(EquipmentEntity o1, EquipmentEntity o2) {
+            return o1.getType().compareTo(o2.getType());
+        }
+
+    };
+
+    public static final Comparator<EquipmentEntity> BY_LAST_CHANGE = new Comparator<EquipmentEntity>() {
+        @Override
+        public int compare(EquipmentEntity o1, EquipmentEntity o2) {
+            return -1 * o1.getLastChange().compareTo(o2.getLastChange()); // Reverse order (most recent first)
+        }
+
+    };
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeUTF((desc!=null)?desc:"");
+        out.writeUTF((tag!=null)?tag:"");
+        out.writeUTF((comment!=null)?comment:"");
+        out.writeInt(type.ordinal());
+        out.writeInt(status.ordinal());
+        out.writeBoolean(acceptedOutOfSpec);
+        out.writeObject(lastChange);
+
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws ClassNotFoundException, IOException {
+        desc = in.readUTF();
+        tag = in.readUTF();
+        comment = in.readUTF();
+        type = EquipmentType.values()[in.readInt()];
+        status = EquipmentStatus.values()[in.readInt()];
+        acceptedOutOfSpec = in.readBoolean();
+        lastChange = (Date) in.readObject();
     }
 }

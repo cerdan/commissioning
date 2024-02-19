@@ -30,6 +30,7 @@ public class EquipmentAdapter extends BaseAdapter {
         public TextView txtAdptEqpType;
         public TextView txtAdptEqpStatus;
         public TextView txtAdptEqpOoS;
+        public TextView txtAdptEqpLastChange;
 
         public ImageView imgAdaptEqpIndicator;
     }
@@ -70,6 +71,7 @@ public class EquipmentAdapter extends BaseAdapter {
             holder.txtAdptEqpType = view.findViewById(R.id.txtAdptEqpType);
             holder.txtAdptEqpStatus = view.findViewById(R.id.txtAdptEqpStatus);
             holder.txtAdptEqpOoS = view.findViewById(R.id.txtAdptEqpOoS);
+            holder.txtAdptEqpLastChange = view.findViewById(R.id.txtAdptEqpLastChange);
             holder.imgAdaptEqpIndicator = view.findViewById(R.id.imgAdaptEqpIndicator);
 
             view.setTag(holder);
@@ -84,6 +86,7 @@ public class EquipmentAdapter extends BaseAdapter {
         holder.txtAdptEqpStatus.setText(equipment.getStatus().toString());
         holder.txtAdptEqpOoS.setText(equipment.getAcceptedOutOfSpec() ?
                 context.getString(R.string.lblStringAcceptedOutOfSpec) : "");
+        holder.txtAdptEqpLastChange.setText(equipment.getLastChange().toString());
         holder.imgAdaptEqpIndicator.setImageResource(R.drawable.circle);
 
         GradientDrawable d = (GradientDrawable) holder.imgAdaptEqpIndicator.getDrawable().mutate();

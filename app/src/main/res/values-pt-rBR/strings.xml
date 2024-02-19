@@ -23,7 +23,7 @@
     <string name="msgEquipmentSaved">"O equipamento foi salvo."</string>
     <string name="msgEquipmentClicked">Equipamento %s foi clicado.\n\nModificiado em\n%s</string>
     <string name="lblStringAcceptedOutOfSpec">Aceito fora de especificação!</string>
-    <string name="msgInvalidEquipmentTryAgain">Equipamento inválido\nApague e tente novamente.</string>
+    <string name="msgInvalidEquipmentTryAgain">Equipamento inválido!\nApague e tente novamente.</string>
     <string name="msgDuplicateEquipmentName">Novo nome já existe.\nPermanecerá com nome anterior.</string>
     <string name="lblStringAbout">Sobre</string>
     <string name="lblStringAdd">Adicionar</string>
@@ -33,4 +33,11 @@
     <string name="lblStringEdit">Alterar</string>
     <string name="lblStringDelete">Excluir</string>
     <string name="lblStringListEquipment">Lista de Equipamentos</string>
+    <string name="lblStringPreferences">Opções</string>
+    <string name="lblStringOrderBy">Ordenar por</string>
+    <string name="lblStringAlphabetical">Alfabética</string>
+    <string name="lblStringDefault">Padrão</string>
+    <string name="lblStringNOKFirst">NOK em cima</string>
+    <string name="lblStringOKFirst">OK em cima</string>
+    <string name="lblStringMostRecent">Mais recente</string>
 </resources>

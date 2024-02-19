@@ -26,7 +26,7 @@
     <string name="msgEquipmentSaved">"The equipment was saved."</string>
     <string name="msgEquipmentClicked">Equipment %s was clicked.\n\nModified on\n%s</string>
     <string name="lblStringAcceptedOutOfSpec">Accepted out of Specification</string>
-    <string name="msgInvalidEquipmentTryAgain">Invalid equipment\nDelete it and try again.</string>
+    <string name="msgInvalidEquipmentTryAgain">Invalid equipment!\nDelete it and try again.</string>
     <string name="msgDuplicateEquipmentName">New name already exists.\nLast name will be kept.</string>
     <string name="lblStringAbout">About</string>
     <string name="lblStringAdd">Add</string>
@@ -36,4 +36,11 @@
     <string name="lblStringEdit">Edit</string>
     <string name="lblStringDelete">Delete</string>
     <string name="lblStringListEquipment">Equipment List</string>
+    <string name="lblStringPreferences">Preferences</string>
+    <string name="lblStringOrderBy">Order by</string>
+    <string name="lblStringAlphabetical">Alphabetical</string>
+    <string name="lblStringDefault">Default</string>
+    <string name="lblStringNOKFirst">NOK top</string>
+    <string name="lblStringOKFirst">OK top</string>
+    <string name="lblStringMostRecent">Most recent</string>
 </resources>

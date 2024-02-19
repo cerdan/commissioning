@@ -2,6 +2,7 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+
     <item
         android:id="@+id/menuListAdd"
         android:layout_width="wrap_content"
@@ -9,6 +10,59 @@
         android:icon="@android:drawable/ic_menu_add"
         android:title="@string/lblStringAdd"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menuListPreferences"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:title="@string/lblStringPreferences"
+        app:showAsAction="ifRoom">
+        <menu
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <item
+                android:id="@+id/menuListOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:title="@string/lblStringOrderBy">
+                <menu
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <group
+                        android:id="@+id/menuGroupList"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:checkableBehavior="single">
+                        <item
+                            android:id="@+id/menuListOrderDefault"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:title="@string/lblStringDefault" />
+                        <item
+                            android:id="@+id/menuListOrderAlphabetical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:title="@string/lblStringAlphabetical" />
+                        <item
+                            android:id="@+id/menuListOrderNOK"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:title="@string/lblStringNOKFirst" />
+                        <item
+                            android:id="@+id/menuListOrderOK"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:title="@string/lblStringOKFirst" />
+                        <item
+                            android:id="@+id/menuListOrderLastChange"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:title="@string/lblStringMostRecent" />
+                    </group>
+                </menu>
+            </item>
+        </menu>
+    </item>
     <item
         android:id="@+id/menuListAbout"
         android:layout_width="wrap_content"

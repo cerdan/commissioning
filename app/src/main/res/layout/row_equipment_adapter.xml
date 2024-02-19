@@ -11,10 +11,8 @@
         android:layout_height="match_parent"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/txtAdptEqpTag"
@@ -22,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:width="120dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             app:layout_constraintStart_toStartOf="parent"
@@ -47,11 +45,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="4dp"
             android:width="120dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtAdptEqpTag"
             tools:text="@string/lblStringEquipmentNOK" />
@@ -67,6 +63,22 @@
             app:layout_constraintStart_toEndOf="@+id/txtAdptEqpStatus"
             app:layout_constraintTop_toTopOf="@+id/txtAdptEqpStatus"
             tools:text="@string/lblStringAcceptedOutOfSpec" />
+
+        <TextView
+            android:id="@+id/txtAdptEqpLastChange"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:text="TextView"
+            android:textSize="10sp"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/txtAdptEqpOoS"
+            app:layout_constraintStart_toStartOf="@+id/txtAdptEqpStatus"
+            app:layout_constraintTop_toBottomOf="@+id/txtAdptEqpStatus"
+            tools:text="@string/lblStringMostRecent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView

@@ -1,4 +1,4 @@
-package br.edu.utfpr.fillipecerdan.comissioningcontrol.utils;
+package br.edu.utfpr.fillipecerdan.commissioningcontrol.utils;
 
 import android.widget.CheckBox;
 import android.widget.RadioGroup;

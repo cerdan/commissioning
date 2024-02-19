@@ -1,9 +1,9 @@
-package br.edu.utfpr.fillipecerdan.comissioningcontrol.model;
+package br.edu.utfpr.fillipecerdan.commissioningcontrol.model;
 
 import androidx.annotation.NonNull;
 
-import br.edu.utfpr.fillipecerdan.comissioningcontrol.R;
-import br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.App;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.R;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.App;
 
 public enum EquipmentStatus {
     OK(R.string.lblStringEquipmentOK),

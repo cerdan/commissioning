@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'br.edu.utfpr.fillipecerdan.comissioningcontrol'
+    namespace 'br.edu.utfpr.fillipecerdan.commissioningcontrol'
     compileSdk 34
 
     defaultConfig {
-        applicationId "br.edu.utfpr.fillipecerdan.comissioningcontrol"
+        applicationId "br.edu.utfpr.fillipecerdan.commissioningcontrol"
         minSdk 16
         targetSdk 34
         versionCode 1

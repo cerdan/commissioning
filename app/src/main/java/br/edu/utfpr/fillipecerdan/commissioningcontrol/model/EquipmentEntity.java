@@ -1,4 +1,4 @@
-package br.edu.utfpr.fillipecerdan.comissioningcontrol.model;
+package br.edu.utfpr.fillipecerdan.commissioningcontrol.model;
 
 import androidx.annotation.NonNull;
 

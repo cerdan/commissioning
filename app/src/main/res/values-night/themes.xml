@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 <!-- Base application theme. -->
-    <style name="Base.Theme.ComissioningControl" parent="Theme.Material3.DayNight">
+    <style name="Base.Theme.CommissioningControl" parent="Theme.Material3.DayNight">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
         <item name="colorPrimary">@color/deeppurple500</item>
@@ -15,7 +15,7 @@
         <item name="colorBackgroundEquipmentNotDefined">@android:color/transparent</item>
     </style>
 
-    <style name="Theme.ComissioningControl" parent="Base.Theme.ComissioningControl">,
+    <style name="Theme.CommissioningControl" parent="Base.Theme.CommissioningControl">,
 
     </style>
 </resources>

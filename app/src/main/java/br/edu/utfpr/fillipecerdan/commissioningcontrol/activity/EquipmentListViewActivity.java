@@ -1,4 +1,4 @@
-package br.edu.utfpr.fillipecerdan.comissioningcontrol.activity;
+package br.edu.utfpr.fillipecerdan.commissioningcontrol.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -26,15 +26,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import br.edu.utfpr.fillipecerdan.comissioningcontrol.R;
-import br.edu.utfpr.fillipecerdan.comissioningcontrol.model.EquipmentEntity;
-import br.edu.utfpr.fillipecerdan.comissioningcontrol.model.EquipmentStatus;
-import br.edu.utfpr.fillipecerdan.comissioningcontrol.model.EquipmentType;
-import br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.ActivityStarter;
-import br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.EquipmentAdapter;
-import br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.Misc;
-import br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.Startable;
-import br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.Targetable;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.R;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.EquipmentEntity;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.EquipmentStatus;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.EquipmentType;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.ActivityStarter;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.App;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.EquipmentAdapter;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.Misc;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.Startable;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.Targetable;
 
 public class EquipmentListViewActivity extends AppCompatActivity {
     private ListView listViewEquipments;
@@ -89,11 +90,11 @@ public class EquipmentListViewActivity extends AppCompatActivity {
                         Intent resultIntent = result.getData();
                         if (resultIntent == null) return;
 
-                        EquipmentEntity resultEquipment = (EquipmentEntity) resultIntent.getSerializableExtra(Misc.KEY_EQUIPMENT);
+                        EquipmentEntity resultEquipment = (EquipmentEntity) resultIntent.getSerializableExtra(App.KEY_EQUIPMENT);
                         if (resultEquipment == null) return;
                         String newName = resultEquipment.getTag();
 
-                        String lastName = resultIntent.getStringExtra(Misc.KEY_RENAME);
+                        String lastName = resultIntent.getStringExtra(App.KEY_RENAME);
                         if (lastName == null) lastName = newName;
 
                         upsertItemInEquipments(resultEquipment,lastName,newName);
@@ -250,7 +251,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         EquipmentEditActivity.start(new ActivityStarter()
                 .setContext(getApplicationContext())
                 .setIntent(new Intent(getApplicationContext(), EquipmentEditActivity.class)
-                        .putExtra(Misc.KEY_EQUIPMENT, item))
+                        .putExtra(App.KEY_EQUIPMENT, item))
                 .setLauncher(launcher));
 
     }
@@ -261,8 +262,8 @@ public class EquipmentListViewActivity extends AppCompatActivity {
     }
 
     public void upsertItemInEquipments(EquipmentEntity equipment, String lastName, String newName){
-        int lastNamePos = Misc.NOT_FOUND;
-        int newNamePos = Misc.NOT_FOUND;
+        int lastNamePos = App.NOT_FOUND;
+        int newNamePos = App.NOT_FOUND;
 
         for (EquipmentEntity e : equipments) {
 
@@ -275,14 +276,14 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         }
 
         // If none of the names exists, add a new entry
-        if (newNamePos == Misc.NOT_FOUND && lastNamePos == Misc.NOT_FOUND) {
+        if (newNamePos == App.NOT_FOUND && lastNamePos == App.NOT_FOUND) {
             equipments.add(equipment);
             return;
         }
 
         // If both names already exists and are not the same entry,
         // update last entry maintaining last name;
-        if (newNamePos != Misc.NOT_FOUND && newNamePos != lastNamePos) {
+        if (newNamePos != App.NOT_FOUND && newNamePos != lastNamePos) {
             if (toast != null) toast.cancel();
             toast = Toast.makeText(getApplicationContext(),
                     getString(R.string.msgDuplicateEquipmentName),

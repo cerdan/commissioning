@@ -1,4 +1,4 @@
-package br.edu.utfpr.fillipecerdan.comissioningcontrol;
+package br.edu.utfpr.fillipecerdan.commissioningcontrol;
 
 import android.content.Context;
 

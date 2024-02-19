@@ -1,4 +1,4 @@
-package br.edu.utfpr.fillipecerdan.comissioningcontrol.utils;
+package br.edu.utfpr.fillipecerdan.commissioningcontrol.utils;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -15,10 +15,10 @@ import com.google.android.material.color.MaterialColors;
 import java.text.NumberFormat;
 import java.util.List;
 
-import br.edu.utfpr.fillipecerdan.comissioningcontrol.R;
-import br.edu.utfpr.fillipecerdan.comissioningcontrol.model.EquipmentEntity;
-import br.edu.utfpr.fillipecerdan.comissioningcontrol.model.EquipmentStatus;
-import br.edu.utfpr.fillipecerdan.comissioningcontrol.model.EquipmentType;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.R;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.EquipmentEntity;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.EquipmentStatus;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.EquipmentType;
 
 public class EquipmentAdapter extends BaseAdapter {
     private Context context;
@@ -59,7 +59,7 @@ public class EquipmentAdapter extends BaseAdapter {
     public View getView(int position, View view, ViewGroup parent) {
         EquipmentHolder holder;
 
-        context.getTheme().applyStyle(R.style.Theme_ComissioningControl,false);
+        context.getTheme().applyStyle(R.style.Theme_CommissioningControl,false);
 
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

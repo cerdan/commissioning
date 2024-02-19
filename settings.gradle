@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ComissioningControl"
+rootProject.name = "CommissioningControl"
 include ':app'

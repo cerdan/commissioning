@@ -1,6 +1,6 @@
-package br.edu.utfpr.fillipecerdan.comissioningcontrol.activity;
+package br.edu.utfpr.fillipecerdan.commissioningcontrol.activity;
 
-import static br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.ValidationHelper.isValid;
+import static br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.ValidationHelper.isValid;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,13 +19,14 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.arch.core.util.Function;
 
-import br.edu.utfpr.fillipecerdan.comissioningcontrol.R;
-import br.edu.utfpr.fillipecerdan.comissioningcontrol.model.EquipmentEntity;
-import br.edu.utfpr.fillipecerdan.comissioningcontrol.model.EquipmentStatus;
-import br.edu.utfpr.fillipecerdan.comissioningcontrol.model.EquipmentType;
-import br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.Misc;
-import br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.Startable;
-import br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.Targetable;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.R;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.EquipmentEntity;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.EquipmentStatus;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.EquipmentType;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.App;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.Misc;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.Startable;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.Targetable;
 
 public class EquipmentEditActivity extends AppCompatActivity {
     private EditText txtEquipmentTag;
@@ -52,7 +53,7 @@ public class EquipmentEditActivity extends AppCompatActivity {
 
 
         equipment = (EquipmentEntity) getIntent()
-                .getSerializableExtra(Misc.KEY_EQUIPMENT);
+                .getSerializableExtra(App.KEY_EQUIPMENT);
 
         if (equipment != null) {
             copyEquipmentToView(equipment);
@@ -103,8 +104,8 @@ public class EquipmentEditActivity extends AppCompatActivity {
 
         // Set result and finish
         setResult(Activity.RESULT_OK, (new Intent())
-                .putExtra(Misc.KEY_EQUIPMENT, equipment)
-                .putExtra(Misc.KEY_RENAME, lastName));
+                .putExtra(App.KEY_EQUIPMENT, equipment)
+                .putExtra(App.KEY_RENAME, lastName));
         finish();
     }
 

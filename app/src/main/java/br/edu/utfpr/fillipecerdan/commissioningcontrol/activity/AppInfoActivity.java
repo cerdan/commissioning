@@ -1,4 +1,4 @@
-package br.edu.utfpr.fillipecerdan.comissioningcontrol.activity;
+package br.edu.utfpr.fillipecerdan.commissioningcontrol.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -9,9 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import br.edu.utfpr.fillipecerdan.comissioningcontrol.R;
-import br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.Startable;
-import br.edu.utfpr.fillipecerdan.comissioningcontrol.utils.Targetable;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.R;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.Startable;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.Targetable;
 
 public class AppInfoActivity extends AppCompatActivity {
     @Override

@@ -133,6 +133,7 @@ public class EquipmentEditActivity extends AppCompatActivity {
     public EquipmentEntity copyViewToEquipment(){
         EquipmentEntity newEquipment = new EquipmentEntity();
 
+        newEquipment.setDesc("");
         newEquipment.setTag(txtEquipmentTag.getText().toString());
         newEquipment.setComment(txtCommissioningMessage.getText().toString());
         newEquipment.setType(EquipmentType.values()[spnEquipmentType.getSelectedItemPosition()]);

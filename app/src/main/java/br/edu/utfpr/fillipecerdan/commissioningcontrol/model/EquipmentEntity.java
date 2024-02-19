@@ -84,6 +84,7 @@ public class EquipmentEntity implements Externalizable, Comparable<EquipmentEnti
     }
 
     public EquipmentEntity(String tag, EquipmentType type, EquipmentStatus status, String comment, Boolean acceptedOutOfSpecification, Date lastChange) {
+        this.desc = "";
         this.tag = tag;
         this.comment = comment;
         this.type = type;
@@ -93,6 +94,7 @@ public class EquipmentEntity implements Externalizable, Comparable<EquipmentEnti
     }
 
     public EquipmentEntity(EquipmentEntity equipment) {
+        this.desc = equipment.desc;
         this.tag = equipment.tag;
         this.comment = equipment.comment;
         this.type = equipment.type;

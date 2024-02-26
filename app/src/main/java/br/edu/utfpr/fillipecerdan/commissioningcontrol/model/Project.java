@@ -141,8 +141,8 @@ public class Project implements Externalizable, Comparable<Project> {
     @Override
     public void readExternal(ObjectInput in) throws ClassNotFoundException, IOException {
         this.id = in.readLong();
-        this.name = in.readUTF();
         this.code = in.readUTF();
+        this.name = in.readUTF();
         this.customerName = in.readUTF();
         this.location = in.readUTF();
         startYear = in.readInt();

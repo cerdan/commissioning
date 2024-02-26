@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/menuListPrjAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="@string/lblStringAdd"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menuListPrjSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@android:drawable/ic_menu_set_as"
+        android:title="@string/lblStringSwitchView"
+        android:visible="true"
+        app:showAsAction="ifRoom">
+        <menu
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <group
+                android:id="@+id/menuGroupEqpView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:checkableBehavior="single">
+                <item
+                    android:id="@+id/menuListPrjViewProject"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:title="@string/lblStringProjects" />
+                <item
+                    android:id="@+id/menuListPrjViewEquipments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:title="@string/lblStringEquipments" />
+            </group>
+        </menu>
+    </item>
+    <item
+        android:id="@+id/menuListPrjPreferences"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:title="@string/lblStringPreferences"
+        app:showAsAction="ifRoom">
+        <menu
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <item
+                android:id="@+id/menuListPrjOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:title="@string/lblStringOrderBy">
+                <menu
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <group
+                        android:id="@+id/menuGroupListPrj"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:checkableBehavior="single">
+                        <item
+                            android:id="@+id/menuListPrjOrderDefault"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:title="@string/lblStringDefault" />
+                        <item
+                            android:id="@+id/menuListPrjCustomer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:title="@string/lblProjectCustomer" />
+                        <item
+                            android:id="@+id/menuListPrjLocation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:title="@string/lblProjectLocation" />
+                        <item
+                            android:id="@+id/menuListPrjYear"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:title="@string/lblStringMostRecent" />
+                    </group>
+                </menu>
+            </item>
+        </menu>
+    </item>
+    <item
+        android:id="@+id/menuListPrjAbout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:title="@string/lblStringAbout"
+        app:showAsAction="never" />
+</menu>

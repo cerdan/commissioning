@@ -4,14 +4,43 @@
 
 
     <item
-        android:id="@+id/menuListAdd"
+        android:id="@+id/menuListEqpAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@android:drawable/ic_menu_add"
         android:title="@string/lblStringAdd"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/menuListPreferences"
+        android:id="@+id/menuListEqpSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@android:drawable/ic_menu_set_as"
+        android:title="@string/lblStringSwitchView"
+        android:visible="true"
+        app:showAsAction="ifRoom">
+        <menu
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <group
+                android:id="@+id/menuGroupEqpView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:checkableBehavior="single">
+                <item
+                    android:id="@+id/menuListEqpViewProjects"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:title="@string/lblStringProjects" />
+                <item
+                    android:id="@+id/menuListEqpViewEquipments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:title="@string/lblStringEquipments" />
+            </group>
+        </menu>
+    </item>
+    <item
+        android:id="@+id/menuListEqpPreferences"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@android:drawable/ic_menu_preferences"
@@ -21,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <item
-                android:id="@+id/menuListOrder"
+                android:id="@+id/menuListEqpOrder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:title="@string/lblStringOrderBy">
@@ -29,32 +58,32 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <group
-                        android:id="@+id/menuGroupList"
+                        android:id="@+id/menuGroupListEqp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:checkableBehavior="single">
                         <item
-                            android:id="@+id/menuListOrderDefault"
+                            android:id="@+id/menuListEqpOrderDefault"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:title="@string/lblStringDefault" />
                         <item
-                            android:id="@+id/menuListOrderTagOnly"
+                            android:id="@+id/menuListEqpOrderTagOnly"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:title="@string/lblStringTagOnly" />
                         <item
-                            android:id="@+id/menuListOrderNOK"
+                            android:id="@+id/menuListEqpOrderNOK"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:title="@string/lblStringNOKFirst" />
                         <item
-                            android:id="@+id/menuListOrderOK"
+                            android:id="@+id/menuListEqpOrderOK"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:title="@string/lblStringOKFirst" />
                         <item
-                            android:id="@+id/menuListOrderLastChange"
+                            android:id="@+id/menuListEqpOrderLastChange"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:title="@string/lblStringMostRecent" />
@@ -64,7 +93,7 @@
         </menu>
     </item>
     <item
-        android:id="@+id/menuListAbout"
+        android:id="@+id/menuListEqpAbout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@android:drawable/ic_menu_info_details"

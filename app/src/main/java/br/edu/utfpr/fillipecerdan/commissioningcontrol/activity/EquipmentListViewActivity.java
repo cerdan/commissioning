@@ -113,7 +113,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_list_view,menu);
+        getMenuInflater().inflate(R.menu.menu_list_equipments,menu);
         return true;
     }
 
@@ -121,13 +121,15 @@ public class EquipmentListViewActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         int itemId = item.getItemId();
-        if (itemId == R.id.menuListAdd) switchToEdit(null);
-        else if (itemId == R.id.menuListAbout) switchToAbout(null);
-        else if (itemId == R.id.menuListOrderDefault) setPreferredOrder(App.PREF_ORDER_DEFAULT);
-        else if (itemId == R.id.menuListOrderTagOnly) setPreferredOrder(App.PREF_ORDER_TAG_ONLY);
-        else if (itemId == R.id.menuListOrderNOK) setPreferredOrder(App.PREF_ORDER_NOK_FIRST);
-        else if (itemId == R.id.menuListOrderOK) setPreferredOrder(App.PREF_ORDER_OK_FIRST);
-        else if (itemId == R.id.menuListOrderLastChange) setPreferredOrder(App.PREF_ORDER_LAST_CHANGE);
+        if (itemId == R.id.menuListEqpAdd) switchToEdit(null);
+        else if (itemId == R.id.menuListEqpAbout) switchToAbout(null);
+        else if (itemId == R.id.menuListEqpViewProjects) switchToProjects(null);
+        else if (itemId == R.id.menuListEqpOrderDefault) setPreferredOrder(App.PREF_ORDER_DEFAULT);
+        else if (itemId == R.id.menuListEqpOrderTagOnly) setPreferredOrder(App.PREF_ORDER_TAG_ONLY);
+        else if (itemId == R.id.menuListEqpOrderNOK) setPreferredOrder(App.PREF_ORDER_NOK_FIRST);
+        else if (itemId == R.id.menuListEqpOrderOK) setPreferredOrder(App.PREF_ORDER_OK_FIRST);
+        else if (itemId == R.id.menuListEqpOrderLastChange) setPreferredOrder(App.PREF_ORDER_LAST_CHANGE);
+        else if (itemId == R.id.menuListEqpSwitch) item.getSubMenu().findItem(R.id.menuListEqpViewEquipments).setChecked(true);
 
         item.setChecked(true);
         return true;
@@ -139,25 +141,25 @@ public class EquipmentListViewActivity extends AppCompatActivity {
 
         switch (listOrder){
             case App.PREF_ORDER_DEFAULT:
-                item = menu.findItem(R.id.menuListOrderDefault);
+                item = menu.findItem(R.id.menuListEqpOrderDefault);
                 break;
             case App.PREF_ORDER_TAG_ONLY:
-                item = menu.findItem(R.id.menuListOrderTagOnly);
+                item = menu.findItem(R.id.menuListEqpOrderTagOnly);
                 break;
             case App.PREF_ORDER_NOK_FIRST:
-                item = menu.findItem(R.id.menuListOrderNOK);
+                item = menu.findItem(R.id.menuListEqpOrderNOK);
                 break;
             case App.PREF_ORDER_OK_FIRST:
-                item = menu.findItem(R.id.menuListOrderOK);
+                item = menu.findItem(R.id.menuListEqpOrderOK);
                 break;
             case App.PREF_ORDER_LAST_CHANGE:
-                item = menu.findItem(R.id.menuListOrderLastChange);
+                item = menu.findItem(R.id.menuListEqpOrderLastChange);
                 break;
         }
 
         if (item != null) item.setChecked(true);
 
-        return super.onPrepareOptionsMenu(menu);
+        return true;//super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -254,6 +256,17 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         return result;
     }
 
+    public void finishMe(View view){
+        setResult(Activity.RESULT_CANCELED);
+        finish();
+    }
+    public static void start(@NonNull Startable starter) {
+        // Sets target if Targetable
+        if (starter instanceof Targetable)
+            ((Targetable) starter).setTarget(EquipmentEditActivity.class);
+        starter.start();
+    }
+
     public void switchToAbout(View view) {
             AppInfoActivity.start(new ActivityStarter()
                 .setContext(getApplicationContext())
@@ -265,17 +278,6 @@ public class EquipmentListViewActivity extends AppCompatActivity {
                 .setContext(getApplicationContext())
                 .setLauncher(launcher));
 
-    }
-
-    public void finishMe(View view){
-        setResult(Activity.RESULT_CANCELED);
-        finish();
-    }
-    public static void start(@NonNull Startable starter) {
-        // Sets target if Targetable
-        if (starter instanceof Targetable)
-                ((Targetable) starter).setTarget(EquipmentEditActivity.class);
-        starter.start();
     }
 
     public void switchToEditWithEquipment(Equipment item){
@@ -294,6 +296,12 @@ public class EquipmentListViewActivity extends AppCompatActivity {
                         .putExtra(App.KEY_EQUIPMENT, item))
                 .setLauncher(launcher));
 
+    }
+
+    public void switchToProjects(View view){
+        ProjectListViewActivity.start(new ActivityStarter()
+                .setContext(getApplicationContext())
+                .setLauncher(launcher));
     }
 
     public void deleteItemFromEquipments(Equipment equipment){
@@ -364,7 +372,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
     private void getPreferences(){
         SharedPreferences shared = getSharedPreferences(App.PREFERENCES, Context.MODE_PRIVATE);
 
-        listOrder = shared.getInt(App.KEY_PREF_ORDER, App.PREF_ORDER_DEFAULT);
+        listOrder = shared.getInt(App.KEY_PREF_ORDER_EQUIPMENT, App.PREF_ORDER_DEFAULT);
     }
 
     private void setPreferredOrder(int listOrder){
@@ -372,7 +380,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
 
         SharedPreferences.Editor editor = shared.edit();
 
-        editor.putInt(App.KEY_PREF_ORDER, listOrder);
+        editor.putInt(App.KEY_PREF_ORDER_EQUIPMENT, listOrder);
 
         editor.commit();
 

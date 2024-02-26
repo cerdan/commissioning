@@ -25,6 +25,7 @@
     <string name="lblStringAcceptedOutOfSpec">Aceito fora de especificação!</string>
     <string name="msgInvalidEquipmentTryAgain">Equipamento inválido!\nApague e tente novamente.</string>
     <string name="msgDuplicateEquipmentName">Novo nome já existe.\nPermanecerá com nome anterior.</string>
+    <string name="msgDuplicateProjectCode">Novo código já existe.\nPermanecerá com código anterior.</string>
     <string name="lblStringAbout">Sobre</string>
     <string name="lblStringAdd">Adicionar</string>
     <string name="lblStringSave">Salvar</string>
@@ -41,4 +42,14 @@
     <string name="lblStringOKFirst">OK em cima</string>
     <string name="lblStringMostRecent">Mais recente</string>
     <string name="lblStringSuggestFields">Sugerir campos</string>
+    <string name="lblProjectCode">Código do projeto</string>
+    <string name="lblProjectName">Nome do projeto</string>
+    <string name="lblProjectCustomer">Nome do cliente</string>
+    <string name="lblProjectLocation">Local do projeto</string>
+    <string name="lblProjectStartYear">Ano de início</string>
+    <string name="hntCustomerName">ACME Bebidas LTDA</string>
+    <string name="lblStringYearBetweenMINMAX">O ano inicial deve estar entre %d e %d</string>
+    <string name="lblStringSwitchView">Trocar para</string>
+    <string name="lblStringProjects">Projetos</string>
+    <string name="lblStringEquipments">Equipamentos</string>
 </resources>

@@ -28,6 +28,7 @@
     <string name="lblStringAcceptedOutOfSpec">Accepted out of Specification</string>
     <string name="msgInvalidEquipmentTryAgain">Invalid equipment!\nDelete it and try again.</string>
     <string name="msgDuplicateEquipmentName">New name already exists.\nLast name will be kept.</string>
+    <string name="msgDuplicateProjectCode">New code already exists.\nLast code will be kept.</string>
     <string name="lblStringAbout">About</string>
     <string name="lblStringAdd">Add</string>
     <string name="lblStringSave">Salve</string>
@@ -44,4 +45,18 @@
     <string name="lblStringOKFirst">OK top</string>
     <string name="lblStringMostRecent">Most recent</string>
     <string name="lblStringSuggestFields">Suggest fields</string>
+    <string name="lblProjectCode">Project Code</string>
+    <string name="lblProjectName">Project Name</string>
+    <string name="lblProjectCustomer">Customer Name</string>
+    <string name="lblProjectLocation">Project Location</string>
+    <string name="lblProjectStartYear">Start Year</string>
+    <string name="hntStartYear" translatable="false">2024</string>
+    <string name="hntProjectLocation" translatable="false">São Paulo/SP - BR</string>
+    <string name="hntCustomerName">ACMEBev Inc.</string>
+    <string name="hntProjectName" translatable="false">CCMX 160/5</string>
+    <string name="hntProjectCode" translatable="false">K-89XXXXXX-NNNNN</string>
+    <string name="lblStringYearBetweenMINMAX">The specified start year must be between %d and %d</string>
+    <string name="lblStringSwitchView">Switch View</string>
+    <string name="lblStringProjects">Projects</string>
+    <string name="lblStringEquipments">Equipments</string>
 </resources>

@@ -10,7 +10,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Objects;
 
-public class EquipmentEntity implements Externalizable, Comparable<EquipmentEntity> {
+public class Equipment implements Externalizable, Comparable<Equipment> {
     private String desc;
     private String tag;
     private String comment;
@@ -19,7 +19,7 @@ public class EquipmentEntity implements Externalizable, Comparable<EquipmentEnti
     private Boolean acceptedOutOfSpec;
     private Date lastChange;
 
-    public EquipmentEntity() {
+    public Equipment() {
 
     }
 
@@ -83,7 +83,7 @@ public class EquipmentEntity implements Externalizable, Comparable<EquipmentEnti
         this.lastChange = lastChange;
     }
 
-    public EquipmentEntity(String tag, EquipmentType type, EquipmentStatus status, String comment, Boolean acceptedOutOfSpecification, Date lastChange) {
+    public Equipment(String tag, EquipmentType type, EquipmentStatus status, String comment, Boolean acceptedOutOfSpecification, Date lastChange) {
         this.desc = "";
         this.tag = tag;
         this.comment = comment;
@@ -93,7 +93,7 @@ public class EquipmentEntity implements Externalizable, Comparable<EquipmentEnti
         this.lastChange = lastChange;
     }
 
-    public EquipmentEntity(EquipmentEntity equipment) {
+    public Equipment(Equipment equipment) {
         this.desc = equipment.desc;
         this.tag = equipment.tag;
         this.comment = equipment.comment;
@@ -107,7 +107,7 @@ public class EquipmentEntity implements Externalizable, Comparable<EquipmentEnti
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        EquipmentEntity equipment = (EquipmentEntity) o;
+        Equipment equipment = (Equipment) o;
         return Objects.equals(getDesc(), equipment.getDesc()) &&
                 Objects.equals(getTag(), equipment.getTag()) &&
                 Objects.equals(getComment(), equipment.getComment()) &&
@@ -136,21 +136,21 @@ public class EquipmentEntity implements Externalizable, Comparable<EquipmentEnti
     }
 
     @Override
-    public int compareTo(EquipmentEntity o) {
+    public int compareTo(Equipment o) {
         return compareByAndThenBy(BY_TYPE,BY_TAG).compare(this,o);
     }
 
-    public static final Comparator<EquipmentEntity> compareByAndThenBy(Comparator<? super EquipmentEntity> first,
-                                                          Comparator<? super EquipmentEntity> second){
-        return (Comparator<EquipmentEntity>) (o1,o2) -> {
+    public static final Comparator<Equipment> compareByAndThenBy(Comparator<? super Equipment> first,
+                                                                 Comparator<? super Equipment> second){
+        return (Comparator<Equipment>) (o1, o2) -> {
             int res = first.compare(o1,o2);
             return (res!=0) ? res : second.compare(o1,o2);
         };
     }
 
-    public static final Comparator<EquipmentEntity> BY_STATUS_NOK = new Comparator<EquipmentEntity>() {
+    public static final Comparator<Equipment> BY_STATUS_NOK = new Comparator<Equipment>() {
         @Override
-        public int compare(EquipmentEntity o1, EquipmentEntity o2) {
+        public int compare(Equipment o1, Equipment o2) {
             if (!o1.getStatus().equals(o2.getStatus())) {
                 if(o1.getStatus() == EquipmentStatus.NOK) return -1;
                 else if (o2.getStatus() == EquipmentStatus.NOK) return 1;
@@ -160,9 +160,9 @@ public class EquipmentEntity implements Externalizable, Comparable<EquipmentEnti
         }
     };
 
-    public static final Comparator<EquipmentEntity> BY_STATUS_OK = new Comparator<EquipmentEntity>() {
+    public static final Comparator<Equipment> BY_STATUS_OK = new Comparator<Equipment>() {
         @Override
-        public int compare(EquipmentEntity o1, EquipmentEntity o2) {
+        public int compare(Equipment o1, Equipment o2) {
             if (!o1.getStatus().equals(o2.getStatus())) {
                 if(o1.getStatus() == EquipmentStatus.OK) return -1;
                 else if (o2.getStatus() == EquipmentStatus.OK) return 1;
@@ -172,24 +172,24 @@ public class EquipmentEntity implements Externalizable, Comparable<EquipmentEnti
         }
     };
 
-    public static final Comparator<EquipmentEntity> BY_TAG = new Comparator<EquipmentEntity>() {
+    public static final Comparator<Equipment> BY_TAG = new Comparator<Equipment>() {
         @Override
-        public int compare(EquipmentEntity o1, EquipmentEntity o2) {
+        public int compare(Equipment o1, Equipment o2) {
             return o1.getTag().compareTo(o2.getTag());
         }
     };
 
-    public static final Comparator<EquipmentEntity> BY_TYPE = new Comparator<EquipmentEntity>() {
+    public static final Comparator<Equipment> BY_TYPE = new Comparator<Equipment>() {
         @Override
-        public int compare(EquipmentEntity o1, EquipmentEntity o2) {
+        public int compare(Equipment o1, Equipment o2) {
             return o1.getType().compareTo(o2.getType());
         }
 
     };
 
-    public static final Comparator<EquipmentEntity> BY_LAST_CHANGE = new Comparator<EquipmentEntity>() {
+    public static final Comparator<Equipment> BY_LAST_CHANGE = new Comparator<Equipment>() {
         @Override
-        public int compare(EquipmentEntity o1, EquipmentEntity o2) {
+        public int compare(Equipment o1, Equipment o2) {
             return -1 * o1.getLastChange().compareTo(o2.getLastChange()); // Reverse order (most recent first)
         }
 

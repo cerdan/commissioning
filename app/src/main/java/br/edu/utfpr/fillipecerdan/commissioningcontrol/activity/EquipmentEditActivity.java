@@ -22,7 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.arch.core.util.Function;
 
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.R;
-import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.EquipmentEntity;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.Equipment;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.EquipmentStatus;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.EquipmentType;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.App;
@@ -37,7 +37,7 @@ public class EquipmentEditActivity extends AppCompatActivity {
     private RadioGroup rdGrpEquipmentStatus;
     private CheckBox chkAcceptOutOfSpecification;
 
-    private static EquipmentEntity equipment;
+    private static Equipment equipment;
     private boolean suggestFields;
     private EquipmentType lastEquipmentType;
 
@@ -60,7 +60,7 @@ public class EquipmentEditActivity extends AppCompatActivity {
 
 
 
-        equipment = (EquipmentEntity) getIntent()
+        equipment = (Equipment) getIntent()
                 .getSerializableExtra(App.KEY_EQUIPMENT);
 
         if (equipment != null) {
@@ -68,7 +68,7 @@ public class EquipmentEditActivity extends AppCompatActivity {
             setTitle(getResources().getString(R.string.lblStringEdit));
         }
         else {
-            equipment = new EquipmentEntity();
+            equipment = new Equipment();
             setTitle(getResources().getString(R.string.lblStringAdd));
             if (this.suggestFields) spnEquipmentType.setSelection(lastEquipmentType.ordinal());
         }
@@ -105,7 +105,7 @@ public class EquipmentEditActivity extends AppCompatActivity {
 
         String lastName = equipment.getTag();
 
-        EquipmentEntity equipmentFromView = copyViewToEquipment();
+        Equipment equipmentFromView = copyViewToEquipment();
         equipmentFromView.setLastChange(equipment.getLastChange());
 
         if(equipment.equals(equipmentFromView)) {
@@ -140,7 +140,7 @@ public class EquipmentEditActivity extends AppCompatActivity {
 
     }
 
-    public void copyEquipmentToView(EquipmentEntity e){
+    public void copyEquipmentToView(Equipment e){
         txtEquipmentTag.setText(e.getTag());
         txtCommissioningMessage.setText(e.getComment());
         spnEquipmentType.setSelection(e.getType().ordinal());
@@ -148,8 +148,8 @@ public class EquipmentEditActivity extends AppCompatActivity {
         chkAcceptOutOfSpecification.setChecked(e.getAcceptedOutOfSpec());
     }
 
-    public EquipmentEntity copyViewToEquipment(){
-        EquipmentEntity newEquipment = new EquipmentEntity();
+    public Equipment copyViewToEquipment(){
+        Equipment newEquipment = new Equipment();
 
         newEquipment.setDesc("");
         newEquipment.setTag(txtEquipmentTag.getText().toString());

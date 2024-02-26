@@ -29,7 +29,7 @@ import java.util.Collections;
 import java.util.List;
 
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.R;
-import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.EquipmentEntity;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.Equipment;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.EquipmentStatus;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.EquipmentType;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.ActivityStarter;
@@ -41,7 +41,7 @@ import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.Targetable;
 
 public class EquipmentListViewActivity extends AppCompatActivity {
     private ListView listViewEquipments;
-    private final ArrayList<EquipmentEntity> equipments = new ArrayList<>();
+    private final ArrayList<Equipment> equipments = new ArrayList<>();
     private static Toast toast = null;
     private ActionMode actionMode;
     private View selectedView;
@@ -61,7 +61,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
 
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-            EquipmentEntity equipment = (EquipmentEntity) mode.getTag();
+            Equipment equipment = (Equipment) mode.getTag();
 
             int itemId = item.getItemId();
             if (itemId == R.id.menuContextListViewItemEdit) switchToEditWithEquipment(equipment);
@@ -94,7 +94,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
                         Intent resultIntent = result.getData();
                         if (resultIntent == null) return;
 
-                        EquipmentEntity resultEquipment = (EquipmentEntity) resultIntent.getSerializableExtra(App.KEY_EQUIPMENT);
+                        Equipment resultEquipment = (Equipment) resultIntent.getSerializableExtra(App.KEY_EQUIPMENT);
                         if (resultEquipment == null) return;
                         String newName = resultEquipment.getTag();
 
@@ -185,7 +185,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        EquipmentEntity item = (EquipmentEntity) listViewEquipments.getItemAtPosition(position);
+                        Equipment item = (Equipment) listViewEquipments.getItemAtPosition(position);
 
                         if (actionMode != null) return;
 
@@ -210,7 +210,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
 
                     @Override
                     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                        EquipmentEntity item = (EquipmentEntity) listViewEquipments.getItemAtPosition(position);
+                        Equipment item = (Equipment) listViewEquipments.getItemAtPosition(position);
                         switchToEditWithEquipment(item);
 
                         return true;
@@ -221,14 +221,14 @@ public class EquipmentListViewActivity extends AppCompatActivity {
 
     }
 
-    private void populateListViewWithEquipments(ListView list, List<EquipmentEntity> resource) {
+    private void populateListViewWithEquipments(ListView list, List<Equipment> resource) {
         updateListViewWithResource(null, resource);
         EquipmentAdapter equipmentAdapter = new EquipmentAdapter(this.getApplicationContext(), resource);
         list.setAdapter(equipmentAdapter);
     }
 
-    private List<EquipmentEntity> getEquipmentsFromResources() {
-        List<EquipmentEntity> result = equipments;
+    private List<Equipment> getEquipmentsFromResources() {
+        List<Equipment> result = equipments;
 
         String[] tags = getResources().getStringArray(R.array.resEquipmentTAG);
         int[] types = getResources().getIntArray(R.array.resEquipmentType);
@@ -241,7 +241,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         EquipmentStatus[] equipmentStatuses = EquipmentStatus.values(); // Get ENUM values as an array
 
         for (int i = 0; i < tags.length; i++) {
-            result.add(new EquipmentEntity(
+            result.add(new Equipment(
                     tags[i],
                     equipmentTypes[types[i]],
                     equipmentStatuses[statuses[i]],
@@ -278,7 +278,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         starter.start();
     }
 
-    public void switchToEditWithEquipment(EquipmentEntity item){
+    public void switchToEditWithEquipment(Equipment item){
         if (item.getType() == EquipmentType.INVALID) {
             if (toast != null)
                 toast.cancel(); // Cancel previous toast to show new message.
@@ -296,16 +296,16 @@ public class EquipmentListViewActivity extends AppCompatActivity {
 
     }
 
-    public void deleteItemFromEquipments(EquipmentEntity equipment){
+    public void deleteItemFromEquipments(Equipment equipment){
         equipments.remove(equipment);
         updateListViewWithResource(listViewEquipments,equipments);
     }
 
-    public void upsertItemInEquipments(EquipmentEntity equipment, String lastName, String newName){
+    public void upsertItemInEquipments(Equipment equipment, String lastName, String newName){
         int lastNamePos = App.NOT_FOUND;
         int newNamePos = App.NOT_FOUND;
 
-        for (EquipmentEntity e : equipments) {
+        for (Equipment e : equipments) {
 
             String tag = e.getTag();
             if(tag.equals(lastName)) lastNamePos = equipments.indexOf(e);
@@ -336,20 +336,20 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         equipments.set(lastNamePos, equipment);
     }
 
-    private void updateListViewWithResource(ListView listView,List<EquipmentEntity> resource) {
+    private void updateListViewWithResource(ListView listView,List<Equipment> resource) {
 
         switch (listOrder){
             case App.PREF_ORDER_TAG_ONLY:
-                Collections.sort(resource, EquipmentEntity.BY_TAG);
+                Collections.sort(resource, Equipment.BY_TAG);
                 break;
             case App.PREF_ORDER_NOK_FIRST:
-                Collections.sort(resource, EquipmentEntity.BY_STATUS_NOK);
+                Collections.sort(resource, Equipment.BY_STATUS_NOK);
                 break;
             case App.PREF_ORDER_OK_FIRST:
-                Collections.sort(resource, EquipmentEntity.BY_STATUS_OK);
+                Collections.sort(resource, Equipment.BY_STATUS_OK);
                 break;
             case App.PREF_ORDER_LAST_CHANGE:
-                Collections.sort(resource, EquipmentEntity.BY_LAST_CHANGE);
+                Collections.sort(resource, Equipment.BY_LAST_CHANGE);
                 break;
             case App.PREF_ORDER_DEFAULT:
             default:

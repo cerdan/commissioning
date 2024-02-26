@@ -16,13 +16,13 @@ import java.text.NumberFormat;
 import java.util.List;
 
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.R;
-import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.EquipmentEntity;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.Equipment;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.EquipmentStatus;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.EquipmentType;
 
 public class EquipmentAdapter extends BaseAdapter {
     private Context context;
-    private List<EquipmentEntity> equipments;
+    private List<Equipment> equipments;
     private NumberFormat numberFormat;
 
     private static class EquipmentHolder {
@@ -35,7 +35,7 @@ public class EquipmentAdapter extends BaseAdapter {
         public ImageView imgAdaptEqpIndicator;
     }
 
-    public EquipmentAdapter(Context context, List<EquipmentEntity> equipments) {
+    public EquipmentAdapter(Context context, List<Equipment> equipments) {
         super();
         this.context = context;
         this.equipments = equipments;
@@ -80,7 +80,7 @@ public class EquipmentAdapter extends BaseAdapter {
             holder = (EquipmentHolder) view.getTag();
         }
 
-        EquipmentEntity equipment = equipments.get(position);
+        Equipment equipment = equipments.get(position);
         holder.txtAdptEqpTag.setText(equipment.getTag());
         holder.txtAdptEqpType.setText(equipment.getType().toString());
         holder.txtAdptEqpStatus.setText(equipment.getStatus().toString());
@@ -95,7 +95,7 @@ public class EquipmentAdapter extends BaseAdapter {
         return view;
     }
 
-    private int getColor(EquipmentEntity equipment) {
+    private int getColor(Equipment equipment) {
         int color;
         if (equipment.getType() == EquipmentType.INVALID) {
             color = MaterialColors.getColor(context, R.attr.colorBackgroundEquipmentInvalid, Color.BLACK);

@@ -2,6 +2,7 @@ package br.edu.utfpr.fillipecerdan.commissioningcontrol.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -32,6 +33,7 @@ import br.edu.utfpr.fillipecerdan.commissioningcontrol.R;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.Project;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.ActivityStarter;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.App;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.Misc;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.ProjectAdapter;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.Startable;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.Targetable;
@@ -263,8 +265,20 @@ public class ProjectListViewActivity extends AppCompatActivity {
     }
 
     public void deleteItemFromProjects(Project project){
-        projects.remove(project);
-        updateListViewWithResource(listViewProjects,projects);
+
+        DialogInterface.OnClickListener onClickListener = (dialog, which) -> {
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    projects.remove(project);
+                    updateListViewWithResource(listViewProjects, projects);
+                    break;
+                default:
+                    break;
+            }
+        };
+
+        String msg = String.format(getString(R.string.lblStringRemoveItemConfirmationMsg), project.getName());
+        Misc.confirmAction(this, msg, onClickListener);
     }
 
 

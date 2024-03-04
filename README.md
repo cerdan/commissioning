@@ -78,7 +78,7 @@ An app to track the commissioning progress and any problems encountered.
 ## ENTREGA 06
 
 - [ ] Cadastre dados lançados pelo usuário, que tenham relação com a regra de negócio proposta para a aplicação (Nesta versão os dados serão persistidos no SQLite através do uso do Room);
-- [ ] Exiba um AlertDialog para confirmar a ação do usuário antes de excluir dados persistidos;
+- [x] Exiba um AlertDialog para confirmar a ação do usuário antes de excluir dados persistidos;
 
 
 ## PROJETO FINAL
@@ -87,7 +87,7 @@ An app to track the commissioning progress and any problems encountered.
 - [ ] Cadastre dados lançados pelo usuário, que tenham relação com a regra de negócio proposta para a aplicação (Nesta versão os dados serão persistidos no SQLite através do uso do Room);
 - [ ] Crie pelo menos uma Classe de Entidade a ser manipulada dentro da aplicação;
 - [ ] Crie pelo menos uma Activity que permita a manipulação dos dados (Inserção, Alteração e Remoção);
-- [ ] Exiba um AlertDialog para confirmar a ação do usuário antes de excluir dados persistidos; 
+- [x] Exiba um AlertDialog para confirmar a ação do usuário antes de excluir dados persistidos; 
 - [x] Crie pelo menos uma Activity que liste os itens cadastrados no banco de dados;
 - [x] Utilize pelo menos um Adapter Customizado em uma Activity que liste os itens;
 - [x] Crie uma Activity onde mostra-se as informações sobre o que faz o aplicativo, e os dados da autoria dele;

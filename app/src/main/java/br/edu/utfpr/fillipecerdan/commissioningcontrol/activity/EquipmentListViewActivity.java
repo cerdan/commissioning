@@ -2,6 +2,7 @@ package br.edu.utfpr.fillipecerdan.commissioningcontrol.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -305,8 +306,19 @@ public class EquipmentListViewActivity extends AppCompatActivity {
     }
 
     public void deleteItemFromEquipments(Equipment equipment){
-        equipments.remove(equipment);
-        updateListViewWithResource(listViewEquipments,equipments);
+        DialogInterface.OnClickListener onClickListener = (dialog, which) -> {
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    equipments.remove(equipment);
+                    updateListViewWithResource(listViewEquipments, equipments);
+                    break;
+                default:
+                    break;
+            }
+        };
+
+        String msg = String.format(getString(R.string.lblStringRemoveItemConfirmationMsg), equipment.getTag());
+        Misc.confirmAction(this, msg, onClickListener);
     }
 
     public void upsertItemInEquipments(Equipment equipment, String lastName, String newName){

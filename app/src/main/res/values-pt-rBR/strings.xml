@@ -53,4 +53,9 @@
     <string name="lblStringProjects">Projetos</string>
     <string name="lblStringEquipments">Equipamentos</string>
     <string name="lblStringListProject">Lista de Projetos</string>
+    <string name="lblStringWarningTitle">Aviso!</string>
+    <string name="lblStringConfirmationTitle">Confirme a ação.</string>
+    <string name="lblStringRemoveItemConfirmationMsg">Você está preste a deletar o item:\n\n\t%s\n\nTem certeza que deseja continuar?\n(Esta ação não pode ser desfeita)</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
 </resources>

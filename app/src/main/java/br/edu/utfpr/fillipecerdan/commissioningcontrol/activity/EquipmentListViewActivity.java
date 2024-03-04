@@ -263,7 +263,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
     public static void start(@NonNull Startable starter) {
         // Sets target if Targetable
         if (starter instanceof Targetable)
-            ((Targetable) starter).setTarget(EquipmentEditActivity.class);
+            ((Targetable) starter).setTarget(EquipmentListViewActivity.class);
         starter.start();
     }
 

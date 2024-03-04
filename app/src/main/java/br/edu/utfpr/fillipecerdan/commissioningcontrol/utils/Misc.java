@@ -34,6 +34,7 @@ public abstract class Misc {
     }
 
     public static final void log(Object msg){
+        if (msg == null) msg = "Object is Null";
         Log.w(TAG_FOR_LOG, msg.toString());
     }
 

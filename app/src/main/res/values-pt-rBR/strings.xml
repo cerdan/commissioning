@@ -52,4 +52,5 @@
     <string name="lblStringSwitchView">Trocar para</string>
     <string name="lblStringProjects">Projetos</string>
     <string name="lblStringEquipments">Equipamentos</string>
+    <string name="lblStringListProject">Lista de Projetos</string>
 </resources>

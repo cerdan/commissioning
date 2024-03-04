@@ -29,7 +29,6 @@ import java.util.Collections;
 import java.util.List;
 
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.R;
-import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.Equipment;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.Project;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.ActivityStarter;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.App;
@@ -49,7 +48,7 @@ public class ProjectListViewActivity extends AppCompatActivity {
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 
-            mode.getMenuInflater().inflate(R.menu.menu_list_equipments,menu);
+            mode.getMenuInflater().inflate(R.menu.menu_context_list_view_item,menu);
 
             return true;
         }
@@ -74,8 +73,12 @@ public class ProjectListViewActivity extends AppCompatActivity {
 
         @Override
         public void onDestroyActionMode(ActionMode mode) {
-            selectedView = null;
-            actionMode.setTag(null);
+            if(selectedView != null) {
+                selectedView.setBackgroundColor(Color.TRANSPARENT);
+                selectedView.setSelected(false);
+                selectedView = null;
+            }
+            actionMode = null;
             listViewProjects.setEnabled(true);
         }
     };
@@ -138,6 +141,8 @@ public class ProjectListViewActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_project_list);
 
+        setTitle(getResources().getString(R.string.lblStringListProject));
+
         listViewProjects = findViewById(R.id.listViewProjects);
 
         listViewProjects.setLongClickable(true);
@@ -150,7 +155,7 @@ public class ProjectListViewActivity extends AppCompatActivity {
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Equipment item = (Equipment) listViewProjects.getItemAtPosition(position);
+                        Project item = (Project) listViewProjects.getItemAtPosition(position);
 
                         if (actionMode != null) return;
 
@@ -288,7 +293,7 @@ public class ProjectListViewActivity extends AppCompatActivity {
         if (newCodePos != App.NOT_FOUND && newCodePos != lastCodePos) {
             if (toast != null) toast.cancel();
             toast = Toast.makeText(getApplicationContext(),
-                    getString(R.string.msgDuplicateEquipmentName),
+                    getString(R.string.msgDuplicateProjectCode),
                     Toast.LENGTH_SHORT);
             toast.show();
             project.setCode(oldValue);

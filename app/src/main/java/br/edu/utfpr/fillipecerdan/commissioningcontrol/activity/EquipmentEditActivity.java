@@ -103,6 +103,7 @@ public class EquipmentEditActivity extends AppCompatActivity {
 
         Equipment equipmentFromView = copyViewToEquipment();
         equipmentFromView.setLastChange(equipment.getLastChange());
+        equipmentFromView.setId(equipment.getId());
 
         if(equipment.equals(equipmentFromView)) {
             finishMe(null);
@@ -162,9 +163,7 @@ public class EquipmentEditActivity extends AppCompatActivity {
     }
 
     public boolean validateEquipmentAction() {
-        Function<String,String> createMsg = (input)->{
-            return String.format(getString(R.string.msgFieldRequired), input);
-        };
+        Function<String,String> createMsg = (input)->String.format(getString(R.string.msgFieldRequired), input);
 
         // Validate Equipment TAG
         if (!isValid(txtEquipmentTag,

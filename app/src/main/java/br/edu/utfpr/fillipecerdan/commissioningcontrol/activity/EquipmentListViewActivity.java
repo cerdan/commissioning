@@ -33,6 +33,8 @@ import br.edu.utfpr.fillipecerdan.commissioningcontrol.R;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.Equipment;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.EquipmentStatus;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.EquipmentType;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.persistence.AppDatabase;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.persistence.EquipmentDAO;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.ActivityStarter;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.App;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.EquipmentAdapter;
@@ -42,7 +44,7 @@ import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.Targetable;
 
 public class EquipmentListViewActivity extends AppCompatActivity {
     private ListView listViewEquipments;
-    private final ArrayList<Equipment> equipments = new ArrayList<>();
+    private final List<Equipment> equipments = new ArrayList<>();
     private static Toast toast = null;
     private ActionMode actionMode;
     private View selectedView;
@@ -105,8 +107,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
                         upsertItemInEquipments(resultEquipment,lastName,newName);
 
                         // Update listView
-                        updateListViewWithResource(listViewEquipments,equipments);
-
+                        updateListViewWithResource(listViewEquipments,getEquipmentsFromDB());
                     }
 
                 }
@@ -178,7 +179,9 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         listViewEquipments.setLongClickable(true);
 
         //Todo: Remove comment to add items to list
-        getEquipmentsFromResources();
+        //getEquipmentsFromResources();
+
+        updateLocalEquipmentsWith(getEquipmentsFromDB());
 
         populateListViewWithEquipments(listViewEquipments, equipments);
 
@@ -230,9 +233,12 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         list.setAdapter(equipmentAdapter);
     }
 
-    private List<Equipment> getEquipmentsFromResources() {
-        List<Equipment> result = equipments;
+    private List<Equipment> getEquipmentsFromDB(){
+        EquipmentDAO dao = AppDatabase.getInstance().equipmentDAO();
+        return dao.findAll();
+    }
 
+    private void getEquipmentsFromResources() {
         String[] tags = getResources().getStringArray(R.array.resEquipmentTAG);
         int[] types = getResources().getIntArray(R.array.resEquipmentType);
         int[] statuses = getResources().getIntArray(R.array.resEquipmentStatus);
@@ -243,18 +249,25 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         EquipmentType[] equipmentTypes = EquipmentType.values();  // Get ENUM values as an array
         EquipmentStatus[] equipmentStatuses = EquipmentStatus.values(); // Get ENUM values as an array
 
+        EquipmentDAO dao = AppDatabase.getInstance().equipmentDAO();
+
         for (int i = 0; i < tags.length; i++) {
-            result.add(new Equipment(
-                    tags[i],
-                    equipmentTypes[types[i]],
-                    equipmentStatuses[statuses[i]],
-                    comments[i],
-                    acceptances[i] == 1,
-                    Misc.parseDate(lastChange[i])
-            ));
+            Equipment eqp = dao.findByTag(tags[i]);
+
+            if (eqp == null){
+                eqp = new Equipment(
+                        tags[i],
+                        equipmentTypes[types[i]],
+                        equipmentStatuses[statuses[i]],
+                        comments[i],
+                        acceptances[i] == 1,
+                        Misc.parseDate(lastChange[i])
+                );
+                dao.insert(eqp);
+            }
+
         }
 
-        return result;
     }
 
     public void finishMe(View view){
@@ -309,6 +322,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         DialogInterface.OnClickListener onClickListener = (dialog, which) -> {
             switch (which) {
                 case DialogInterface.BUTTON_POSITIVE:
+                    AppDatabase.getInstance().equipmentDAO().delete(equipment);
                     equipments.remove(equipment);
                     updateListViewWithResource(listViewEquipments, equipments);
                     break;
@@ -321,39 +335,25 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         Misc.confirmAction(this, msg, onClickListener);
     }
 
-    public void upsertItemInEquipments(Equipment equipment, String lastName, String newName){
-        int lastNamePos = App.NOT_FOUND;
-        int newNamePos = App.NOT_FOUND;
+    public void upsertItemInEquipments(Equipment equipment, String lastName, String newName) {
+        EquipmentDAO dao = AppDatabase.getInstance().equipmentDAO();
 
-        for (Equipment e : equipments) {
-
-            String tag = e.getTag();
-            if(tag.equals(lastName)) lastNamePos = equipments.indexOf(e);
-            if(tag.equals(newName)) newNamePos = equipments.indexOf(e);
-
-            if (lastNamePos != -1 && newNamePos != -1) break;
-
-        }
-
-        // If none of the names exists, add a new entry
-        if (newNamePos == App.NOT_FOUND && lastNamePos == App.NOT_FOUND) {
-            equipments.add(equipment);
-            return;
-        }
-
-        // If both names already exists and are not the same entry,
-        // update last entry maintaining last name;
-        if (newNamePos != App.NOT_FOUND && newNamePos != lastNamePos) {
-            if (toast != null) toast.cancel();
-            toast = Toast.makeText(getApplicationContext(),
-                    getString(R.string.msgDuplicateEquipmentName),
-                    Toast.LENGTH_SHORT);
-            toast.show();
-            equipment.setTag(lastName);
+        if (lastName.trim().length() != 0 && !newName.equals(lastName)) {
+            // If last name exist and names are not the same entry,
+            // update last entry maintaining last name;
+            Equipment eqpNewName = dao.findByTag(newName);
+            if (eqpNewName != null) {
+                if (toast != null) toast.cancel();
+                toast = Toast.makeText(getApplicationContext(),
+                        getString(R.string.msgDuplicateEquipmentName),
+                        Toast.LENGTH_SHORT);
+                toast.show();
+                equipment.setTag(lastName);
+            }
         }
 
         // Update entry
-        equipments.set(lastNamePos, equipment);
+        dao.upsert(equipment);
     }
 
     private void updateListViewWithResource(ListView listView,List<Equipment> resource) {
@@ -377,6 +377,8 @@ public class EquipmentListViewActivity extends AppCompatActivity {
                 break;
         }
 
+        updateLocalEquipmentsWith(resource);
+
         if (listView != null) ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
 
     }
@@ -399,6 +401,14 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         this.listOrder = listOrder;
 
         updateListViewWithResource(listViewEquipments, equipments);
+
+    }
+
+    private void updateLocalEquipmentsWith(List<Equipment> resource){
+        if(resource.equals(equipments)) return;
+
+        equipments.clear();
+        equipments.addAll(resource);
 
     }
 }

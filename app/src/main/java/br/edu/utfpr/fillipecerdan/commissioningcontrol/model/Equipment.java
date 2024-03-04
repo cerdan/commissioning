@@ -1,6 +1,9 @@
 package br.edu.utfpr.fillipecerdan.commissioningcontrol.model;
 
 import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -10,17 +13,33 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Objects;
 
+@Entity(indices = {@Index(value = {"tag"}, unique = true)})
 public class Equipment implements Externalizable, Comparable<Equipment> {
+    @PrimaryKey(autoGenerate = true)
+    private long id;
+
+    private long projectId;
     private String desc;
+    @NonNull
     private String tag;
     private String comment;
+    @NonNull
     private EquipmentType type;
+    @NonNull
     private EquipmentStatus status;
     private Boolean acceptedOutOfSpec;
+    @NonNull
     private Date lastChange;
 
     public Equipment() {
 
+    }
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getDesc() {
@@ -108,7 +127,8 @@ public class Equipment implements Externalizable, Comparable<Equipment> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Equipment equipment = (Equipment) o;
-        return Objects.equals(getDesc(), equipment.getDesc()) &&
+        return getId() == equipment.getId() &&
+                Objects.equals(getDesc(), equipment.getDesc()) &&
                 Objects.equals(getTag(), equipment.getTag()) &&
                 Objects.equals(getComment(), equipment.getComment()) &&
                 getType() == equipment.getType() &&
@@ -119,7 +139,8 @@ public class Equipment implements Externalizable, Comparable<Equipment> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getDesc(),
+        return Objects.hash(getId(),
+                getDesc(),
                 getTag(),
                 getComment(),
                 getType(),
@@ -131,8 +152,8 @@ public class Equipment implements Externalizable, Comparable<Equipment> {
     @NonNull
     @Override
     public String toString() {
-        return String.format("tag = %s, type = %s, status = %s, acceptedOoS = %s, lastChange = %s"
-                , tag, type, status, acceptedOutOfSpec, lastChange);
+        return String.format("id=%s, tag = %s, type = %s, status = %s, acceptedOoS = %s, lastChange = %s",
+                id, tag, type, status, acceptedOutOfSpec, lastChange);
     }
 
     @Override
@@ -196,6 +217,7 @@ public class Equipment implements Externalizable, Comparable<Equipment> {
     };
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeLong(id);
         out.writeUTF((desc!=null)?desc:"");
         out.writeUTF((tag!=null)?tag:"");
         out.writeUTF((comment!=null)?comment:"");
@@ -208,6 +230,7 @@ public class Equipment implements Externalizable, Comparable<Equipment> {
 
     @Override
     public void readExternal(ObjectInput in) throws ClassNotFoundException, IOException {
+        id = in.readLong();
         desc = in.readUTF();
         tag = in.readUTF();
         comment = in.readUTF();
@@ -216,4 +239,13 @@ public class Equipment implements Externalizable, Comparable<Equipment> {
         acceptedOutOfSpec = in.readBoolean();
         lastChange = (Date) in.readObject();
     }
+
+    public long getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(long projectId) {
+        this.projectId = projectId;
+    }
+
 }

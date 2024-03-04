@@ -77,7 +77,8 @@ An app to track the commissioning progress and any problems encountered.
 
 ## ENTREGA 06
 
-
+- [ ] Cadastre dados lançados pelo usuário, que tenham relação com a regra de negócio proposta para a aplicação (Nesta versão os dados serão persistidos no SQLite através do uso do Room);
+- [ ] Exiba um AlertDialog para confirmar a ação do usuário antes de excluir dados persistidos;
 
 
 ## PROJETO FINAL

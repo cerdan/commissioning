@@ -15,10 +15,12 @@
         tools:targetApi="31" >
         <activity
             android:name=".activity.ProjectEditActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".activity.ProjectListViewActivity" />
         <activity
             android:name=".activity.ProjectListViewActivity"
-            android:exported="false" />
+            android:exported="false"/>
+
         <activity
             android:name=".activity.AppInfoActivity"
             android:exported="false"

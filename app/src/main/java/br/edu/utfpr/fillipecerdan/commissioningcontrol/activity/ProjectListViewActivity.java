@@ -31,6 +31,8 @@ import java.util.List;
 
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.R;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.Project;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.persistence.AppDatabase;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.persistence.ProjectDAO;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.ActivityStarter;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.App;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.Misc;
@@ -40,7 +42,7 @@ import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.Targetable;
 
 public class ProjectListViewActivity extends AppCompatActivity {
     private ListView listViewProjects;
-    private final ArrayList<Project> projects = new ArrayList<>();
+    private final List<Project> projects = new ArrayList<>();
     private static Toast toast = null;
     private ActionMode actionMode;
     private View selectedView;
@@ -149,6 +151,8 @@ public class ProjectListViewActivity extends AppCompatActivity {
 
         listViewProjects.setLongClickable(true);
 
+        updateLocalProjectsWith(getProjectsFromDB());
+
         populateListViewWithResources(listViewProjects, projects);
 
         listViewProjects.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -193,6 +197,11 @@ public class ProjectListViewActivity extends AppCompatActivity {
 
     }
 
+    private List<Project> getProjectsFromDB() {
+        ProjectDAO dao = AppDatabase.getInstance().projectDAO();
+        return dao.findAll();
+    }
+
     private void populateListViewWithResources(ListView list, List<Project> resource) {
         updateListViewWithResource(null, resource);
         ProjectAdapter projectAdapter = new ProjectAdapter(this.getApplicationContext(), resource);
@@ -213,14 +222,14 @@ public class ProjectListViewActivity extends AppCompatActivity {
                         Project resultProject = (Project) resultIntent.getSerializableExtra(App.KEY_PROJECT);
                         if (resultProject == null) return;
 
-                        String newCode = resultProject.getName();
+                        String newCode = resultProject.getCode();
                         String oldCode = resultIntent.getStringExtra(App.KEY_RENAME);
                         if (oldCode == null) oldCode = newCode;
 
                         upsertItemInProjects(resultProject, oldCode, newCode);
 
                         // Update listView
-                        updateListViewWithResource(listViewProjects,projects);
+                        updateListViewWithResource(listViewProjects,getProjectsFromDB());
                     }
                 }
             });
@@ -269,6 +278,7 @@ public class ProjectListViewActivity extends AppCompatActivity {
         DialogInterface.OnClickListener onClickListener = (dialog, which) -> {
             switch (which) {
                 case DialogInterface.BUTTON_POSITIVE:
+                    AppDatabase.getInstance().projectDAO().delete(project);
                     projects.remove(project);
                     updateListViewWithResource(listViewProjects, projects);
                     break;
@@ -277,44 +287,30 @@ public class ProjectListViewActivity extends AppCompatActivity {
             }
         };
 
-        String msg = String.format(getString(R.string.lblStringRemoveItemConfirmationMsg), project.getName());
+        String msg = String.format(getString(R.string.lblStringRemoveItemConfirmationMsg), project.getCode());
         Misc.confirmAction(this, msg, onClickListener);
     }
 
 
     public void upsertItemInProjects(Project project, String oldValue, String newValue){
-        int lastCodePos = App.NOT_FOUND;
-        int newCodePos = App.NOT_FOUND;
+        ProjectDAO dao = AppDatabase.getInstance().projectDAO();
 
-        for (Project e : projects) {
-
-            String tag = e.getCode();
-            if(tag.equals(oldValue)) lastCodePos = projects.indexOf(e);
-            if(tag.equals(newValue)) newCodePos = projects.indexOf(e);
-
-            if (lastCodePos != -1 && newCodePos != -1) break;
-
-        }
-
-        // If none of the names exists, add a new entry
-        if (newCodePos == App.NOT_FOUND && lastCodePos == App.NOT_FOUND) {
-            projects.add(project);
-            return;
-        }
-
-        // If both names already exists and are not the same entry,
-        // update last entry maintaining last name;
-        if (newCodePos != App.NOT_FOUND && newCodePos != lastCodePos) {
-            if (toast != null) toast.cancel();
-            toast = Toast.makeText(getApplicationContext(),
-                    getString(R.string.msgDuplicateProjectCode),
-                    Toast.LENGTH_SHORT);
-            toast.show();
-            project.setCode(oldValue);
+        if (oldValue.trim().length() != 0 && !newValue.equals(oldValue)) {
+            // If last code exist and codes are not the same entry,
+            // update last entry maintaining last code;
+            List<Project> results = dao.findByCode(newValue);
+            if (results.size() > 0) {
+                if (toast != null) toast.cancel();
+                toast = Toast.makeText(getApplicationContext(),
+                        getString(R.string.msgDuplicateEquipmentName),
+                        Toast.LENGTH_SHORT);
+                toast.show();
+                project.setCode(oldValue);
+            }
         }
 
         // Update entry
-        projects.set(lastCodePos, project);
+        dao.upsert(project);
     }
 
     private void updateListViewWithResource(ListView listView, List<Project> resource) {
@@ -334,6 +330,8 @@ public class ProjectListViewActivity extends AppCompatActivity {
                 Collections.sort(resource);
                 break;
         }
+
+        updateLocalProjectsWith(resource);
 
         if (listView != null) ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
 
@@ -357,5 +355,12 @@ public class ProjectListViewActivity extends AppCompatActivity {
 
         updateListViewWithResource(listViewProjects, projects);
 
+    }
+
+    private void updateLocalProjectsWith(List<Project> resources){
+        if (resources.equals(projects)) return;
+
+        projects.clear();
+        projects.addAll(resources);
     }
 }

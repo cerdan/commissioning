@@ -85,6 +85,7 @@ public class ProjectEditActivity extends AppCompatActivity {
         String lastCode = project.getCode();
 
         Project projectFromView = copyFromView();
+        projectFromView.setId(project.getId());
 
         if(project.equals(projectFromView)) {
             finishMe(null);
@@ -136,9 +137,7 @@ public class ProjectEditActivity extends AppCompatActivity {
     }
 
     private boolean validateFields(){
-        Function<String,String> createMsg = (input)->{
-            return String.format(getString(R.string.msgFieldRequired), input);
-        };
+        Function<String,String> createMsg = (input)->String.format(getString(R.string.msgFieldRequired), input);
 
         // Validate Project Code
         if (!isValid(txtProjectCode,

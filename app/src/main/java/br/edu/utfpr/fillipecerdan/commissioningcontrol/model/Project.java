@@ -1,21 +1,31 @@
 package br.edu.utfpr.fillipecerdan.commissioningcontrol.model;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Objects;
 
+@Entity
 public class Project implements Externalizable, Comparable<Project> {
+    @PrimaryKey(autoGenerate = true)
     private long id;
+    @NonNull
     private String code = "";
+    @NonNull
     private String name = "";
+    @NonNull
     private String customerName = "";
+    @NonNull
     private String location = "";
+    @NonNull
     private int startYear;
-    private List<Equipment> equipmentList;
+    private /*List<Equipment>*/ long equipmentList;
 
     public long getId() {
         return id;
@@ -57,7 +67,7 @@ public class Project implements Externalizable, Comparable<Project> {
         this.startYear = startYear;
     }
 
-    public List<Equipment> getEquipmentList() {
+    public /*List<Equipment>*/ long getEquipmentList() {
         return equipmentList;
     }
 
@@ -69,7 +79,7 @@ public class Project implements Externalizable, Comparable<Project> {
         this.location = location;
     }
 
-    public void setEquipmentList(List<Equipment> equipmentList) {
+    public void setEquipmentList(/*List<Equipment>*/long equipmentList) {
         this.equipmentList = equipmentList;
     }
 
@@ -145,6 +155,6 @@ public class Project implements Externalizable, Comparable<Project> {
         this.name = in.readUTF();
         this.customerName = in.readUTF();
         this.location = in.readUTF();
-        startYear = in.readInt();
+        this.startYear = in.readInt();
     }
 }

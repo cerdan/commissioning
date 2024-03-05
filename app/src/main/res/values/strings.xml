@@ -27,8 +27,8 @@
     <string name="msgEquipmentClicked">Equipment %s was clicked.\n\nModified on\n%s</string>
     <string name="lblStringAcceptedOutOfSpec">Accepted out of Specification</string>
     <string name="msgInvalidEquipmentTryAgain">Invalid equipment!\nDelete it and try again.</string>
-    <string name="msgDuplicateEquipmentName">New name already exists.\nLast name will be kept.</string>
-    <string name="msgDuplicateProjectCode">New code already exists.\nLast code will be kept.</string>
+    <string name="msgDuplicateEquipmentName">Name already exists.\nTry another name or change the other item first.</string>
+    <string name="msgDuplicateProjectCode">Code already exists.\nTry another code or change the other item first.</string>
     <string name="lblStringAbout">About</string>
     <string name="lblStringAdd">Add</string>
     <string name="lblStringSave">Salve</string>
@@ -65,4 +65,5 @@
     <string name="lblStringRemoveItemConfirmationMsg">You are about to delete the item:\n\n\t%s\n\nAre you sure you want to proceed?\n(This action cannot be undone.)</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="msgNoChanges">No changes were made to the item.\n\nYou can try again or use the menu above to return.</string>
 </resources>

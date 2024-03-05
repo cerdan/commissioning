@@ -3,7 +3,6 @@ package br.edu.utfpr.fillipecerdan.commissioningcontrol.activity;
 import static br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.ValidationHelper.isValid;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,8 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.arch.core.util.Function;
 
+import java.util.List;
+
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.R;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.Project;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.persistence.AppDatabase;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.persistence.ProjectDAO;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.App;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.Misc;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.Startable;
@@ -31,6 +34,9 @@ public class ProjectEditActivity extends AppCompatActivity {
     private EditText txtProjectCustomer;
     private EditText txtProjectLocation;
     private EditText txtProjectStartYear;
+
+    private Toast toast;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_edit,menu);
@@ -82,24 +88,10 @@ public class ProjectEditActivity extends AppCompatActivity {
     public void save(View view) {
         if (!validateFields()) return;
 
-        String lastCode = project.getCode();
-
-        Project projectFromView = copyFromView();
-        projectFromView.setId(project.getId());
-
-        if(project.equals(projectFromView)) {
-            finishMe(null);
-            return;
-        };
-
-        project = projectFromView;
-
-        Toast.makeText(this, getString(R.string.msgEquipmentSaved), Toast.LENGTH_SHORT).show();
+        if(!upsertItem()) return;
 
         // Set result and finish
-        setResult(Activity.RESULT_OK, (new Intent())
-                .putExtra(App.KEY_PROJECT, project)
-                .putExtra(App.KEY_RENAME, lastCode));
+        setResult(Activity.RESULT_OK);
         finish();
     }
 
@@ -112,7 +104,7 @@ public class ProjectEditActivity extends AppCompatActivity {
         txtProjectCode.requestFocus();
 
         // Display toast
-        Toast.makeText(this, R.string.msgFieldsCleared, Toast.LENGTH_SHORT).show();
+        showToast(R.string.msgFieldsCleared);
 
     }
 
@@ -165,12 +157,15 @@ public class ProjectEditActivity extends AppCompatActivity {
                 createMsg.apply(getString(R.string.lblProjectCode))))
             return false;
 
-        int startYear = Integer.parseInt(txtProjectStartYear.getText().toString());
+            int startYear;
+            try {
+                startYear = Integer.parseInt(txtProjectStartYear.getText().toString());
+            }catch (NumberFormatException e){
+                startYear = 0;
+            }
+
         if (startYear < MIN_YEAR || startYear > MAX_YEAR){
-            Toast.makeText(getApplicationContext(),
-                    String.format(getString(R.string.lblStringYearBetweenMINMAX), MIN_YEAR, MAX_YEAR),
-                    Toast.LENGTH_SHORT)
-                    .show();
+            showToast(String.format(getString(R.string.lblStringYearBetweenMINMAX), MIN_YEAR, MAX_YEAR));
             txtProjectStartYear.requestFocus();
             return false;
         }
@@ -190,5 +185,58 @@ public class ProjectEditActivity extends AppCompatActivity {
         starter.start();
     }
 
+    private boolean upsertItem(){
+        ProjectDAO dao = AppDatabase.getInstance().projectDAO();
 
+        String oldValue = project.getCode();
+
+        Project projectFromView = copyFromView();
+        projectFromView.setId(project.getId());
+
+        if(project.equals(projectFromView)) {
+            showToast(R.string.msgNoChanges);
+            return false;
+        }
+
+        project = projectFromView;
+
+        String newValue = project.getCode();
+        if (!newValue.equals(oldValue)) {
+            // If code has changed, check duplicate
+            List<Project> results = dao.findByCode(newValue);
+            if (results.size() > 0) {
+                showToast(R.string.msgDuplicateProjectCode);
+
+                project.setCode(oldValue);
+                txtProjectCode.requestFocus();
+                if(oldValue.trim().length() > 0){
+                    txtProjectCode.setText(oldValue);
+                    txtProjectCode.setSelection(oldValue.length());
+                }
+                return false;
+            }
+        }
+
+        // Update entry
+        dao.upsert(project);
+
+        showToast(R.string.msgEquipmentSaved);
+
+        return true;
+    }
+
+    private void showToast(int resId){
+        if (toast != null) toast.cancel();
+        toast = Toast.makeText(this,
+                resId,
+                Toast.LENGTH_SHORT);
+        toast.show();
+    }
+    private void showToast(String msg){
+        if (toast != null) toast.cancel();
+        toast = Toast.makeText(this,
+                msg,
+                Toast.LENGTH_SHORT);
+        toast.show();
+    }
 }

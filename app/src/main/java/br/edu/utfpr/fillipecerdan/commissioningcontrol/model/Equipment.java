@@ -19,10 +19,10 @@ public class Equipment implements Externalizable, Comparable<Equipment> {
     private long id;
 
     private long projectId;
-    private String desc;
+    private String desc = "";
     @NonNull
-    private String tag;
-    private String comment;
+    private String tag = "";
+    private String comment = "";
     @NonNull
     private EquipmentType type;
     @NonNull

@@ -213,21 +213,7 @@ public class ProjectListViewActivity extends AppCompatActivity {
             new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
-
                     if(result.getResultCode() == Activity.RESULT_OK){
-
-                        Intent resultIntent = result.getData();
-                        if (resultIntent == null) return;
-
-                        Project resultProject = (Project) resultIntent.getSerializableExtra(App.KEY_PROJECT);
-                        if (resultProject == null) return;
-
-                        String newCode = resultProject.getCode();
-                        String oldCode = resultIntent.getStringExtra(App.KEY_RENAME);
-                        if (oldCode == null) oldCode = newCode;
-
-                        upsertItemInProjects(resultProject, oldCode, newCode);
-
                         // Update listView
                         updateListViewWithResource(listViewProjects,getProjectsFromDB());
                     }
@@ -291,28 +277,6 @@ public class ProjectListViewActivity extends AppCompatActivity {
         Misc.confirmAction(this, msg, onClickListener);
     }
 
-
-    public void upsertItemInProjects(Project project, String oldValue, String newValue){
-        ProjectDAO dao = AppDatabase.getInstance().projectDAO();
-
-        if (oldValue.trim().length() != 0 && !newValue.equals(oldValue)) {
-            // If last code exist and codes are not the same entry,
-            // update last entry maintaining last code;
-            List<Project> results = dao.findByCode(newValue);
-            if (results.size() > 0) {
-                if (toast != null) toast.cancel();
-                toast = Toast.makeText(getApplicationContext(),
-                        getString(R.string.msgDuplicateEquipmentName),
-                        Toast.LENGTH_SHORT);
-                toast.show();
-                project.setCode(oldValue);
-            }
-        }
-
-        // Update entry
-        dao.upsert(project);
-    }
-
     private void updateListViewWithResource(ListView listView, List<Project> resource) {
 
         switch (listOrder){
@@ -349,7 +313,7 @@ public class ProjectListViewActivity extends AppCompatActivity {
 
         editor.putInt(App.KEY_PREF_ORDER_PROJECT, listOrder);
 
-        editor.commit();
+        editor.apply();
 
         this.listOrder = listOrder;
 

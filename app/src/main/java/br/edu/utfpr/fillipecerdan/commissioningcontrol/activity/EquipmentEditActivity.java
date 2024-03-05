@@ -4,7 +4,6 @@ import static br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.ValidationHe
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
@@ -24,6 +23,8 @@ import br.edu.utfpr.fillipecerdan.commissioningcontrol.R;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.Equipment;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.EquipmentStatus;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.EquipmentType;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.persistence.AppDatabase;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.persistence.EquipmentDAO;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.App;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.Misc;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.Startable;
@@ -39,7 +40,7 @@ public class EquipmentEditActivity extends AppCompatActivity {
     private static Equipment equipment;
     private boolean suggestFields;
     private EquipmentType lastEquipmentType;
-
+    private Toast toast;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,27 +100,10 @@ public class EquipmentEditActivity extends AppCompatActivity {
     public void saveEquipment(View view) {
         if (!validateEquipmentAction()) return;
 
-        String lastName = equipment.getTag();
-
-        Equipment equipmentFromView = copyViewToEquipment();
-        equipmentFromView.setLastChange(equipment.getLastChange());
-        equipmentFromView.setId(equipment.getId());
-
-        if(equipment.equals(equipmentFromView)) {
-            finishMe(null);
-            return;
-        };
-
-        equipment = equipmentFromView;
-
-        equipment.setLastChange();
-
-        Toast.makeText(this, getString(R.string.msgEquipmentSaved), Toast.LENGTH_SHORT).show();
+        if (!upsertItem()) return;
 
         // Set result and finish
-        setResult(Activity.RESULT_OK, (new Intent())
-                .putExtra(App.KEY_EQUIPMENT, equipment)
-                .putExtra(App.KEY_RENAME, lastName));
+        setResult(Activity.RESULT_OK);
         if(suggestFields) setPreferredType();
         finish();
     }
@@ -133,7 +117,7 @@ public class EquipmentEditActivity extends AppCompatActivity {
         txtEquipmentTag.requestFocus();
 
         // Display toast
-        Toast.makeText(this, R.string.msgFieldsCleared, Toast.LENGTH_SHORT).show();
+       showToast(R.string.msgFieldsCleared);
 
     }
 
@@ -178,7 +162,7 @@ public class EquipmentEditActivity extends AppCompatActivity {
         // Validate Commissioning message if equipment status is not ok
         if (rdGrpEquipmentStatus.getCheckedRadioButtonId() == R.id.radioEquipmentNOK &&
                 !isValid(txtCommissioningMessage)) {
-            Toast.makeText(this, createMsg.apply(getString(R.string.lblCommissioningMessage)), Toast.LENGTH_SHORT).show();
+            showToast(createMsg.apply(getString(R.string.lblCommissioningMessage)));
             return false;
         }
 
@@ -214,7 +198,7 @@ public class EquipmentEditActivity extends AppCompatActivity {
 
         editor.putBoolean(App.KEY_PREF_SUGGEST_TYPE, suggestFields);
 
-        editor.commit();
+        editor.apply();
 
         this.suggestFields = suggestFields;
 
@@ -229,8 +213,67 @@ public class EquipmentEditActivity extends AppCompatActivity {
 
         editor.putInt(App.KEY_PREF_LAST_TYPE, position);
 
-        editor.commit();
+        editor.apply();
 
         this.lastEquipmentType = EquipmentType.values()[position];
+    }
+
+    public boolean upsertItem() {
+        EquipmentDAO dao = AppDatabase.getInstance().equipmentDAO();
+
+        String oldValue = equipment.getTag();
+
+        Equipment equipmentFromView = copyViewToEquipment();
+        equipmentFromView.setLastChange(equipment.getLastChange());
+        equipmentFromView.setId(equipment.getId());
+
+        if(equipment.equals(equipmentFromView)) {
+            showToast(R.string.msgNoChanges);
+            return false;
+        }
+
+        equipment = equipmentFromView;
+
+        String newValue = equipment.getTag();
+        if (!newValue.equals(oldValue)) {
+            // If tag has changed, check for duplicates
+            Equipment eqpNewName = dao.findByTag(newValue);
+            if (eqpNewName != null) {
+                showToast(R.string.msgDuplicateEquipmentName);
+
+                equipment.setTag(oldValue);
+                txtEquipmentTag.requestFocus();
+                Misc.log(oldValue);
+                if(oldValue.trim().length() > 0){
+                    txtEquipmentTag.setText(oldValue);
+                    txtEquipmentTag.setSelection(oldValue.length());
+                }
+                return false;
+            }
+        }
+
+        equipment.setLastChange();
+
+        // Update entry
+        dao.upsert(equipment);
+
+        showToast(R.string.msgEquipmentSaved);
+
+        return true;
+    }
+
+    private void showToast(int resId){
+        if (toast != null) toast.cancel();
+        toast = Toast.makeText(getApplicationContext(),
+                resId,
+                Toast.LENGTH_SHORT);
+        toast.show();
+    }
+    private void showToast(String msg){
+        if (toast != null) toast.cancel();
+        toast = Toast.makeText(getApplicationContext(),
+                msg,
+                Toast.LENGTH_SHORT);
+        toast.show();
     }
 }

@@ -24,8 +24,8 @@
     <string name="msgEquipmentClicked">Equipamento %s foi clicado.\n\nModificiado em\n%s</string>
     <string name="lblStringAcceptedOutOfSpec">Aceito fora de especificação!</string>
     <string name="msgInvalidEquipmentTryAgain">Equipamento inválido!\nApague e tente novamente.</string>
-    <string name="msgDuplicateEquipmentName">Novo nome já existe.\nPermanecerá com nome anterior.</string>
-    <string name="msgDuplicateProjectCode">Novo código já existe.\nPermanecerá com código anterior.</string>
+    <string name="msgDuplicateEquipmentName">Nome já existe.\nTente outro nome ou troque o outro item primeiro.</string>
+    <string name="msgDuplicateProjectCode">Código já existe.\nTente outro código ou troque o outro item primeiro.</string>
     <string name="lblStringAbout">Sobre</string>
     <string name="lblStringAdd">Adicionar</string>
     <string name="lblStringSave">Salvar</string>
@@ -58,4 +58,5 @@
     <string name="lblStringRemoveItemConfirmationMsg">Você está preste a deletar o item:\n\n\t%s\n\nTem certeza que deseja continuar?\n(Esta ação não pode ser desfeita)</string>
     <string name="yes">Sim</string>
     <string name="no">Não</string>
+    <string name="msgNoChanges">Nenhuma modificação foi realizada no item.\n\nTente novamente ou use o menu acima para retornar.</string>
 </resources>

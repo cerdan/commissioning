@@ -94,18 +94,6 @@ public class EquipmentListViewActivity extends AppCompatActivity {
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     if(result.getResultCode() == Activity.RESULT_OK){
-                        Intent resultIntent = result.getData();
-                        if (resultIntent == null) return;
-
-                        Equipment resultEquipment = (Equipment) resultIntent.getSerializableExtra(App.KEY_EQUIPMENT);
-                        if (resultEquipment == null) return;
-                        String newName = resultEquipment.getTag();
-
-                        String lastName = resultIntent.getStringExtra(App.KEY_RENAME);
-                        if (lastName == null) lastName = newName;
-
-                        upsertItemInEquipments(resultEquipment,lastName,newName);
-
                         // Update listView
                         updateListViewWithResource(listViewEquipments,getEquipmentsFromDB());
                     }
@@ -334,27 +322,6 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         Misc.confirmAction(this, msg, onClickListener);
     }
 
-    public void upsertItemInEquipments(Equipment equipment, String lastName, String newName) {
-        EquipmentDAO dao = AppDatabase.getInstance().equipmentDAO();
-
-        if (lastName.trim().length() != 0 && !newName.equals(lastName)) {
-            // If last name exist and names are not the same entry,
-            // update last entry maintaining last name;
-            Equipment eqpNewName = dao.findByTag(newName);
-            if (eqpNewName != null) {
-                if (toast != null) toast.cancel();
-                toast = Toast.makeText(getApplicationContext(),
-                        getString(R.string.msgDuplicateEquipmentName),
-                        Toast.LENGTH_SHORT);
-                toast.show();
-                equipment.setTag(lastName);
-            }
-        }
-
-        // Update entry
-        dao.upsert(equipment);
-    }
-
     private void updateListViewWithResource(ListView listView,List<Equipment> resource) {
 
         switch (listOrder){
@@ -395,7 +362,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
 
         editor.putInt(App.KEY_PREF_ORDER_EQUIPMENT, listOrder);
 
-        editor.commit();
+        editor.apply();
 
         this.listOrder = listOrder;
 

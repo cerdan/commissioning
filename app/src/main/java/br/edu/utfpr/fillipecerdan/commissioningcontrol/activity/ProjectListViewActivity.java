@@ -162,19 +162,7 @@ public class ProjectListViewActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Project item = (Project) listViewProjects.getItemAtPosition(position);
-
-                        if (actionMode != null) return;
-
-
-                        selectedView = view;
-                        selectedView.setSelected(true);
-                        selectedView.setBackgroundColor(MaterialColors.getColor(getApplicationContext(),
-                                android.R.attr.colorActivatedHighlight, Color.CYAN));
-                        actionMode = startSupportActionMode(mActionModeCallback);
-
-                        actionMode.setTag(item);
-
-                        listViewProjects.setEnabled(false);
+                        switchToEditWithProject(item);
 
                     }
                 }
@@ -187,7 +175,19 @@ public class ProjectListViewActivity extends AppCompatActivity {
                     @Override
                     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                         Project item = (Project) listViewProjects.getItemAtPosition(position);
-                        switchToEditWithProject(item);
+
+                        if (actionMode != null) return true;
+
+
+                        selectedView = view;
+                        selectedView.setSelected(true);
+                        selectedView.setBackgroundColor(MaterialColors.getColor(getApplicationContext(),
+                                android.R.attr.colorActivatedHighlight, Color.CYAN));
+                        actionMode = startSupportActionMode(mActionModeCallback);
+
+                        actionMode.setTag(item);
+
+                        listViewProjects.setEnabled(false);
 
                         return true;
                     }

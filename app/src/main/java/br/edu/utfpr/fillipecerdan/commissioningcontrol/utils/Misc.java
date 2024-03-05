@@ -55,15 +55,17 @@ public abstract class Misc {
     }
 
     public static final void displayWarning(Context context, int msgId){
+        displayWarning(context,msgId,(dialog, which) -> {});
+    }
+
+    public static final void displayWarning(Context context, int msgId, DialogInterface.OnClickListener onClickListener){
         AlertDialog.Builder alertBuilder = new  AlertDialog.Builder(context);
 
         alertBuilder.setTitle(R.string.lblStringWarningTitle);
         alertBuilder.setIcon(android.R.drawable.ic_dialog_alert);
         alertBuilder.setMessage(msgId);
 
-        alertBuilder.setNeutralButton(android.R.string.ok,
-                    (dialog, which) -> {}
-                );
+        alertBuilder.setNeutralButton(android.R.string.ok, onClickListener);
 
         AlertDialog alert = alertBuilder.create();
         alert.show();

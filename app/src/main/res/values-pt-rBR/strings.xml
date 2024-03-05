@@ -59,4 +59,5 @@
     <string name="yes">Sim</string>
     <string name="no">Não</string>
     <string name="msgNoChanges">Nenhuma modificação foi realizada no item.\n\nTente novamente ou use o menu acima para retornar.</string>
+    <string name="msgItemNotFound">Item não foi encontrado.\nTente novamente.</string>
 </resources>

@@ -25,7 +25,7 @@ public class App extends Application {
     public static final String KEY_PREF_LAST_TYPE = "LAST_TYPE";
     public static final boolean PREF_SUGGEST_TYPE_DEFAULT = true;
     public static final int PREF_LAST_TYPE_DEFAULT = EquipmentType.DSV.ordinal();
-    public static final int NOT_FOUND = -1;
+    public static final long NOT_FOUND = -1;
     private static Application sApplication;
 
     public static Application getApplication() {

@@ -249,7 +249,7 @@ public class ProjectListViewActivity extends AppCompatActivity {
         ProjectEditActivity.start(new ActivityStarter()
                 .setContext(getApplicationContext())
                 .setIntent(new Intent(getApplicationContext(), ProjectEditActivity.class)
-                        .putExtra(App.KEY_PROJECT, item))
+                        .putExtra(App.KEY_PROJECT, item.getId()))
                 .setLauncher(launcher));
 
     }

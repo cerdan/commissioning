@@ -73,9 +73,17 @@ public class ProjectEditActivity extends AppCompatActivity {
         txtProjectLocation = findViewById(R.id.txtProjectLocation);
         txtProjectStartYear = findViewById(R.id.txtProjectStartYear);
 
-        project = (Project) getIntent().getSerializableExtra(App.KEY_PROJECT);
+        long projectId = getIntent().getLongExtra(App.KEY_PROJECT, App.NOT_FOUND);
 
-        if (project != null) {
+        if (projectId != App.NOT_FOUND) {
+            project = AppDatabase.getInstance().projectDAO().findById(projectId);
+            if (project == null) {
+                Misc.displayWarning(this,R.string.msgItemNotFound,
+                        (display,which)->finishMe(null)
+                );
+                return;
+            }
+
             copyToView(project);
             setTitle(getString(R.string.lblStringEdit));
         }else{

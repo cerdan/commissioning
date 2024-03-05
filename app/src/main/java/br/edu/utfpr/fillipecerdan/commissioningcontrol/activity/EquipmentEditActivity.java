@@ -57,10 +57,17 @@ public class EquipmentEditActivity extends AppCompatActivity {
 
 
 
-        equipment = (Equipment) getIntent()
-                .getSerializableExtra(App.KEY_EQUIPMENT);
+        long equipmentId = getIntent().getLongExtra(App.KEY_EQUIPMENT, App.NOT_FOUND);
 
-        if (equipment != null) {
+        if (equipmentId != App.NOT_FOUND) {
+            equipment = AppDatabase.getInstance().equipmentDAO().findById(equipmentId);
+            if (equipment  == null) {
+                Misc.displayWarning(this,R.string.msgItemNotFound,
+                        (display,which)->finishMe(null)
+                );
+                return;
+            }
+
             copyEquipmentToView(equipment);
             setTitle(getResources().getString(R.string.lblStringEdit));
         }

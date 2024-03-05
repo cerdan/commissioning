@@ -294,7 +294,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         EquipmentEditActivity.start(new ActivityStarter()
                 .setContext(getApplicationContext())
                 .setIntent(new Intent(getApplicationContext(), EquipmentEditActivity.class)
-                        .putExtra(App.KEY_EQUIPMENT, item))
+                        .putExtra(App.KEY_EQUIPMENT, item.getId()))
                 .setLauncher(launcher));
 
     }

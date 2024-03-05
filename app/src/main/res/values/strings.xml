@@ -66,4 +66,5 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="msgNoChanges">No changes were made to the item.\n\nYou can try again or use the menu above to return.</string>
+    <string name="msgItemNotFound">Item not found.\nTry again.</string>
 </resources>

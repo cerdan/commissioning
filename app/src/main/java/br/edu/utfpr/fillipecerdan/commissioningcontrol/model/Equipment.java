@@ -1,7 +1,9 @@
 package br.edu.utfpr.fillipecerdan.commissioningcontrol.model;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -13,11 +15,15 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Objects;
 
-@Entity(indices = {@Index(value = {"tag"}, unique = true)})
+@Entity(indices = {@Index(value = {"tag"})},
+        foreignKeys = @ForeignKey(entity = Project.class,
+                                    parentColumns = "id",
+                                    childColumns = "projectId"))
 public class Equipment implements Externalizable, Comparable<Equipment> {
     @PrimaryKey(autoGenerate = true)
     private long id;
 
+    @ColumnInfo(index = true)
     private long projectId;
     private String desc = "";
     @NonNull

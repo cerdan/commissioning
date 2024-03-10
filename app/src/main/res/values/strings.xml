@@ -27,6 +27,7 @@
     <string name="msgEquipmentClicked">Equipment %s was clicked.\n\nModified on\n%s</string>
     <string name="lblStringAcceptedOutOfSpec">Accepted out of Specification</string>
     <string name="msgInvalidEquipmentTryAgain">Invalid equipment!\nDelete it and try again.</string>
+    <string name="msgInvalidProjectIdTryAgain">Invalid project reference!\nTry again.</string>
     <string name="msgDuplicateEquipmentName">Name already exists.\nTry another name or change the other item first.</string>
     <string name="msgDuplicateProjectCode">Code already exists.\nTry another code or change the other item first.</string>
     <string name="lblStringAbout">About</string>

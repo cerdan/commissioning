@@ -9,7 +9,7 @@ public class App extends Application {
 
     public static final String KEY_EQUIPMENT = "EQUIPMENT";
     public static final String KEY_PROJECT = "PROJECT";
-    public static final String KEY_RENAME= "LAST_NAME";
+    public static final String KEY_CURRENT_PROJECT_ID = "CURRENT_PROJECT_ID";
     public static final String PREFERENCES = "br.edu.utfpr.fillipecerdan.commissioningcontrol.PREFERENCES";
     public static final String KEY_PREF_ORDER_EQUIPMENT = "ORDER_EQUIPMENT";
     public static final String KEY_PREF_ORDER_PROJECT = "ORDER_PROJECT";

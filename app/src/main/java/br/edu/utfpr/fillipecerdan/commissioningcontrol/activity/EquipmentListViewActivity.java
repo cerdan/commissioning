@@ -120,6 +120,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         else if (itemId == R.id.menuListEqpOrderOK) setPreferredOrder(App.PREF_ORDER_OK_FIRST);
         else if (itemId == R.id.menuListEqpOrderLastChange) setPreferredOrder(App.PREF_ORDER_LAST_CHANGE);
         else if (itemId == R.id.menuListEqpSwitch) item.getSubMenu().findItem(R.id.menuListEqpViewEquipments).setChecked(true);
+        else if (itemId == android.R.id.home)   finishMe(null);
 
         item.setChecked(true);
         return true;

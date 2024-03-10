@@ -19,23 +19,24 @@
             android:parentActivityName=".activity.ProjectListViewActivity" />
         <activity
             android:name=".activity.ProjectListViewActivity"
-            android:exported="false"/>
-
-        <activity
-            android:name=".activity.AppInfoActivity"
-            android:exported="false"
-            android:parentActivityName=".activity.EquipmentListViewActivity" />
-        <activity
-            android:name=".activity.EquipmentListViewActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".activity.AppInfoActivity"
+            android:exported="false"
+            android:parentActivityName=".activity.ProjectListViewActivity" />
+        <activity
+            android:name=".activity.EquipmentListViewActivity"
+            android:exported="false"
+            android:parentActivityName=".activity.ProjectListViewActivity" />
         <activity
             android:name=".activity.EquipmentEditActivity"
-            android:exported="true"
+            android:exported="false"
             android:parentActivityName=".activity.EquipmentListViewActivity" />
     </application>
 

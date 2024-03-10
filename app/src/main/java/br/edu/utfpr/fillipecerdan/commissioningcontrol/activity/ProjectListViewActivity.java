@@ -166,7 +166,7 @@ public class ProjectListViewActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Project item = (Project) listViewProjects.getItemAtPosition(position);
-                        switchToEditWithProject(item);
+                        switchToEquipmentsWithProject(item);
 
                     }
                 }
@@ -266,6 +266,14 @@ public class ProjectListViewActivity extends AppCompatActivity {
     public void switchToEquipments(View view){
         EquipmentListViewActivity.start(new ActivityStarter()
                 .setContext(getApplicationContext())
+        );
+    }
+
+    public void switchToEquipmentsWithProject(Project item){
+        EquipmentListViewActivity.start(new ActivityStarter()
+                .setContext(getApplicationContext())
+                .setIntent(new Intent(getApplicationContext(), EquipmentListViewActivity.class)
+                        .putExtra(App.KEY_PROJECT, item.getId()))
                 .setLauncher(launcher));
     }
 

@@ -34,8 +34,12 @@ public interface ProjectDAO {
     @Query("SELECT * FROM project WHERE code LIKE '%'||:code||'%'")
     List<Project> findByCode(String code);
 
+    @Query("SELECT EXISTS(SELECT * FROM project WHERE code = :code)")
+    boolean hasCode(String code);
+
     @Query("SELECT * FROM project WHERE name LIKE '%'||:name||'%'")
     Project findByName(String name);
+
     @Query("SELECT * FROM project WHERE customerName LIKE '%'||:customerName||'%'")
     Project findByCustomerName(String customerName);
 }

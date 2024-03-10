@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -151,10 +152,13 @@ public class ProjectListViewActivity extends AppCompatActivity {
 
         listViewProjects.setLongClickable(true);
 
-        updateLocalProjectsWith(getProjectsFromDB());
-
-        populateListViewWithResources(listViewProjects, projects);
-
+        AsyncTask.execute(()->{
+            synchronized(projects) {
+                updateLocalProjectsWith(getProjectsFromDB());
+                ProjectListViewActivity.this.runOnUiThread(() ->
+                        populateListViewWithResources(listViewProjects, projects));
+            }
+        });
         listViewProjects.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
         listViewProjects.setOnItemClickListener(
@@ -214,8 +218,14 @@ public class ProjectListViewActivity extends AppCompatActivity {
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     if(result.getResultCode() == Activity.RESULT_OK){
-                        // Update listView
-                        updateListViewWithResource(listViewProjects,getProjectsFromDB());
+                        AsyncTask.execute(()->{
+                            synchronized(projects) {
+                                updateLocalProjectsWith(getProjectsFromDB());
+                                // Update listView
+                                ProjectListViewActivity.this.runOnUiThread(()->
+                                    updateListViewWithResource(listViewProjects, projects));
+                            }
+                        });
                     }
                 }
             });
@@ -264,11 +274,16 @@ public class ProjectListViewActivity extends AppCompatActivity {
         DialogInterface.OnClickListener onClickListener = (dialog, which) -> {
             switch (which) {
                 case DialogInterface.BUTTON_POSITIVE:
-                    int result = AppDatabase.getInstance().projectDAO().delete(project);
-                    if (result > 0) {
-                        projects.remove(project);
-                        updateListViewWithResource(listViewProjects, projects);
-                    }
+                    AsyncTask.execute(()->{
+                        int result = AppDatabase.getInstance().projectDAO().delete(project);
+                        if (result > 0) {
+                            synchronized (projects) {
+                                projects.remove(project);
+                                ProjectListViewActivity.this.runOnUiThread(() ->
+                                        updateListViewWithResource(listViewProjects, projects));
+                            }
+                        }
+                    });
                     break;
                 default:
                     break;

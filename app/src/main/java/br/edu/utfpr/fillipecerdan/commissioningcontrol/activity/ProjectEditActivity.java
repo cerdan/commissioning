@@ -3,6 +3,7 @@ package br.edu.utfpr.fillipecerdan.commissioningcontrol.activity;
 import static br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.ValidationHelper.isValid;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,8 +14,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.arch.core.util.Function;
-
-import java.util.List;
 
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.R;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.Project;
@@ -76,31 +75,36 @@ public class ProjectEditActivity extends AppCompatActivity {
         long projectId = getIntent().getLongExtra(App.KEY_PROJECT, App.NOT_FOUND);
 
         if (projectId != App.NOT_FOUND) {
-            project = AppDatabase.getInstance().projectDAO().findById(projectId);
-            if (project == null) {
-                Misc.displayWarning(this,R.string.msgItemNotFound,
-                        (display,which)->finishMe(null)
-                );
-                return;
-            }
-
-            copyToView(project);
             setTitle(getString(R.string.lblStringEdit));
+            AsyncTask.execute(()->{
+                project = AppDatabase.getInstance().projectDAO().findById(projectId);
+                if (project == null) {
+                    Misc.displayWarning(this, R.string.msgItemNotFound,
+                            (display, which) -> finishMe(null)
+                    );
+                    return;
+                }
+
+                ProjectEditActivity.this.runOnUiThread(()->copyToView(project));
+            });
         }else{
-            project = new Project();
             setTitle(getString(R.string.lblStringAdd));
+            project = new Project();
         }
 
     }
 
     public void save(View view) {
         if (!validateFields()) return;
+        AsyncTask.execute(()->{
+            if(!upsertItem()) return;
 
-        if(!upsertItem()) return;
+            showToast(R.string.msgEquipmentSaved);
 
-        // Set result and finish
-        setResult(Activity.RESULT_OK);
-        finish();
+            // Set result and finish
+            setResult(Activity.RESULT_OK);
+            finish();
+        });
     }
 
     public void clear(View view) {
@@ -211,8 +215,7 @@ public class ProjectEditActivity extends AppCompatActivity {
         String newValue = project.getCode();
         if (!newValue.equals(oldValue)) {
             // If code has changed, check duplicate
-            List<Project> results = dao.findByCode(newValue);
-            if (results.size() > 0) {
+            if (dao.hasCode(newValue)) {
                 showToast(R.string.msgDuplicateProjectCode);
 
                 project.setCode(oldValue);
@@ -228,23 +231,25 @@ public class ProjectEditActivity extends AppCompatActivity {
         // Update entry
         dao.upsert(project);
 
-        showToast(R.string.msgEquipmentSaved);
-
         return true;
     }
 
-    private void showToast(int resId){
-        if (toast != null) toast.cancel();
-        toast = Toast.makeText(this,
-                resId,
-                Toast.LENGTH_SHORT);
-        toast.show();
+    private void showToast(int resId) {
+        ProjectEditActivity.this.runOnUiThread(() -> {
+            if (toast != null) toast.cancel();
+            toast = Toast.makeText(this,
+                    resId,
+                    Toast.LENGTH_SHORT);
+            toast.show();
+        });
     }
-    private void showToast(String msg){
-        if (toast != null) toast.cancel();
-        toast = Toast.makeText(this,
-                msg,
-                Toast.LENGTH_SHORT);
-        toast.show();
+    private void showToast(String msg) {
+        ProjectEditActivity.this.runOnUiThread(() -> {
+            if (toast != null) toast.cancel();
+            toast = Toast.makeText(this,
+                    msg,
+                    Toast.LENGTH_SHORT);
+            toast.show();
+        });
     }
 }

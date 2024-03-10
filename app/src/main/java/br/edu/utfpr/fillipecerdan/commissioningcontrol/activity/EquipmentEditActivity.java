@@ -5,6 +5,7 @@ import static br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.ValidationHe
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,11 +37,12 @@ public class EquipmentEditActivity extends AppCompatActivity {
     private Spinner spnEquipmentType;
     private RadioGroup rdGrpEquipmentStatus;
     private CheckBox chkAcceptOutOfSpecification;
-
+    private long projectId;
     private static Equipment equipment;
     private boolean suggestFields;
     private EquipmentType lastEquipmentType;
     private Toast toast;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,20 +62,21 @@ public class EquipmentEditActivity extends AppCompatActivity {
         long equipmentId = getIntent().getLongExtra(App.KEY_EQUIPMENT, App.NOT_FOUND);
 
         if (equipmentId != App.NOT_FOUND) {
-            equipment = AppDatabase.getInstance().equipmentDAO().findById(equipmentId);
-            if (equipment  == null) {
-                Misc.displayWarning(this,R.string.msgItemNotFound,
-                        (display,which)->finishMe(null)
-                );
-                return;
-            }
-
-            copyEquipmentToView(equipment);
             setTitle(getResources().getString(R.string.lblStringEdit));
-        }
-        else {
-            equipment = new Equipment();
+            AsyncTask.execute(() -> {
+                equipment = AppDatabase.getInstance().equipmentDAO().findById(equipmentId);
+                if (equipment == null) {
+                    Misc.displayWarning(this, R.string.msgItemNotFound,
+                            (display, which) -> finishMe(null)
+                    );
+                    return;
+                }
+
+                EquipmentEditActivity.this.runOnUiThread(() -> copyEquipmentToView(equipment));
+            });
+        } else {
             setTitle(getResources().getString(R.string.lblStringAdd));
+            equipment = new Equipment();
             if (this.suggestFields) spnEquipmentType.setSelection(lastEquipmentType.ordinal());
         }
 
@@ -107,12 +110,14 @@ public class EquipmentEditActivity extends AppCompatActivity {
     public void saveEquipment(View view) {
         if (!validateEquipmentAction()) return;
 
-        if (!upsertItem()) return;
+        AsyncTask.execute(() -> {
+            if (!upsertItem()) return;
 
-        // Set result and finish
-        setResult(Activity.RESULT_OK);
-        if(suggestFields) setPreferredType();
-        finish();
+            // Set result and finish
+            setResult(Activity.RESULT_OK);
+            if (suggestFields) setPreferredType();
+            finish();
+        });
     }
 
     public void clearEquipment(View view) {
@@ -269,18 +274,23 @@ public class EquipmentEditActivity extends AppCompatActivity {
         return true;
     }
 
-    private void showToast(int resId){
-        if (toast != null) toast.cancel();
-        toast = Toast.makeText(getApplicationContext(),
-                resId,
-                Toast.LENGTH_SHORT);
-        toast.show();
+    private void showToast(int resId) {
+        EquipmentEditActivity.this.runOnUiThread(() -> {
+            if (toast != null) toast.cancel();
+            toast = Toast.makeText(getApplicationContext(),
+                    resId,
+                    Toast.LENGTH_SHORT);
+            toast.show();
+        });
     }
-    private void showToast(String msg){
-        if (toast != null) toast.cancel();
-        toast = Toast.makeText(getApplicationContext(),
-                msg,
-                Toast.LENGTH_SHORT);
-        toast.show();
+
+    private void showToast(String msg) {
+        EquipmentEditActivity.this.runOnUiThread(() -> {
+            if (toast != null) toast.cancel();
+            toast = Toast.makeText(getApplicationContext(),
+                    msg,
+                    Toast.LENGTH_SHORT);
+            toast.show();
+        });
     }
 }

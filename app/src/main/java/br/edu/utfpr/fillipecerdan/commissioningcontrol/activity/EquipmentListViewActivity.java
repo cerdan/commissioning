@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -94,10 +95,16 @@ public class EquipmentListViewActivity extends AppCompatActivity {
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     if(result.getResultCode() == Activity.RESULT_OK){
-                        // Update listView
-                        updateListViewWithResource(listViewEquipments,getEquipmentsFromDB());
-                    }
+                        AsyncTask.execute(() -> {
+                            synchronized (equipments) {
+                                updateLocalEquipmentsWith(getEquipmentsFromDB());
+                                // Update listView
+                                EquipmentListViewActivity.this.runOnUiThread(() ->
+                                        updateListViewWithResource(listViewEquipments, equipments));
+                            }
 
+                        });
+                    }
                 }
             });
 
@@ -170,9 +177,15 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         //Todo: Remove comment to add items to list
         //getEquipmentsFromResources();
 
-        updateLocalEquipmentsWith(getEquipmentsFromDB());
 
-        populateListViewWithEquipments(listViewEquipments, equipments);
+        AsyncTask.execute(() -> {
+            synchronized(equipments) {
+                updateLocalEquipmentsWith(getEquipmentsFromDB());
+                EquipmentListViewActivity.this.runOnUiThread(() ->
+                        populateListViewWithEquipments(listViewEquipments, equipments));
+            }
+        });
+
 
         listViewEquipments.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
@@ -310,11 +323,16 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         DialogInterface.OnClickListener onClickListener = (dialog, which) -> {
             switch (which) {
                 case DialogInterface.BUTTON_POSITIVE:
-                    int result = AppDatabase.getInstance().equipmentDAO().delete(equipment);
-                    if (result > 0) {
-                        equipments.remove(equipment);
-                        updateListViewWithResource(listViewEquipments, equipments);
-                    }
+                    AsyncTask.execute(()->{
+                        int result = AppDatabase.getInstance().equipmentDAO().delete(equipment);
+                        if (result > 0) {
+                            synchronized(equipments) {
+                                equipments.remove(equipment);
+                                EquipmentListViewActivity.this.runOnUiThread(() ->
+                                        updateListViewWithResource(listViewEquipments, equipments));
+                            }
+                        }
+                    });
                     break;
                 default:
                     break;

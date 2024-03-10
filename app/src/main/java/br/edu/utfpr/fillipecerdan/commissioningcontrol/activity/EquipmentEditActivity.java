@@ -58,6 +58,12 @@ public class EquipmentEditActivity extends AppCompatActivity {
         chkAcceptOutOfSpecification = findViewById(R.id.chkAcceptedOutOfSpecification);
 
 
+        projectId = getIntent().getLongExtra(App.KEY_PROJECT, App.NOT_FOUND);
+
+        if (projectId == App.NOT_FOUND){
+            Misc.displayWarning(this, R.string.msgInvalidProjectIdTryAgain,
+                    (display, with) -> finishMe(null));
+        }
 
         long equipmentId = getIntent().getLongExtra(App.KEY_EQUIPMENT, App.NOT_FOUND);
 
@@ -238,6 +244,7 @@ public class EquipmentEditActivity extends AppCompatActivity {
         Equipment equipmentFromView = copyViewToEquipment();
         equipmentFromView.setLastChange(equipment.getLastChange());
         equipmentFromView.setId(equipment.getId());
+        equipmentFromView.setProjectId(equipment.getProjectId());
 
         if(equipment.equals(equipmentFromView)) {
             showToast(R.string.msgNoChanges);
@@ -249,8 +256,7 @@ public class EquipmentEditActivity extends AppCompatActivity {
         String newValue = equipment.getTag();
         if (!newValue.equals(oldValue)) {
             // If tag has changed, check for duplicates
-            Equipment eqpNewName = dao.findByTag(newValue);
-            if (eqpNewName != null) {
+            if (dao.projectHasTag(projectId, newValue)) {
                 showToast(R.string.msgDuplicateEquipmentName);
 
                 equipment.setTag(oldValue);
@@ -265,6 +271,7 @@ public class EquipmentEditActivity extends AppCompatActivity {
         }
 
         equipment.setLastChange();
+        equipment.setProjectId(projectId);
 
         // Update entry
         dao.upsert(equipment);

@@ -10,7 +10,7 @@ import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.Project;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.App;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.MyTypeConverters;
 
-@Database(entities = {Equipment.class, Project.class}, version = 1, exportSchema = false)
+@Database(entities = {Equipment.class, Project.class}, version = 1)
 @TypeConverters({MyTypeConverters.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract EquipmentDAO equipmentDAO();
@@ -26,7 +26,6 @@ public abstract class AppDatabase extends RoomDatabase {
                     instance = Room.databaseBuilder(App.getContext(),
                                     AppDatabase.class,
                                     "commissioning.db")
-                            .allowMainThreadQueries()
                             .build();
                 }
             }

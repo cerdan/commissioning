@@ -51,6 +51,8 @@ public class EquipmentListViewActivity extends AppCompatActivity {
     private View selectedView;
     private int listOrder;
 
+    private long curProjectId;
+
     private final ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
@@ -97,7 +99,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
                     if(result.getResultCode() == Activity.RESULT_OK){
                         AsyncTask.execute(() -> {
                             synchronized (equipments) {
-                                updateLocalEquipmentsWith(getEquipmentsFromDB());
+                                updateLocalEquipmentsWith(getEquipmentsFromDB(curProjectId));
                                 // Update listView
                                 EquipmentListViewActivity.this.runOnUiThread(() ->
                                         updateListViewWithResource(listViewEquipments, equipments));
@@ -174,13 +176,24 @@ public class EquipmentListViewActivity extends AppCompatActivity {
 
         listViewEquipments.setLongClickable(true);
 
+        long intentProjectId = getIntent().getLongExtra(App.KEY_PROJECT,App.NOT_FOUND);
+        if (intentProjectId != App.NOT_FOUND){
+            if(curProjectId != intentProjectId) {
+                    setCurrentProjectId(intentProjectId);
+            }
+        }
+        else if(curProjectId == App.NOT_FOUND) {
+            Misc.displayWarning(this,R.string.msgItemNotFound,
+                    (display,with)->finishMe(null));
+        }
+
         //Todo: Remove comment to add items to list
         //getEquipmentsFromResources();
 
 
         AsyncTask.execute(() -> {
             synchronized(equipments) {
-                updateLocalEquipmentsWith(getEquipmentsFromDB());
+                updateLocalEquipmentsWith(getEquipmentsFromDB(curProjectId));
                 EquipmentListViewActivity.this.runOnUiThread(() ->
                         populateListViewWithEquipments(listViewEquipments, equipments));
             }
@@ -239,6 +252,12 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         return dao.findAll();
     }
 
+    private List<Equipment> getEquipmentsFromDB(long projectId){
+        EquipmentDAO dao = AppDatabase.getInstance().equipmentDAO();
+        return dao.findByProjectId(projectId);
+    }
+
+
     private void getEquipmentsFromResources() {
         String[] tags = getResources().getStringArray(R.array.resEquipmentTAG);
         int[] types = getResources().getIntArray(R.array.resEquipmentType);
@@ -253,7 +272,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         EquipmentDAO dao = AppDatabase.getInstance().equipmentDAO();
 
         for (int i = 0; i < tags.length; i++) {
-            Equipment eqp = dao.findByTag(tags[i]);
+            Equipment eqp = dao.findByTagAndProjectId(tags[i],curProjectId);
 
             if (eqp == null){
                 eqp = new Equipment(
@@ -291,6 +310,8 @@ public class EquipmentListViewActivity extends AppCompatActivity {
     public void switchToEdit(View view){
         EquipmentEditActivity.start(new ActivityStarter()
                 .setContext(getApplicationContext())
+                .setIntent(new Intent(getApplicationContext(), EquipmentEditActivity.class)
+                        .putExtra(App.KEY_PROJECT, curProjectId))
                 .setLauncher(launcher));
 
     }
@@ -308,7 +329,8 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         EquipmentEditActivity.start(new ActivityStarter()
                 .setContext(getApplicationContext())
                 .setIntent(new Intent(getApplicationContext(), EquipmentEditActivity.class)
-                        .putExtra(App.KEY_EQUIPMENT, item.getId()))
+                        .putExtra(App.KEY_EQUIPMENT, item.getId())
+                        .putExtra(App.KEY_PROJECT, curProjectId))
                 .setLauncher(launcher));
 
     }
@@ -374,6 +396,8 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         SharedPreferences shared = getSharedPreferences(App.PREFERENCES, Context.MODE_PRIVATE);
 
         listOrder = shared.getInt(App.KEY_PREF_ORDER_EQUIPMENT, App.PREF_ORDER_DEFAULT);
+
+        curProjectId = shared.getLong(App.KEY_CURRENT_PROJECT_ID, App.NOT_FOUND);
     }
 
     private void setPreferredOrder(int listOrder){
@@ -389,6 +413,18 @@ public class EquipmentListViewActivity extends AppCompatActivity {
 
         updateListViewWithResource(listViewEquipments, equipments);
 
+    }
+
+    private void setCurrentProjectId(long projectId){
+        SharedPreferences shared = getSharedPreferences(App.PREFERENCES, Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = shared.edit();
+
+        editor.putLong(App.KEY_CURRENT_PROJECT_ID, projectId);
+
+        editor.apply();
+
+        curProjectId = projectId;
     }
 
     private void updateLocalEquipmentsWith(List<Equipment> resource){

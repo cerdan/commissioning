@@ -264,9 +264,11 @@ public class ProjectListViewActivity extends AppCompatActivity {
         DialogInterface.OnClickListener onClickListener = (dialog, which) -> {
             switch (which) {
                 case DialogInterface.BUTTON_POSITIVE:
-                    AppDatabase.getInstance().projectDAO().delete(project);
-                    projects.remove(project);
-                    updateListViewWithResource(listViewProjects, projects);
+                    int result = AppDatabase.getInstance().projectDAO().delete(project);
+                    if (result > 0) {
+                        projects.remove(project);
+                        updateListViewWithResource(listViewProjects, projects);
+                    }
                     break;
                 default:
                     break;

@@ -17,10 +17,10 @@ public interface ProjectDAO {
     long insert(Project project);
 
     @Delete
-    void delete(Project project);
+    int delete(Project project);
 
     @Update
-    void update(Project project);
+    int update(Project project);
 
     @Upsert
     long upsert(Project project);

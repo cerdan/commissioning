@@ -309,9 +309,11 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         DialogInterface.OnClickListener onClickListener = (dialog, which) -> {
             switch (which) {
                 case DialogInterface.BUTTON_POSITIVE:
-                    AppDatabase.getInstance().equipmentDAO().delete(equipment);
-                    equipments.remove(equipment);
-                    updateListViewWithResource(listViewEquipments, equipments);
+                    int result = AppDatabase.getInstance().equipmentDAO().delete(equipment);
+                    if (result > 0) {
+                        equipments.remove(equipment);
+                        updateListViewWithResource(listViewEquipments, equipments);
+                    }
                     break;
                 default:
                     break;

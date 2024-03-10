@@ -17,10 +17,10 @@ public interface EquipmentDAO {
     long insert(Equipment equipment);
 
     @Delete
-    void delete(Equipment equipment);
+    int delete(Equipment equipment);
 
     @Update
-    void update(Equipment equipment);
+    int update(Equipment equipment);
 
     @Upsert
     long upsert(Equipment equipment);

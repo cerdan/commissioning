@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:icon="@android:drawable/ic_menu_set_as"
         android:title="@string/lblStringSwitchView"
-        android:visible="true"
+        android:visible="false"
         app:showAsAction="ifRoom">
         <menu
             android:layout_width="match_parent"

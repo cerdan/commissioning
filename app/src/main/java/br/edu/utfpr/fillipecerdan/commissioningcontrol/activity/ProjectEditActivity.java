@@ -80,7 +80,7 @@ public class ProjectEditActivity extends AppCompatActivity {
                 project = AppDatabase.getInstance().projectDAO().findById(projectId);
                 if (project == null) {
                     Misc.displayWarning(this, R.string.msgItemNotFound,
-                            (display, which) -> finishMe(null)
+                            (dialog, which) -> finishMe(null)
                     );
                     return;
                 }

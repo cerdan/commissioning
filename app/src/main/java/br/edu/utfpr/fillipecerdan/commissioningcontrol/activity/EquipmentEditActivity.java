@@ -62,7 +62,7 @@ public class EquipmentEditActivity extends AppCompatActivity {
 
         if (projectId == App.NOT_FOUND){
             Misc.displayWarning(this, R.string.msgInvalidProjectIdTryAgain,
-                    (display, with) -> finishMe(null));
+                    (dialog, which) -> finishMe(null));
         }
 
         long equipmentId = getIntent().getLongExtra(App.KEY_EQUIPMENT, App.NOT_FOUND);
@@ -73,7 +73,7 @@ public class EquipmentEditActivity extends AppCompatActivity {
                 equipment = AppDatabase.getInstance().equipmentDAO().findById(equipmentId);
                 if (equipment == null) {
                     Misc.displayWarning(this, R.string.msgItemNotFound,
-                            (display, which) -> finishMe(null)
+                            (dialog, which) -> finishMe(null)
                     );
                     return;
                 }

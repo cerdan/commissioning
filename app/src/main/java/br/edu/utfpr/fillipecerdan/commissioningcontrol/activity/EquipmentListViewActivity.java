@@ -184,7 +184,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
         }
         else if(curProjectId == App.NOT_FOUND) {
             Misc.displayWarning(this,R.string.msgItemNotFound,
-                    (display,with)->finishMe(null));
+                    (dialog,which)->finishMe(null));
         }
 
         AsyncTask.execute(() -> {

@@ -46,4 +46,7 @@ public interface EquipmentDAO {
     @Query("SELECT EXISTS(SELECT * FROM equipment WHERE tag = :tag AND projectId = :projectId)")
     boolean projectHasTag(long projectId, String tag);
 
+    @Query("SELECT EXISTS(SELECT * FROM equipment WHERE projectId = :projectId)")
+    boolean hasProjectId(long projectId);
+
 }

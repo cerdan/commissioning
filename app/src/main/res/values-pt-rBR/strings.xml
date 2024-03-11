@@ -27,6 +27,10 @@
     <string name="msgInvalidProjectIdTryAgain">Referência de projeto inválida!\nTente novamente.</string>
     <string name="msgDuplicateEquipmentName">Nome já existe.\nTente outro nome ou troque o outro item primeiro.</string>
     <string name="msgDuplicateProjectCode">Código já existe.\nTente outro código ou troque o outro item primeiro.</string>
+    <string name="msgRemoveItemConfirmationMsg">Você está preste a deletar o item:\n\n\t%s\n\nTem certeza que deseja continuar?\n(Esta ação não pode ser desfeita)</string>
+    <string name="msgNoChanges">Nenhuma modificação foi realizada no item.\n\nTente novamente ou use o menu acima para retornar.</string>
+    <string name="msgItemNotFound">Item não foi encontrado.\nTente novamente.</string>
+    <string name="msgProjectIsBeingUsed">Este projeto possuí equipamentos e não pode ser excluído.\nExclua todos os equipamentos do projeto e tente de novo.</string>
     <string name="lblStringAbout">Sobre</string>
     <string name="lblStringAdd">Adicionar</string>
     <string name="lblStringSave">Salvar</string>
@@ -56,9 +60,6 @@
     <string name="lblStringListProject">Lista de Projetos</string>
     <string name="lblStringWarningTitle">Aviso!</string>
     <string name="lblStringConfirmationTitle">Confirme a ação.</string>
-    <string name="lblStringRemoveItemConfirmationMsg">Você está preste a deletar o item:\n\n\t%s\n\nTem certeza que deseja continuar?\n(Esta ação não pode ser desfeita)</string>
     <string name="yes">Sim</string>
     <string name="no">Não</string>
-    <string name="msgNoChanges">Nenhuma modificação foi realizada no item.\n\nTente novamente ou use o menu acima para retornar.</string>
-    <string name="msgItemNotFound">Item não foi encontrado.\nTente novamente.</string>
 </resources>

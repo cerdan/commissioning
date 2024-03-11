@@ -33,6 +33,7 @@ import java.util.List;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.R;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.Project;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.persistence.AppDatabase;
+import br.edu.utfpr.fillipecerdan.commissioningcontrol.persistence.EquipmentDAO;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.persistence.ProjectDAO;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.ActivityStarter;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.utils.App;
@@ -279,7 +280,7 @@ public class ProjectListViewActivity extends AppCompatActivity {
 
     public void deleteItemFromProjects(Project project){
 
-        DialogInterface.OnClickListener onClickListener = (dialog, which) -> {
+        final DialogInterface.OnClickListener onClickListener = (dialog, which) -> {
             switch (which) {
                 case DialogInterface.BUTTON_POSITIVE:
                     AsyncTask.execute(()->{
@@ -298,8 +299,19 @@ public class ProjectListViewActivity extends AppCompatActivity {
             }
         };
 
-        String msg = String.format(getString(R.string.lblStringRemoveItemConfirmationMsg), project.getCode());
-        Misc.confirmAction(this, msg, onClickListener);
+        AsyncTask.execute(()-> {
+            EquipmentDAO dao = AppDatabase.getInstance().equipmentDAO();
+            boolean hasProjectId = dao.hasProjectId(project.getId());
+            ProjectListViewActivity.this.runOnUiThread(()->{
+                // If project is being used by any equipment, block its deletion
+                if (hasProjectId) {
+                    Misc.displayWarning(this, R.string.msgProjectIsBeingUsed);
+                } else {
+                    String msg = String.format(getString(R.string.msgRemoveItemConfirmationMsg), project.getCode());
+                    Misc.confirmAction(this, msg, onClickListener);
+                }
+            });
+        });
     }
 
     private void updateListViewWithResource(ListView listView, List<Project> resource) {

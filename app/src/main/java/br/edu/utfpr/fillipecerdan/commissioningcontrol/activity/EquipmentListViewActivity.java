@@ -359,7 +359,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
             }
         };
 
-        String msg = String.format(getString(R.string.lblStringRemoveItemConfirmationMsg), equipment.getTag());
+        String msg = String.format(getString(R.string.msgRemoveItemConfirmationMsg), equipment.getTag());
         Misc.confirmAction(this, msg, onClickListener);
     }
 

@@ -30,6 +30,10 @@
     <string name="msgInvalidProjectIdTryAgain">Invalid project reference!\nTry again.</string>
     <string name="msgDuplicateEquipmentName">Name already exists.\nTry another name or change the other item first.</string>
     <string name="msgDuplicateProjectCode">Code already exists.\nTry another code or change the other item first.</string>
+    <string name="msgRemoveItemConfirmationMsg">You are about to delete the item:\n\n\t%s\n\nAre you sure you want to proceed?\n(This action cannot be undone.)</string>
+    <string name="msgNoChanges">No changes were made to the item.\n\nYou can try again or use the menu above to return.</string>
+    <string name="msgItemNotFound">Item not found.\nTry again.</string>
+    <string name="msgProjectIsBeingUsed">This project has equipments and therefore cannot be deleted.\nDelete all project\'s equipments and try again.</string>
     <string name="lblStringAbout">About</string>
     <string name="lblStringAdd">Add</string>
     <string name="lblStringSave">Salve</string>
@@ -63,9 +67,6 @@
     <string name="lblStringListProject">Project List</string>
     <string name="lblStringWarningTitle">Warning!</string>
     <string name="lblStringConfirmationTitle">Confirm action.</string>
-    <string name="lblStringRemoveItemConfirmationMsg">You are about to delete the item:\n\n\t%s\n\nAre you sure you want to proceed?\n(This action cannot be undone.)</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="msgNoChanges">No changes were made to the item.\n\nYou can try again or use the menu above to return.</string>
-    <string name="msgItemNotFound">Item not found.\nTry again.</string>
 </resources>

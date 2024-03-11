@@ -77,23 +77,23 @@ An app to track the commissioning progress and any problems encountered.
 
 ## ENTREGA 06
 
-- [ ] Cadastre dados lançados pelo usuário, que tenham relação com a regra de negócio proposta para a aplicação (Nesta versão os dados serão persistidos no SQLite através do uso do Room);
+- [x] Cadastre dados lançados pelo usuário, que tenham relação com a regra de negócio proposta para a aplicação (Nesta versão os dados serão persistidos no SQLite através do uso do Room);
 - [x] Exiba um AlertDialog para confirmar a ação do usuário antes de excluir dados persistidos;
 
 
 ## PROJETO FINAL
 
 - [x] Especifique o tema que trata a aplicação. Este tema deverá ter sido lançado pelo aluno no questionário "Tema do Projeto", e o mesmo precisa ser aprovado previamente pelo professor. Não serão aceitos temas repetidos dentro da turma.
-- [ ] Cadastre dados lançados pelo usuário, que tenham relação com a regra de negócio proposta para a aplicação (Nesta versão os dados serão persistidos no SQLite através do uso do Room);
-- [ ] Crie pelo menos uma Classe de Entidade a ser manipulada dentro da aplicação;
-- [ ] Crie pelo menos uma Activity que permita a manipulação dos dados (Inserção, Alteração e Remoção);
+- [x] Cadastre dados lançados pelo usuário, que tenham relação com a regra de negócio proposta para a aplicação (Nesta versão os dados serão persistidos no SQLite através do uso do Room);
+- [x] Crie pelo menos uma Classe de Entidade a ser manipulada dentro da aplicação;
+- [x] Crie pelo menos uma Activity que permita a manipulação dos dados (Inserção, Alteração e Remoção);
 - [x] Exiba um AlertDialog para confirmar a ação do usuário antes de excluir dados persistidos; 
 - [x] Crie pelo menos uma Activity que liste os itens cadastrados no banco de dados;
 - [x] Utilize pelo menos um Adapter Customizado em uma Activity que liste os itens;
 - [x] Crie uma Activity onde mostra-se as informações sobre o que faz o aplicativo, e os dados da autoria dele;
 - [x] Utilize Menus de Opções, onde as ações aparecem com ícones na barra de ação da Activity;
 - [x] Utilize Menu de Ação Contextual, onde as ações aparecem com ícones na barra de ação da Activity;
-- [ ] Utilize botões Up na barra de ações das Activities secundárias, para facilitar a volta do usuário destas para as Activities especificadas como pais destas;
+- [x] Utilize botões Up na barra de ações das Activities secundárias, para facilitar a volta do usuário destas para as Activities especificadas como pais destas;
 - [x] Forneça alguma possibilidade de configuração ou personalização do aplicativo, e persista estas informações usando SharedPreferences; 
 - [x] O Aplicativo deve suportar dois idiomas, o inglês como padrão e o português Brasileiro como opcional.
 

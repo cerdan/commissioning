@@ -32,7 +32,6 @@ import java.util.List;
 
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.R;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.Equipment;
-import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.EquipmentStatus;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.model.EquipmentType;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.persistence.AppDatabase;
 import br.edu.utfpr.fillipecerdan.commissioningcontrol.persistence.EquipmentDAO;
@@ -253,39 +252,6 @@ public class EquipmentListViewActivity extends AppCompatActivity {
     private List<Equipment> getEquipmentsFromDB(long projectId){
         EquipmentDAO dao = AppDatabase.getInstance().equipmentDAO();
         return dao.findByProjectId(projectId);
-    }
-
-
-    private void getEquipmentsFromResources() {
-        String[] tags = getResources().getStringArray(R.array.resEquipmentTAG);
-        int[] types = getResources().getIntArray(R.array.resEquipmentType);
-        int[] statuses = getResources().getIntArray(R.array.resEquipmentStatus);
-        String[] comments = getResources().getStringArray(R.array.resEquipmentComment);
-        int[] acceptances = getResources().getIntArray(R.array.resEquipmentAcceptedOutOfSpec);
-        String[] lastChange = getResources().getStringArray(R.array.resEquipmentChangeDate);
-
-        EquipmentType[] equipmentTypes = EquipmentType.values();  // Get ENUM values as an array
-        EquipmentStatus[] equipmentStatuses = EquipmentStatus.values(); // Get ENUM values as an array
-
-        EquipmentDAO dao = AppDatabase.getInstance().equipmentDAO();
-
-        for (int i = 0; i < tags.length; i++) {
-            Equipment eqp = dao.findByTagAndProjectId(tags[i],curProjectId);
-
-            if (eqp == null){
-                eqp = new Equipment(
-                        tags[i],
-                        equipmentTypes[types[i]],
-                        equipmentStatuses[statuses[i]],
-                        comments[i],
-                        acceptances[i] == 1,
-                        Misc.parseDate(lastChange[i])
-                );
-                dao.insert(eqp);
-            }
-
-        }
-
     }
 
     public void finishMe(View view){

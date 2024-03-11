@@ -25,7 +25,6 @@ public class Project implements Externalizable, Comparable<Project> {
     private String location = "";
     @NonNull
     private int startYear;
-    private /*List<Equipment>*/ long equipmentList;
 
     public long getId() {
         return id;
@@ -67,20 +66,12 @@ public class Project implements Externalizable, Comparable<Project> {
         this.startYear = startYear;
     }
 
-    public /*List<Equipment>*/ long getEquipmentList() {
-        return equipmentList;
-    }
-
     public String getLocation() {
         return location;
     }
 
     public void setLocation(String location) {
         this.location = location;
-    }
-
-    public void setEquipmentList(/*List<Equipment>*/long equipmentList) {
-        this.equipmentList = equipmentList;
     }
 
     @Override
@@ -105,7 +96,7 @@ public class Project implements Externalizable, Comparable<Project> {
 
     public static final Comparator<Project> BY_LOCATION = (o1,o2) -> o1.getLocation().compareTo(o2.getLocation());
 
-    public static final Comparator<Project> BY_YEAR = (o1,o2) -> o1.getStartYear()-o2.getStartYear();
+    public static final Comparator<Project> BY_YEAR = (o1,o2) -> o2.getStartYear()-o1.getStartYear();
 
     public static final Comparator<Project> BY_CUSTOMER = (o1,o2) -> o1.getCustomerName().compareTo(o2.getCustomerName());
 
@@ -129,13 +120,12 @@ public class Project implements Externalizable, Comparable<Project> {
                 Objects.equals(getName(), project.getName()) &&
                 Objects.equals(getCustomerName(), project.getCustomerName()) &&
                 Objects.equals(getLocation(), project.getLocation()) &&
-                Objects.equals(getStartYear(), project.getStartYear()) &&
-                Objects.equals(getEquipmentList(), project.getEquipmentList());
+                Objects.equals(getStartYear(), project.getStartYear());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getCode(), getName(), getCustomerName(), getLocation(), getStartYear(), getEquipmentList());
+        return Objects.hash(getId(), getCode(), getName(), getCustomerName(), getLocation(), getStartYear());
     }
 
     @Override

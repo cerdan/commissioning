@@ -146,7 +146,7 @@ public class ProjectListViewActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_project_list);
 
-        setTitle(getResources().getString(R.string.lblStringListProject));
+        setTitle(getString(R.string.app_name));
 
         listViewProjects = findViewById(R.id.listViewProjects);
 
@@ -344,6 +344,16 @@ public class ProjectListViewActivity extends AppCompatActivity {
 
         updateListViewWithResource(listViewProjects, projects);
 
+    }
+
+    private void setCurrentProjectId(long projectId){
+        SharedPreferences shared = getSharedPreferences(App.PREFERENCES, Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = shared.edit();
+
+        editor.putLong(App.KEY_CURRENT_PROJECT_ID, projectId);
+
+        editor.apply();
     }
 
     private void updateLocalProjectsWith(List<Project> resources){

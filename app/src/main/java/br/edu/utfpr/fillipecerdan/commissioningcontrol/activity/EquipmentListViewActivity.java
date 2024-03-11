@@ -170,7 +170,7 @@ public class EquipmentListViewActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_equipment_list_view);
 
-        setTitle(getResources().getString(R.string.lblStringListEquipment));
+        setTitle(getString(R.string.app_name));
 
         listViewEquipments = findViewById(R.id.listViewEquipments);
 
@@ -187,11 +187,9 @@ public class EquipmentListViewActivity extends AppCompatActivity {
                     (display,with)->finishMe(null));
         }
 
-        //Todo: Remove comment to add items to list
-        //getEquipmentsFromResources();
-
-
         AsyncTask.execute(() -> {
+            String projectCode = AppDatabase.getInstance().projectDAO().getCodeFromId(curProjectId);
+            setTitle((projectCode!=null) ? projectCode : getString(R.string.app_name));
             synchronized(equipments) {
                 updateLocalEquipmentsWith(getEquipmentsFromDB(curProjectId));
                 EquipmentListViewActivity.this.runOnUiThread(() ->

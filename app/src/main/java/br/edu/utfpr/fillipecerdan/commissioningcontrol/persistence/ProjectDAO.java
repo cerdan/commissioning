@@ -42,4 +42,7 @@ public interface ProjectDAO {
 
     @Query("SELECT * FROM project WHERE customerName LIKE '%'||:customerName||'%'")
     Project findByCustomerName(String customerName);
+
+    @Query("SELECT code FROM project WHERE id = :id")
+    String getCodeFromId(long id);
 }

@@ -20,7 +20,8 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/material_divider_color"
+        android:background="?attr/colorOnSurface"
+        android:alpha="0.12"
         app:layout_constraintBottom_toTopOf="@+id/listViewEquipments"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

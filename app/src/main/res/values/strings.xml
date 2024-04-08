@@ -24,6 +24,7 @@
     <string name="msgFieldsCleared">All fields were cleared.</string>
     <string name="msgFieldRequired">"The %s field is required."</string>
     <string name="msgEquipmentSaved">"The equipment was saved."</string>
+    <string name="msgProjectSaved">"The project was saved."</string>
     <string name="msgEquipmentClicked">Equipment %s was clicked.\n\nModified on\n%s</string>
     <string name="lblStringAcceptedOutOfSpec">Accepted out of Specification</string>
     <string name="msgInvalidEquipmentTryAgain">Invalid equipment!\nDelete it and try again.</string>

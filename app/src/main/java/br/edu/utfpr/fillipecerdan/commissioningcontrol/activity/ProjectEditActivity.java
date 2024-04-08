@@ -99,7 +99,7 @@ public class ProjectEditActivity extends AppCompatActivity {
         AsyncTask.execute(()->{
             if(!upsertItem()) return;
 
-            showToast(R.string.msgEquipmentSaved);
+            showToast(R.string.msgProjectSaved);
 
             // Set result and finish
             setResult(Activity.RESULT_OK);

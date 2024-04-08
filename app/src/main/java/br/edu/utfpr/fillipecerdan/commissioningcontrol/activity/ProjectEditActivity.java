@@ -85,7 +85,7 @@ public class ProjectEditActivity extends AppCompatActivity {
                     return;
                 }
 
-                ProjectEditActivity.this.runOnUiThread(()->copyToView(project));
+                copyToView(project);
             });
         }else{
             setTitle(getString(R.string.lblStringAdd));
@@ -121,11 +121,13 @@ public class ProjectEditActivity extends AppCompatActivity {
     }
 
     private void copyToView(Project p){
-        txtProjectCode.setText(p.getCode());
-        txtProjectName.setText(p.getName());
-        txtProjectCustomer.setText(p.getCustomerName());
-        txtProjectLocation.setText(p.getLocation());
-        txtProjectStartYear.setText(((Integer)p.getStartYear()).toString());
+        ProjectEditActivity.this.runOnUiThread(()->{
+            txtProjectCode.setText(p.getCode());
+            txtProjectName.setText(p.getName());
+            txtProjectCustomer.setText(p.getCustomerName());
+            txtProjectLocation.setText(p.getLocation());
+            txtProjectStartYear.setText(((Integer)p.getStartYear()).toString());
+        });
     }
 
     private Project copyFromView(){
@@ -217,13 +219,14 @@ public class ProjectEditActivity extends AppCompatActivity {
             // If code has changed, check duplicate
             if (dao.hasCode(newValue)) {
                 showToast(R.string.msgDuplicateProjectCode);
-
-                project.setCode(oldValue);
-                txtProjectCode.requestFocus();
-                if(oldValue.trim().length() > 0){
-                    txtProjectCode.setText(oldValue);
-                    txtProjectCode.setSelection(oldValue.length());
-                }
+                ProjectEditActivity.this.runOnUiThread(() -> {
+                    project.setCode(oldValue);
+                    txtProjectCode.requestFocus();
+                    if (oldValue.trim().length() > 0) {
+                        txtProjectCode.setText(oldValue);
+                        txtProjectCode.setSelection(oldValue.length());
+                    }
+                });
                 return false;
             }
         }

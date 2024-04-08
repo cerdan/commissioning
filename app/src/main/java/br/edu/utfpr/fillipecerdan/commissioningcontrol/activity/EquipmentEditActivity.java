@@ -78,7 +78,7 @@ public class EquipmentEditActivity extends AppCompatActivity {
                     return;
                 }
 
-                EquipmentEditActivity.this.runOnUiThread(() -> copyEquipmentToView(equipment));
+                copyEquipmentToView(equipment);
             });
         } else {
             setTitle(getResources().getString(R.string.lblStringAdd));
@@ -140,11 +140,13 @@ public class EquipmentEditActivity extends AppCompatActivity {
     }
 
     public void copyEquipmentToView(Equipment e){
-        txtEquipmentTag.setText(e.getTag());
-        txtCommissioningMessage.setText(e.getComment());
-        spnEquipmentType.setSelection(e.getType().ordinal());
-        rdGrpEquipmentStatus.check(rdGrpEquipmentStatus.getChildAt(e.getStatus().ordinal()).getId());
-        chkAcceptOutOfSpecification.setChecked(e.getAcceptedOutOfSpec());
+        EquipmentEditActivity.this.runOnUiThread(() -> {
+            txtEquipmentTag.setText(e.getTag());
+            txtCommissioningMessage.setText(e.getComment());
+            spnEquipmentType.setSelection(e.getType().ordinal());
+            rdGrpEquipmentStatus.check(rdGrpEquipmentStatus.getChildAt(e.getStatus().ordinal()).getId());
+            chkAcceptOutOfSpecification.setChecked(e.getAcceptedOutOfSpec());
+        });
     }
 
     public Equipment copyViewToEquipment(){
@@ -258,14 +260,15 @@ public class EquipmentEditActivity extends AppCompatActivity {
             // If tag has changed, check for duplicates
             if (dao.projectHasTag(projectId, newValue)) {
                 showToast(R.string.msgDuplicateEquipmentName);
-
-                equipment.setTag(oldValue);
-                txtEquipmentTag.requestFocus();
-                Misc.log(oldValue);
-                if(oldValue.trim().length() > 0){
-                    txtEquipmentTag.setText(oldValue);
-                    txtEquipmentTag.setSelection(oldValue.length());
-                }
+                EquipmentEditActivity.this.runOnUiThread(() -> {
+                    equipment.setTag(oldValue);
+                    txtEquipmentTag.requestFocus();
+                    Misc.log(oldValue);
+                    if (oldValue.trim().length() > 0) {
+                        txtEquipmentTag.setText(oldValue);
+                        txtEquipmentTag.setSelection(oldValue.length());
+                    }
+                });
                 return false;
             }
         }
